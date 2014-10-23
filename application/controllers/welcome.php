@@ -23,8 +23,9 @@ class Welcome extends MY_Controller {
 			$username = $_POST['username'];
 			$password = md5($_POST['password']);
 
-			if($this->system->check_login($username,$password)) {
-				$this->system->set_session_login($username);
+			$user = $this->system->check_login($username,$password);
+			if($user) {
+				$this->system->set_session_login($user);
 				$status = 0;
 			} else {
 				$status = 1;

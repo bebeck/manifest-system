@@ -1,18 +1,3 @@
- <script src="<?=base_url()?>style/js/jquery-1.11.0.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?=base_url()?>style/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="<?=base_url()?>style/js/plugins/metisMenu/metisMenu.min.js"></script>
-
-    <!-- DataTables JavaScript -->
-
-    <!-- Custom Theme JavaScript -->
-    <script src="<?=base_url()?>style/js/sb-admin-2.js"></script>
-  
-
-
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">

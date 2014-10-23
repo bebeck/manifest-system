@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="<?=base_url() ?>style/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?=base_url() ?>style/css/bootstrap.css">
     <link rel="stylesheet" href="<?=base_url() ?>style/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="<?=base_url() ?>asset/library/select2/select2.css">
-    <link rel="stylesheet" href="<?=base_url() ?>asset/library/select2/bootstrap-select2.css">
 
     <link rel="stylesheet" href="<?=base_url() ?>style/css/sb-admin-2.css">
     <!-- skin -->
@@ -26,6 +24,14 @@
     <script src="<?=base_url('asset/javascript/jquery-migrate-1.2.1.min.js')?>"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="<?=base_url('asset/javascript/bootstrap.min.js')?>"></script>
+    <script src="<?=base_url('asset/javascript/ajax.form.min.js')?>"></script>
+
+    <script src="<?=base_url()?>style/js/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>style/js/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="<?=base_url()?>style/js/sb-admin-2.js"></script>
+  
+
+
 </head>
 
 <body>

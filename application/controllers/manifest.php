@@ -18,19 +18,17 @@ class Manifest extends MY_Controller {
 		$this->set_layout('manifest/upload',$data);		
 	}
 
-	function verify() {
-		$file_id = $_GET['file_id'];
-
-		$where['file'] = $file_id;
-		$where['status'] = 'verification';
+	function verification() {
+		$where['FILE_ID'] = $_GET['FILE_ID'];
+		$where['status'] = 'NOT VERIFIED';
 		$data = array('manifest' => $this->manifest_model->get_filtering_data(null,null,$where));
-		$this->set_layout('manifest/verify',$data);
+		$this->set_layout('manifest/verification',$data);
 	}
 	
 	function data() {
 		if($this->session->userdata('login') != TRUE) redirect(base_url());
 
-		$data = array('manifest_data' => $this->manifest_model->get_manifest_data(), 'list_file' => $this->manifest_model->list_file());
+		$data = array('list_file' => $this->manifest_model->get_file());
 		$this->set_layout('manifest/data',$data);
 	}
 
@@ -57,61 +55,64 @@ class Manifest extends MY_Controller {
 			case 'upload':
 				include PATH_APP . 'libraries/PHPExcel/IOFactory.php';
 
-				if(count($_POST) > 0) {
-					$file_name = $_POST['file_name'];
-					
-					$file_id = 'F' . $this->manifest_model->get_count_file();
-					$file['file_id']		= $file_id;
-					$file['date']			= date('Y-m-d H:i:s');
-					$file['name']			= $file_name;
-					$file['user']			= '12313';
-					$this->manifest_model->insert_new_file($file);
+				$config['allowed_types'] = '*';
+				$config['upload_path'] = PATH_ATTACH;
+				$this->load->library('upload', $config);
 
-					$details['file_id']		= $file_id;
-					$details['consign_to']	= $_POST['consign_to'];
-					$details['mawb_no']		= $_POST['mawb_no'];
-					$details['flight_no']	= $_POST['flight_no'];
-					$details['flight_from']	= $_POST['flight_from'];
-					$details['flight_to']	= $_POST['flight_to'];
-					$details_id = $this->manifest_model->insert_new_manifest_details($details);
-					
-					
-					$inputFileName = PATH_ATTACH . $file_name;
-					$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
-					$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
-					
-					$header = array();
-					foreach ($sheetData[1] as $key => $value) {
-						if($value) $header[strtolower(trim(str_ireplace(' ', '_', $value)))] = $key;
-					}
-					unset($sheetData[1]);
+				if ($this->upload->do_upload()) {
+					$FILE_DATA = $this->upload->data();
 
-					$no = 1;
-					foreach ($sheetData as $key => $value) {
-						if(!empty($value[$header['no']])) {
-							$shipper 	= $this->customers_model->get($value[$header['shipper']], 'shipper');
-							$cnee 		= $this->customers_model->get($value[$header['cnee']], 'consignee');
+					if(count($_POST) > 0) {
+						$file_name 		= $FILE_DATA['file_name'];
+						$consign_to 	= $_POST['consign_to'];
+						$flight_from 	= $_POST['flight_from'];
+						$flight_to 		= $_POST['flight_to'];
+						$mawb_no 		= $_POST['mawb_no'];
 
-							$mapping[$no]['file_id'] 		= $file_id;
-							$mapping[$no]['manifest_id'] 	= $details_id;
-							$mapping[$no]['no'] 			= $value[$header['no']];
-							$mapping[$no]['hawb_no'] 		= $value[$header['hawb_no']];
-							$mapping[$no]['shipper'] 		= $value[$header['shipper']];
-							$mapping[$no]['cnee'] 			= $value[$header['cnee']];
-							$mapping[$no]['pkg'] 			= $value[$header['pkg']];
-							$mapping[$no]['description'] 	= $value[$header['description']];
-							$mapping[$no]['pcs'] 			= $value[$header['pcs']];
-							$mapping[$no]['kg']				= $value[$header['kg']];
-							$mapping[$no]['value'] 			= $value[$header['value']];
-							$mapping[$no]['pp']				= $value[$header['pp']];
-							$mapping[$no]['cc']				= $value[$header['cc']];
-							$mapping[$no]['remarks'] 		= $value[$header['remarks']];
-							$mapping[$no]['status']			= 'verification';
-							$this->manifest_model->insert_new_data($mapping[$no]);
-							$no++;
+						//Insert New FIle
+						$FILE_ID = $this->manifest_model->file_insert_new($file_name,$consign_to,$mawb_no,$flight_from,$flight_to);
+
+						$inputFileName = PATH_ATTACH . $file_name;
+						$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+						$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+						
+						$header = array();
+						foreach ($sheetData[1] as $key => $value) { if($value) $header[strtolower(trim(str_ireplace(' ', '_', $value)))] = $key; }
+						unset($sheetData[1]);
+
+						$no = 1;
+						foreach ($sheetData as $key => $value) {
+							if(!empty($value[$header['no']])) {
+								#$shipper 	= $this->customers_model->get($value[$header['shipper']], 'SHIPPER');
+								#$consignee	= $this->customers_model->get($value[$header['cnee']], 'CONSIGNEE');
+
+								$mapping[$no]['DATA_ID'] 		= 'THS' . date('ymdhis') . $this->manifest_model->data_new_id();
+								$mapping[$no]['FILE_ID'] 		= $FILE_ID;
+								$mapping[$no]['DATA_NO'] 		= $value[$header['no']];
+								$mapping[$no]['HAWB_NO'] 		= $value[$header['hawb_no']];
+								$mapping[$no]['SHIPPER'] 		= $this->tools->remove_tags_excel($value[$header['shipper']]);
+								$mapping[$no]['CONSIGNEE'] 		= $this->tools->remove_tags_excel($value[$header['cnee']]);
+								$mapping[$no]['PKG'] 			= $value[$header['pkg']];
+								$mapping[$no]['DESCRIPTION'] 	= $value[$header['description']];
+								$mapping[$no]['PCS'] 			= $value[$header['pcs']];
+								$mapping[$no]['KG']				= $value[$header['kg']];
+								$mapping[$no]['VALUE'] 			= $value[$header['value']];
+								$mapping[$no]['PREPAID']		= $value[$header['pp']];
+								$mapping[$no]['COLLECT']		= $value[$header['cc']];
+								$mapping[$no]['REMARKS'] 		= $value[$header['remarks']];
+								$mapping[$no]['STATUS']			= 'NOT VERIFIED';
+								$mapping[$no]['CREATE_DATE']	= date('Y-m-d h:i:s');
+								$mapping[$no]['LAST_UPDATE']	= date('Y-m-d h:i:s');
+								$mapping[$no]['USER_ID']		= $this->session->userdata('user_id');
+								
+								$this->manifest_model->data_insert_new($mapping[$no]);
+								$no++;
+							}
 						}
+						echo json_encode(array('redirect' => site_url('manifest/verification?FILE_ID=' . $FILE_ID)));
 					}
-					echo json_encode(array('redirect' => site_url('manifest/verify?file_id=' . $file_id)));
+				} else {
+					echo json_encode(array('status' => 'error', 'message' => $this->upload->display_errors()));
 				}
 			break;
 

@@ -2,58 +2,51 @@
 
 class Customers_model extends CI_Model {
 	
-	function get($address = null, $type = null) {
-		$this->db->where('LOWER(address)',strtolower($address));
-		$this->db->where('LOWER(type)',strtolower($type));
-		$get = $this->db->get('customer');
-		if($get->num_rows() > 0) {
-			return $get->row('cust_id');
-		} else {
-			$new_id = 'CST' .  $this->get_count_record();
-			$new_record = array('cust_id' => $new_id, 'address' => $address, 'type' => $type);
-			$this->db->insert('customer',$new_record);
-			return $new_id;
-		}
-	}
-
-	function get_filtering_data($start = null,$limit,$where) {
-
-		$query = "
-			SELECT * FROM customer C ";
+	function get_customer_id($address = null, $type = null) {
+		$address = $this->removing_tags_excel($address);
 		
-		if(count($where) > 0) $query .= " WHERE ";
-		if(isset($where['type'])) $query .= "C.type = '".$where['type']."'";
-
-		if(is_numeric($start)) $query .= "LIMIT ".$start.",".$limit."
-
-		";
-
-		$get = $this->db->query($query);
-		if($get->num_rows() > 0) return $get->result();
-		else return false;
+		$CUSTOMER = $this->check_speeling_address($address, $type);
+		if($CUSTOMER) {
+			return $CUSTOMER->CUST_ID;
+		} else {
+			return $address;
+		}
 	}
 
-	function get_count_record(){
-		$get = $this->db->count_all('customer');
-		$get = $get + 1;
-		$len = strlen($get);
-		switch ($len) {
-			case '1':
-				return '0000' . $get;
-				break;
-			case '2':
-				return '000' . $get;
-				break;
-			case '3':
-				return '00' . $get;
-				break;
-			case '4':
-				return '0' . $get;
-				break;			
-			default:
-				return $get;
-				break;
+	function check_speeling_address($address,$type){
+		$array = explode(' ', $address);
+		$QUERY = "
+			SELECT
+				*
+			FROM
+				(
+					SELECT
+						CONCAT(
+							CUST. NAME,
+							' ',
+							CUST.PHONE,
+							' ',
+							CUST.PHONE,
+							' ',
+							CUST.FAX,
+							' ',
+							CUST.EMAIL,
+							' ',
+							CUST.COUNTRY
+						)AS FULL_ADDRESS
+					FROM
+						CUSTOMER_TABLE CUST
+				)CUST
+			WHERE
+		";
+		for ($i=0;$i<=count($array)-1;$i++) {
+			$QUERY .= "CUST.FULL_ADDRESS LIKE '% ".$array[$i]."%'";
+			if($i < count($i)-1) $QUERY .= " OR ";
 		}
+	}
+
+	function removing_tags_excel($address) {
+		return trim(str_ireplace('_x000D_', ' ', $address));
 	}
 
 }

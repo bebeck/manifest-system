@@ -234,6 +234,10 @@
                     <ul class="nav nav-second-level">
                         <li><a href="<?= base_url()?>manifest/upload">Upload</a></li>
                         <li><a href="<?=base_url()?>manifest/data">Data</a></li>
+                        <li><a href="<?=base_url()?>manifest/verification">
+                            <span class="badge pull-right"><?=$this->manifest_model->count_not_verified()?></span>
+                            Verification
+                        </a></li>
                     </ul>
                 </li>
                 <li>

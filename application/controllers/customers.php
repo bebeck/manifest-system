@@ -10,6 +10,22 @@ Class Customers extends MY_Controller {
 		if($this->session->userdata('login') != TRUE) redirect(base_url());
 		$this->set_layout('customers/data');
 	}
+	
+	function customer_input()
+	{
+		if($this->session->userdata('login') != TRUE) redirect(base_url());	
+		$this->set_layout('customers/customer_input');
+			
+		
+	}
+	
+	function customer_view()
+	{
+		if($this->session->userdata('login') != TRUE) redirect(base_url());	
+		$this->set_layout('customers/customer_view');
+			
+		
+	}
 
 	function ajax($method = null) {
 

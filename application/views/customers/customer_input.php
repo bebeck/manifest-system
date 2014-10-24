@@ -1,16 +1,10 @@
-<script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
-        </script>
-        
-        
+
 
 <div class="wrapper">
  <div id="page-wrapper">
  			
             
-            	<div class="row">
+      <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="well well-sm">
           <form class="form-horizontal" action="" method="post">
@@ -19,9 +13,9 @@
     
             <!-- Name input-->
             <div class="form-group">
-              <label class="col-md-3 control-label" for="name">Nama</label>
+              <label class="col-md-3 control-label" for="name">Name</label>
               <div class="col-md-9">
-                <input id="name" name="name" type="text" placeholder="Masukkan Nama" class="form-control">
+                <input id="name" name="name" type="text" placeholder="Please fill name field" class="form-control">
               </div>
             </div>
     
@@ -29,31 +23,22 @@
             <div class="form-group">
               <label class="col-md-3 control-label" for="email">E-mail</label>
               <div class="col-md-9">
-                <input id="email" name="email" type="text" placeholder="Masukkan email" class="form-control">
+                <input id="email" name="email" type="text" placeholder="please fill email field" class="form-control">
               </div>
             </div>
     
             <!-- Message body -->
             <div class="form-group">
-              <label class="col-md-3 control-label" for="address">Alamat</label>
+              <label class="col-md-3 control-label" for="address">Address</label>
               <div class="col-md-9">
-                <textarea class="form-control" id="alamat" name="alamat" placeholder="Silahkan Masukkan Alamat Disini..." rows="5" style="resize:none"></textarea>
+                <textarea class="form-control" id="alamat" name="alamat" placeholder="" rows="5" style="resize:none"></textarea>
               </div>
             </div>
             
-            
-            <div class="form-group">
-              <label class="col-md-3 control-label" for="nophone">Nomor Telepon</label>
-              <div class="col-md-9">
-               
-              </div>
-            </div>
-            
-            
-            <div class="form-group">
+               <div class="form-group">
               <label class="col-md-3 control-label" for="city">City</label>
               <div class="col-md-9">
-                  <input id="city" name="city" type="text" placeholder="City" class="form-control">
+                  <input id="city" name="city" type="text" placeholder="" class="form-control">
                   
               </div>
             </div>
@@ -65,7 +50,7 @@
               <label class="col-md-3 control-label" for="country">Country</label>
               <div class="col-md-9">
                <select class="form-control bfh-states" data-country="US">
-               	<option value="AF">Afghanistan</option>
+               				<option value="AF">Afghanistan</option>
                             <option value="AL">Albania</option>
                             <option value="DZ">Algeria</option>
                             <option value="AS">American Samoa</option>
@@ -315,17 +300,177 @@
                </select>
               </div>
             </div>
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="nophone">Contact</label>
+              <div class="col-md-9">
+                <input id="contact" name="contact" type="text" placeholder="please fill contact field" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="nophone">Other Contact</label>
+              <div class="col-md-9">
+                <input id="otcontact" name="otcontact" type="text" placeholder="" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="nophone">Phone</label>
+              <div class="col-md-9">
+                <input id="phone" name="phone" type="text" placeholder="" class="form-control">
+              </div>
+            </div>
             
              <div class="form-group">
-              <label class="col-md-3 control-label" for="message">Jatuh Tempo</label>
+              <label class="col-md-3 control-label" for="nophone">Mobile</label>
+              <div class="col-md-9">
+                <input id="mobile" name="mobile" type="text" placeholder="" class="form-control">
+              </div>
+            </div>
+            
+            
+    		 <div class="form-group">
+              <label class="col-md-3 control-label" for="country">Bank Code</label>
+              <div class="col-md-9">
+              		 <input id="bank_code" name="bank_code" type="text" placeholder="" class="form-control">
+               </div>
+               </div>     
+	         
+            
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="bank_branch">Bank Branch</label>
+              <div class="col-md-9">
+                       <input id="bank_branch" name="bank_branch" type="text" placeholder="" class="form-control">      
+               </div>
+               </div>
+               
+                <div class="form-group">
+              <label class="col-md-3 control-label" for="bank_branch">Bank Account</label>
+              <div class="col-md-9">
+                       <input id="bank_account" name="bank_account" type="text" placeholder="" class="form-control">      
+               </div>
+               </div>
+               
+              <div class="form-group">
+              <label class="col-md-3 control-label" for="bank_branch">Price Index</label>
+              <div class="col-md-9">
+                       <input id="price_index" name="price_index" type="text" placeholder="" class="form-control">      
+               </div>
+               </div>
+               
+                <div class="form-group">
+              <label class="col-md-3 control-label" for="bank_branch">Payment Type</label>
+              <div class="col-md-9">
+                            <select class="form-control">
+               				<option value="cash">Cash</option>
+                            <option value="transfer">transfer</option>
+                            </select>
+               </div>
+               </div>
+               
+              <div class="form-group">
+              <label class="col-md-3 control-label" for="bank_branch">Payment Terms</label>
+              <div class="col-md-9">
+                     <input id="payment_terms" name="payment_terms" type="text" placeholder="" class="form-control">Days
+               </div>
+               </div>
+               
+               <div class="form-group">
+              <label class="col-md-3 control-label" for="bank_branch">Credit Limit</label>
+              <div class="col-md-9">
+                     <input id="credit_limit" name="credit_limit" type="text" placeholder="" class="form-control">
+               </div>
+               </div>
+               
+                <div class="form-group">
+              <label class="col-md-3 control-label" for="active status"></label>
+              <div class="col-md-9">
+                    <div class="checkbox">
+  						<label><input type="checkbox" value="" name="active_status">Active Status</label>
+					</div>
+               </div>
+               </div>
+               
+              <div class="form-group">
+              <label class="col-md-3 control-label" for="sort_name">Sort Name</label>
+              <div class="col-md-9">
+                   
+  			<input id="sort_name" name="sort_name" type="text" placeholder="Please fill sort name field" class="form-control">
+					
+               </div>
+               </div>
+               
+               
+             <div class="form-group">
+              <label class="col-md-3 control-label" for="tax">Tax Class</label>
+              <div class="col-md-9">
+             			  <select class="form-control" >
+               				<option value="1">1%</option>
+                            <option value="10">10%</option>
+                            </select>
+                </div>
+                </div>
+                
+              <div class="form-group">
+              <label class="col-md-3 control-label" for="vat_doc">VAT Doc</label>
+              		<div class="col-md-9">
+  					<input id="vat_doc" name="vat_doc" type="text" placeholder="" class="form-control">
+					
+               </div>
+               </div>
+               
+                <div class="form-group">
+              <label class="col-md-3 control-label" for="status">Status</label>
+              		<div class="col-md-9">
+  					<input id="status" name="status" type="text" placeholder="" class="form-control">	
+               </div>
+               </div>
+               
+                <div class="form-group">
+              <label class="col-md-3 control-label" for="register_doc">Register Doc</label>
+              		<div class="col-md-9">
+  					<input id="register_doc" name="register_doc" type="text" placeholder="" class="form-control">	
+               </div>
+               </div>
+               
+               <div class="form-group">
+              <label class="col-md-3 control-label" for="register_date">Register Date</label>
+              		<div class="col-md-9">
+  					 <div class='input-group date' id='datetimepicker1'>
+                     <input type="text" class="form-control" id="register_date" disabled="disabled">
+                    <span class="input-group-addon datapicker"><i class="glyphicon glyphicon-th"></i></span>
+              </div>
+               </div>
+               </div>
+                
+                            
+            
+            
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="message">Payment Due Date</label>
               <div class="col-md-9">
               <div class='input-group date' id='datetimepicker1'>
-                <input type='text' class="form-control" />
-                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                 <input type="text" class="form-control" id="UPLOAD_DATE" disabled="disabled">
+                <span class="input-group-addon datapicker"><i class="glyphicon glyphicon-th"></i></span>
               </div>
               </div>
             </div>
-    
+            
+             <div class="form-group">
+              <label class="col-md-3 control-label" for="remark">Remark</label>
+              		<div class="col-md-9">
+  			<textarea class="form-control" id="remark" name="remark" placeholder="" rows="5" style="resize:none"></textarea>
+               </div>
+               </div>
+               
+               <div class="form-group">
+              <label class="col-md-3 control-label" for="discount">Discount per weight</label>
+              		<div class="col-md-9">
+  					<input id="discount" name="discount" type="text" placeholder="" class="form-control">
+               </div>
+               </div>
+            
+ 
             <!-- Form actions -->
             <div class="form-group">
               <div class="col-md-12 text-right">
@@ -341,3 +486,41 @@
 
 
 </div>
+
+<link rel="stylesheet" href="<?=base_url() ?>asset/library/select2/select2.css">
+<link rel="stylesheet" href="<?=base_url() ?>asset/library/select2/bootstrap-select2.css">
+
+<link rel="stylesheet" href="<?=base_url() ?>asset/library/datepicker/datepicker3.css">
+<script type="text/javascript" src="<?=base_url('asset/library/datepicker/bootstrap-datepicker.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('asset/library/select2/select2.min.js')?>"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('#FILE_NAME, #SHIPPER, #CONSIGNEE').select2();
+    $('.input-group.date').datepicker({
+        format: "yyyy-m-d",
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true
+    });
+})
+
+
+var file = '';
+var numpage = 1;
+$('.find-data').click();
+$(document).ready(function(){
+    $('#file').change(function(){  file = $(this).val(); })
+    $('.find-data').click(function(){ 
+        numpage = 1; 
+        file = $('#file').val();
+        get_data(); 
+    })
+})
+
+
+
+
+
+</script>
+  

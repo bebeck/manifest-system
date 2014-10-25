@@ -229,7 +229,15 @@
                     <a href="#"><i class="glyphicon glyphicon-random"></i>  Request</a>
                 </li>
                 <li>
-                    <a href="<?=base_url('customers')?>"><i class="glyphicon glyphicon-file"></i>  Customers</a>
+                    <a href="<?=base_url('customers')?>"><i class="glyphicon glyphicon-file"></i> Customers <span class="fa arrow"></span></a>
+                   
+                      <ul class="nav nav-second-level">
+                        <li><a href="<?= base_url()?>customers/register">Customer Register </a></li>
+                        
+                          
+                    </ul>
+                    
+                    
                 </li>
                 <li>
                     <a href="#"><i class="glyphicon glyphicon-file"></i>  Customers Card</a>

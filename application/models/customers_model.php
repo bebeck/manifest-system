@@ -15,6 +15,13 @@ class Customers_model extends CI_Model {
 			return $return;
 		}
 	}
+	
+	function save_customer($data)
+	{
+		
+		$this->db->insert('customer_table',$data);	
+		
+	}
 
 	function check_speeling_address($address,$type){
 		$array = explode(' ', $address);

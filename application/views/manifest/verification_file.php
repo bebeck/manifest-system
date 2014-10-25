@@ -36,7 +36,7 @@
                                                 <td>'.$row->DATA_NO.'</td>
                                                 <td>'.$row->HAWB_NO.'</td>
                                                 <td>'.$this->customers_model->get_customer($row->SHIPPER,'SHIPPER').'</td>
-                                                <td>'.$row->CONSIGNEE.'</td>
+                                                <td>'.$this->customers_model->get_customer($row->CONSIGNEE,'CONSIGNEE').'</td>
                                                 <td>'.$row->PKG.'</td>
                                                 <td>'.$row->DESCRIPTION.'</td>
                                                 <td>'.$row->PCS.'</td>
@@ -59,6 +59,10 @@
                                 ?>
                             </tbody>
                         </table>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">Save Verification</button>
+                        </div>
                     </div>
                 </div>
             </div>

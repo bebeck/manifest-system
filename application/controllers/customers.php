@@ -63,7 +63,9 @@ Class Customers extends MY_Controller {
 
 				$data['credit_limit'] = $this->input->post('credit_limit');
 				$data['remark'] = $this->input->post('remark');
+				$data['available'] = $this->input->post('active_status');
 				$data['last_login'] = date('y-m-d');
+				
 				
 				$this->customers_model->save_customer($data);
 				

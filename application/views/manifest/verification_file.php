@@ -59,10 +59,30 @@
                                 ?>
                             </tbody>
                         </table>
-
+                        <form id="form_verification" method="post" action="<?=site_url('manifest/ajax/verification')?>">
+                        <?php
+                            foreach ($list_data as $key => $row) {
+                                echo '
+                                    <input type="hidden" id="'.$row->DATA_ID.' - DATA_ID" name="DATA_ID[]" value="'.$row->DATA_ID.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - DATA_NO" name="DATA_NO[]" value="'.$row->DATA_NO.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - HAWB_NO" name="HAWB_NO[]" value="'.$row->HAWB_NO.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - SHIPPER" name="SHIPPER[]" value="'.$row->SHIPPER.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - CONSIGNEE" name="CONSIGNEE[]" value="'.$row->CONSIGNEE.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - PKG" name="PKG[]" value="'.$row->PKG.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - DESCRIPTION" name="DESCRIPTION[]" value="'.$row->DESCRIPTION.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - PCS" name="PCS[]" value="'.$row->PCS.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - KG" name="KG[]" value="'.$row->KG.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - VALUE" name="VALUE[]" value="'.$row->VALUE.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - PREPAID" name="PREPAID[]" value="'.$row->PREPAID.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - COLLECT" name="COLLECT[]" value="'.$row->COLLECT.'">
+                                    <input type="hidden" id="'.$row->DATA_ID.' - REMARKS" name="REMARKS[]" value="'.$row->REMARKS.'">
+                                ';
+                            }
+                        ?>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default">Save Verification</button>
+                            <button type="submit" class="btn btn-default">Save Verification</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -70,16 +90,8 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
-$(document).ready(function(){
-    $('input.validate').click(function(){
-        data_id = $(this).attr('id');
-        if($(this).is(':checked')) {
-            $('.row-' + data_id).addClass('success').removeClass('danger');
-        } else {
-            $('.row-' + data_id).addClass('danger').removeClass('success');            
-        }
-    })
-})
+$(function () {
+    $('#form_verification').ajaxForm();
+});
 </script>

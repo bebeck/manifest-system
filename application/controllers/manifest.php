@@ -15,14 +15,20 @@ class Manifest extends MY_Controller {
 	function upload() {
 		if($this->session->userdata('login') != TRUE) redirect(base_url());
 		$data = array();
-		$this->set_layout('manifest/upload',$data);		
+		$this->set_layout('manifest/upload',$data);
 	}
 
 	function verification() {
-		$where['FILE_ID'] = $_GET['FILE_ID'];
-		$where['status'] = 'NOT VERIFIED';
-		$data = array('manifest' => $this->manifest_model->get_filtering_data(null,null,$where));
-		$this->set_layout('manifest/verification',$data);
+		if(!isset($_GET['FILE_ID'])) {
+			$where = array('D.STATUS' => 'NOT VERIFIED');
+			$data = array('list_file' => $this->manifest_model->get_filtering_data(null,null,$where,'F.FILE_NAME'));
+			$this->set_layout('manifest/verification_all',$data);
+		} else {
+			$FILE_ID = $_GET['FILE_ID'];
+			$where = array('F.FILE_ID' => $FILE_ID);
+			$data = array('list_data' => $this->manifest_model->get_filtering_data(null,null,$where));
+			$this->set_layout('manifest/verification_file',$data);			
+		}
 	}
 	
 	function data() {

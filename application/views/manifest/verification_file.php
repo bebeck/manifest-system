@@ -23,29 +23,28 @@
                                         <th>PP</th>
                                         <th>CC</th>
                                         <th>Remarks</th>
-                                        <th align="center">Valid</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody class="manifest-data-row">
                                 <?php
-                                    if($manifest != false) {
+                                    if($list_data != false) {
                                         $no = 1;
-                                        foreach ($manifest as $key => $row) {
+                                        foreach ($list_data as $key => $row) {
                                             echo '
-                                            <tr class="row-'.$row->data_id.' success">
-                                                <td>'.$row->no.'</td>
-                                                <td>'.$row->hawb_no.'</td>
-                                                <td>'.wordwrap(str_ireplace('_x000D_', ' ',$row->shipper)).'</td>
-                                                <td>'.wordwrap(str_ireplace('_x000D_', ' ',$row->cnee)).'</td>
-                                                <td>'.$row->pkg.'</td>
-                                                <td>'.$row->description.'</td>
-                                                <td>'.$row->pcs.'</td>
-                                                <td>'.$row->kg.'</td>
-                                                <td>'.$row->value.'</td>
-                                                <td>'.$row->pp.'</td>
-                                                <td>'.$row->cc.'</td>
-                                                <td>'.wordwrap($row->remarks).'</td>
-                                                <td><input type="checkbox" name="valid['.$row->data_id.']" id="'.$row->data_id.'" class="validate" checked="checked"></td>
+                                            <tr class="row-' . $row->DATA_ID.'">
+                                                <td>'.$row->DATA_NO.'</td>
+                                                <td>'.$row->HAWB_NO.'</td>
+                                                <td>'.$this->customers_model->get_customer($row->SHIPPER,'SHIPPER').'</td>
+                                                <td>'.$row->CONSIGNEE.'</td>
+                                                <td>'.$row->PKG.'</td>
+                                                <td>'.$row->DESCRIPTION.'</td>
+                                                <td>'.$row->PCS.'</td>
+                                                <td>'.$row->KG.'</td>
+                                                <td>'.$row->VALUE.'</td>
+                                                <td>'.$row->PREPAID.'</td>
+                                                <td>'.$row->COLLECT.'</td>
+                                                <td>'.$row->REMARKS.'</td>
                                             </tr>
                                             ';
                                             $no++;
@@ -60,8 +59,6 @@
                                 ?>
                             </tbody>
                         </table>
-
-                        <button type="submit" class="btn btn-info submit-upload">Submit <img src="<?=base_url('asset/images/ajax-loader.gif')?>" class="ajax-loader" style="margin-left:20px; display:none;"></button>
                     </div>
                 </div>
             </div>

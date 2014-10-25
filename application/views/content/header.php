@@ -22,16 +22,12 @@
 
     <script src="<?=base_url('asset/javascript/jquery-1.11.0.min.js')?>"></script>
     <script src="<?=base_url('asset/javascript/jquery-migrate-1.2.1.min.js')?>"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
     <script type="text/javascript" src="<?=base_url('asset/javascript/bootstrap.min.js')?>"></script>
     <script src="<?=base_url('asset/javascript/ajax.form.min.js')?>"></script>
 
-    <script src="<?=base_url()?>style/js/bootstrap.min.js"></script>
     <script src="<?=base_url()?>style/js/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="<?=base_url()?>style/js/sb-admin-2.js"></script>
-  
-
-
 </head>
 
 <body>

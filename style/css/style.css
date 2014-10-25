@@ -1090,3 +1090,8 @@ Media queries
 		margin-bottom: 30px;
 	}
 }
+
+tr.cursor {
+	cursor: pointer;
+	background-color: #ccc;
+}

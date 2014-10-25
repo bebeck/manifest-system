@@ -60,25 +60,14 @@ class Manifest_model extends CI_Model {
 		$this->db->insert('MANIFEST_DATA_TABLE',$data);
 	}
 
-	function get_filtering_data($start = null,$limit,$where) {
+	function get_filtering_data($start = null,$limit = null,$where,$group_by = false) {
+		$this->db->select('F.FILE_NAME, D.*');
+		$this->db->join('MANIFEST_DATA_TABLE D', 'D.FILE_ID = F.FILE_ID');
+		foreach ($where as $key => $value) { $this->db->where($key,$value); }
+		if(is_numeric($start)) $this->db->limit($start,$Limit);
+		if($group_by != false) $this->db->group_by($group_by);
+		$get = $this->db->get('MANIFEST_FILE_TABLE F');
 
-		$query = "
-			SELECT
-				F. NAME,
-				D.*
-			FROM
-				MANIFEST_FILE_TABLE F
-			JOIN MANIFEST_DATA_TABLE D ON D.FILE_ID = M.FILE_ID ";
-		
-		if(count($where) > 0) $query .= " WHERE ";
-		if(isset($where['file'])) $query .= "F.FILE_ID = '".$where['file']."'";
-		if(isset($where['status'])) $query .= "AND D.STATUS = '".$where['status']."'";
-
-		if(is_numeric($start)) $query .= "LIMIT ".$start.",".$limit."
-
-		";
-
-		$get = $this->db->query($query);
 		if($get->num_rows() > 0) return $get->result();
 		else return false;
 	}

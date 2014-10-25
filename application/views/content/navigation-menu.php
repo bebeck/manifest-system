@@ -232,7 +232,9 @@
                     <a href="<?=base_url('customers')?>"><i class="glyphicon glyphicon-file"></i> Customers <span class="fa arrow"></span></a>
                    
                       <ul class="nav nav-second-level">
-                        <li><a href="<?= base_url()?>customers/register">Customer Register </a></li>
+                        <li><a href="<?= base_url()?>customers">Data </a></li>
+                        <li><a href="<?= base_url()?>customers/register">Add Customer </a></li>
+                        
                         
                           
                     </ul>

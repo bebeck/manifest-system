@@ -63,8 +63,10 @@ class Manifest_model extends CI_Model {
 	function get_filtering_data($start = null,$limit = null,$where,$group_by = false) {
 		$this->db->select('F.FILE_NAME, D.*');
 		$this->db->join('MANIFEST_DATA_TABLE D', 'D.FILE_ID = F.FILE_ID');
-		foreach ($where as $key => $value) { $this->db->where($key,$value); }
-		if(is_numeric($start)) $this->db->limit($start,$Limit);
+		foreach ($where as $key => $value) { 
+			if(is_array($value)) $this->db->where_in($key,$value); else $this->db->where($key,$value); 
+		}
+		if(is_numeric($start)) $this->db->limit($limit,$start);
 		if($group_by != false) $this->db->group_by($group_by);
 		$get = $this->db->get('MANIFEST_FILE_TABLE F');
 

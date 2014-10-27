@@ -22,12 +22,7 @@
                                             }
                                         ?>
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Shipper</label>
-                                    <select class="form-control" id="SHIPPER" multiple>
-                                    </select>
-                                </div>                                                            
+                                </div>                                             
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -36,12 +31,7 @@
                                         <input type="text" class="form-control" id="UPLOAD_DATE">
                                         <span class="input-group-addon datapicker"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Consignee</label>
-                                    <select class="form-control" id="CONSIGNEE" multiple>
-                                    </select>                               
-                                </div>                            
+                                </div>          
                             </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-default find-data">Find</button>
@@ -84,31 +74,28 @@
 <script type="text/javascript" src="<?=base_url('asset/library/select2/select2.min.js')?>"></script>
 <script type="text/javascript">
 
+var FILE_NAME = '';
+var NUM_PAGE = 1;
+var DATE = '';
+
 $(document).ready(function(){
-    $('#FILE_NAME, #SHIPPER, #CONSIGNEE').select2();
+    $('#FILE_NAME').select2();
     $('.input-group.date').datepicker({
         format: "yyyy-m-d",
         keyboardNavigation: false,
         forceParse: false,
         autoclose: true
-    });
-})
-
-
-var file = '';
-var numpage = 1;
-$('.find-data').click();
-$(document).ready(function(){
-    $('#file').change(function(){  file = $(this).val(); })
+    })
     $('.find-data').click(function(){ 
-        numpage = 1; 
-        file = $('#file').val();
+        NUM_PAGE = 1;
+        FILE_NAME = $('#FILE_NAME').select2('val');
+        DATE = ($('#UPLOAD_DATE').val()) ? $('#UPLOAD_DATE').val() : '';
         get_data(); 
     })
 })
 
 function gotopage(i) {
-    numpage = i;
+    NUM_PAGE = i;
     get_data();
 }
 
@@ -116,7 +103,7 @@ function get_data(){
     $.ajax({
         url: '<?=site_url('manifest/ajax/get')?>',
         type: 'get',
-        data: {'file': file,'page': numpage},
+        data: {'FILE_NAME': FILE_NAME,'DATE': DATE,'PAGE': NUM_PAGE},
         dataType: 'json',
         success: function(get){
             elem = $('.manifest-data-row');

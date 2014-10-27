@@ -97,7 +97,11 @@ $(function () {
         dataType: 'json',
         success: function(data) {
             if(data.status == 'error') {
-                $('#upload_manifest_modal').html(data.message);
+                $('.progress-message').html(data.message);
+                setTimeout(function(){
+                    $('#upload_manifest_modal').modal('toggle');
+                    $('.progress-message').html('');
+                }, 2000);
             } else {
                 $('#form_upload_manifest').resetForm();
                 $('.progress-message').html('Upload Finished . . .');

@@ -5,18 +5,18 @@
         foreach ($manifest as $key => $row) {
             echo '
             <tr>
-                <td>'.$row->no.'</td>
-                <td>'.$row->hawb_no.'</td>
-                <td>'.$row->shipper.'</td>
-                <td>'.$row->cnee.'</td>
-                <td>'.$row->pkg.'</td>
-                <td>'.$row->description.'</td>
-                <td>'.$row->pcs.'</td>
-                <td>'.$row->kg.'</td>
-                <td>'.$row->value.'</td>
-                <td>'.$row->pp.'</td>
-                <td>'.$row->cc.'</td>
-                <td>'.wordwrap($row->remarks).'</td>
+                <td>'.$row->DATA_NO.'</td>
+                <td>'.$row->HAWB_NO.'</td>
+                <td>'.$row->SHIPPER.'</td>
+                <td>'.$row->CONSIGNEE.'</td>
+                <td>'.$row->PKG.'</td>
+                <td>'.$row->DESCRIPTION.'</td>
+                <td>'.$row->PCS.'</td>
+                <td>'.$row->KG.'</td>
+                <td>'.$row->VALUE.'</td>
+                <td>'.$row->PREPAID.'</td>
+                <td>'.$row->COLLECT.'</td>
+                <td>'.$row->REMARKS.'</td>
                 <td>
                     <div class="btn-group btn-group-xs">
                         <button type="button" class="btn btn-default">Details</button>

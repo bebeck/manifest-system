@@ -43,12 +43,13 @@ class Manifest extends MY_Controller {
 
 		switch ($method) {
 			case 'get':
-				$page = $_GET['page'];
+				$page = $_GET['PAGE'];
 				$limit = 50;
 				$start = ($page - 1) * $limit;
 
 				$where = array();
-				if(isset($_GET['file']) && !empty($_GET['file'])) $where['file']  = $_GET['file'];
+				if(isset($_GET['FILE_NAME']) && !empty($_GET['FILE_NAME'])) $where['F.FILE_ID']  = $_GET['FILE_NAME'];
+				if(isset($_GET['DATE']) && !empty($_GET['DATE'])) $where['F.CREATE_DATE']  = $_GET['DATE'];
 
 				$data_ = array('manifest' => $this->manifest_model->get_filtering_data($start,$limit,$where));
 				$data__ = array('total_row' => count($this->manifest_model->get_filtering_data(null,null,$where)), 'page' => $page, 'limit' => $limit);

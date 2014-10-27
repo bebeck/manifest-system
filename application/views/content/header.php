@@ -9,8 +9,6 @@
     <title>Manifest System</title>
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" type="text/css" href="<?=base_url() ?>style/css/isotope.css" media="screen" />   
-    <link rel="stylesheet" href="<?=base_url() ?>style/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?=base_url() ?>style/css/bootstrap.css">
     <link rel="stylesheet" href="<?=base_url() ?>style/css/bootstrap-theme.css">
 

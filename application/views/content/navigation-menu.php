@@ -247,8 +247,8 @@
                 <li>
                     <a href="#"><i class="glyphicon glyphicon-file"></i>  Administrator<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="<?= base_url()?>">Add User</a></li>
-                        <li><a href="<?=base_url()?>">Activity User</a></li>
+                        <li><a href="<?= base_url('administrator/manage_user')?>">Manage User</a></li>
+                        <li><a href="<?=base_url()?>">Activity Users</a></li>
                     </ul>
                 </li>
             </ul>

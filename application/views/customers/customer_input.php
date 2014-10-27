@@ -484,7 +484,11 @@
                 <div class="form-group">
               <label>Status</label>
               		
-  					<input id="status" name="status" type="text" placeholder="" class="form-control">	
+  					 <select required class="form-control" name="status" >
+                          <option value=""></option>
+               				<option value="shipper">Shipper</option>
+                            <option value="consignee">Consignee</option>
+                            </select>
                
                </div>
                

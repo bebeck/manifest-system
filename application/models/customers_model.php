@@ -22,6 +22,16 @@ class Customers_model extends CI_Model {
 		$this->db->insert('customer_table',$data);	
 		
 	}
+	
+	function get_data($status){
+		
+		$this->db->where('status', $status);
+		$query = $this->db->get('customer_table');
+		return $query->result();
+		
+		
+		
+	}
 
 	function check_speeling_address($address,$type){
 		$array = explode(' ', $address);

@@ -110,7 +110,7 @@
                                 
                                   <div class="form-group">
                                             <label>Address</label>
-                                            <textarea class="form-control" id="address" name="address" placeholder="" rows="5" style="resize:none"></textarea>                             
+                                          <input type="text" name="address" placeholder="please fill address field" class="form-control" required="required">
                                         </div>
                              
                             
@@ -404,20 +404,7 @@
         <div class="col-xs-12">
             <div class="col-md-12">
                 <h3> Step 2</h3>
-                     <div class="form-group">
-                     
-                   
-          <label >Contact</label>
-            <input id="contact" name="contact" required="required" type="text" placeholder="please fill contact field" class="form-control">
-         
-        </div>
-                            
-    <div class="form-group" >
-      <label >Other Contact</label>
-     
-        <input id="otcontact" name="otcontact" type="text" placeholder="" class="form-control">
-     
-    </div>
+                    
       <div class="form-group" >
               <label>Phone</label>
               
@@ -578,6 +565,8 @@
 
 
 <script>
+
+
 
 $(document).ready(function () {
 

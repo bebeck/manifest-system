@@ -8,11 +8,12 @@
                         Filter Data
                     </div>
                     <div class="panel-body">
+                    <form method="post">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Type</label>
-                                    <select class="form-control cust_type">
+                                    <select class="form-control cust_type" name="type">
                                         <option value="shipper">Shipper</option>
                                         <option value="consignee">Consignee</option>
                                     </select>
@@ -34,9 +35,11 @@
                                 </div>-->                            
                             </div>
                             <div class="col-lg-12">
-                                <button type="submit" class="btn btn-default find-data">Find</button>
+                            
+                               <input type="submit" name="find" class="btn btn-default find-data" value="find">
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -45,15 +48,27 @@
         <div class="row container-data">
             <div class="col-lg-12">
                 <div class="table-responsive">
+            
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr>
-                                <th width="100">Customer ID</th>
+                                <th width="100">Customer Name</th>
                                 <th>Address</th>
                                 <th align="center" width="135px">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="customer-data-row" style="display:none;"></tbody>
+                        <tbody class="customer-data-row" >
+                        	<?php foreach ($dataResult as $key => $val) { 
+							
+								echo "<td><a href=".$val->name.">".$val->name ."</td>";
+								echo "<td>".$val->address ."</td>";
+								echo "<td>edit</td>";
+							}
+							?>
+                        	
+                        
+                        
+                        </tbody>
                     </table>
                 </div>  
             </div>

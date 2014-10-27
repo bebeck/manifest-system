@@ -11,7 +11,18 @@ Class Customers extends MY_Controller {
 
 	function index(){
 		if($this->session->userdata('login') != TRUE) redirect(base_url());
-		$this->set_layout('customers/data');
+		
+		$status = $this->input->post('type');
+		$dataResult = $this->customers_model->get_data($status);
+		
+		
+		if($this->input->post('find')){
+			
+		}
+		
+		
+		$data['dataResult'] = $dataResult;
+		$this->set_layout('customers/data',$data);
 	}
 	
 	function register()
@@ -19,16 +30,12 @@ Class Customers extends MY_Controller {
 		if($this->session->userdata('login') != TRUE) redirect(base_url());	
 	
 		
-		$this->form_validation->set_error_delimiters('');	
-		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('contact', 'contact', 'required');
-		$this->form_validation->set_rules('sort_name', 'Sort Name', 'required');
-		$this->form_validation->set_rules('tax_class', 'Tax Class', 'required');
+		
 		
 			
 		if($this->input->post('register'))
 		{
-			if($this->form_validation->run() == TRUE){
+			
 				$data['name'] = $this->input->post('name');
 				$data['reference_id'] = $this->input->post('reference_id');
 				$data['sort_name'] = $this->input->post('sort_name');
@@ -38,8 +45,7 @@ Class Customers extends MY_Controller {
 				$data['country'] = $this->input->post('country');
 				$data['state'] = $this->input->post('state');
 				$data['post_code'] = $this->input->post('post_code');
-				$data['contact'] = $this->input->post('contact');
-				$data['other_contact'] = $this->input->post('otcontact');
+				
 				
 				$data['phone'] = $this->input->post('phone');
 				$data['mobile'] = $this->input->post('mobile');
@@ -69,7 +75,7 @@ Class Customers extends MY_Controller {
 				
 				$this->customers_model->save_customer($data);
 				
-			}
+			
 					
 			
 		}

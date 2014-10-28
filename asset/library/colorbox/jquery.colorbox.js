@@ -70,10 +70,10 @@
 		trapFocus: true,
 
 		// callbacks
-		onOpen: false,
+		onOpen: function(){ colorbox_load() },
 		onLoad: false,
 		onComplete: false,
-		onCleanup: false,
+		onCleanup: function(){ colorbox_close() },
 		onClosed: false,
 
 		rel: function() {

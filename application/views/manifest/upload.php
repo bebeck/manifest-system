@@ -90,8 +90,7 @@ $(function () {
         beforeSubmit: function() {
             $.colorbox({
                 inline:true,
-                href:$('#upload_progress_modal'),
-                onLoad: function(){ $('.colorbox-modal').show(); }
+                href:$('#upload_progress_modal')
             })
         },
         dataType: 'json',

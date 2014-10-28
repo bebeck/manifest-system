@@ -123,8 +123,7 @@ $(document).ready(function(){
     $('.add-customer').click(function(){
         $.colorbox({
             inline:true,
-            href:$('#add_new_customer_modal'),
-            onLoad: function(){ $('.colorbox-modal').show(); }
+            href:$('#add_new_customer_modal')
         })
     })
 

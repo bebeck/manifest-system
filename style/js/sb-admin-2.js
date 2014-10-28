@@ -27,6 +27,15 @@ $(function() {
     })
 
     $('.close-modal').on('click',function(){
+        $('.colorbox-modal').fadeOut();
         $.colorbox.close();
     })
 })
+
+function colorbox_load(){
+    $('.colorbox-modal').fadeIn();        
+}
+function colorbox_close(){
+    $('.colorbox-modal').fadeOut();    
+}
+

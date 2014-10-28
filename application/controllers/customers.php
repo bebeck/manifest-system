@@ -12,8 +12,8 @@ Class Customers extends MY_Controller {
 	function index(){
 		if($this->session->userdata('login') != TRUE) redirect(base_url());
 		
-		$status = $this->input->post('type');
-		$dataResult = $this->customers_model->get_data($status);
+		$type = $this->input->post('type');
+		$dataResult = $this->customers_model->get_data($type);
 		
 		
 		if($this->input->post('find')){
@@ -25,15 +25,7 @@ Class Customers extends MY_Controller {
 		$this->set_layout('customers/data',$data);
 	}
 	
-	function detail(){
-		
-		$name 		= $this->uri->segment(3);
-		$getUser 	= $this->customers_model->getuser($name); 
-		
-		$data['getUser'] = $getUser;
-		$this->set_layout('customers/customer_view',$data);	
-		
-	}
+	
 	
 	function register()
 	{
@@ -97,6 +89,18 @@ Class Customers extends MY_Controller {
 		if($this->session->userdata('login') != TRUE) redirect(base_url());	
 		$this->set_layout('customers/customer_view');
 			
+		
+	}
+	
+	function detail(){
+		
+		$UserId 		= $this->uri->segment(3);
+		$getUser 	= $this->customers_model->getuser($UserId); 
+		
+		
+		$data['getUser']   = $getUser;
+	
+		$this->set_layout('customers/customer_view',$data);	
 		
 	}
 

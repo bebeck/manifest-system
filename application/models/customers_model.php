@@ -23,9 +23,9 @@ class Customers_model extends CI_Model {
 		
 	}
 	
-	function get_data($status){
+	function get_data($type){
 		
-		$this->db->where('status', $status);
+		$this->db->where('type', $type);
 		$query = $this->db->get('customer_table');
 		return $query->result();
 		
@@ -33,9 +33,9 @@ class Customers_model extends CI_Model {
 		
 	}
 	
-	function getuser($name)
+	function getuser($UserId)
 	{
-		$this->db->where('name',$name);
+		$this->db->where('cust_id',$UserId);
 		$query = $this->db->get('customer_table');
 		return $query->row();
 	}

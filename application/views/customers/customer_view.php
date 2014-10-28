@@ -84,7 +84,9 @@
                          <tr>
                              <tr>
                         <td>Tax Class</td>
-                        <td><?= $getUser->tax_class ?></td>
+                        <?php if ($getUser->tax_class >0 ){$tax_class = $getUser->tax_class."%";}elseif($getUser->tax_class== "none"){
+							 $tax_class = $getUser->tax_class;}else $tax_class="" ?>
+                        <td><?= $tax_class ?></td>
                       </tr>
                       
                       <tr>
@@ -104,15 +106,15 @@
                     </tbody>
                   </table>
                   
-                  <a href="#" class="btn btn-primary">My Sales Performance</a>
-                  <a href="#" class="btn btn-primary">Team Sales Performance</a>
+                  <a href="#" class="btn btn-primary">Make Regular Customer</a>
+                 
                 </div>
               </div>
             </div>
                  <div class="panel-footer">
                         <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
-                            <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="#" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                             <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                         </span>
                     </div>

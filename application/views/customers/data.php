@@ -44,25 +44,32 @@
                 </div>
             </div>
         </div>
+        
+        
+
 
         <div class="row container-data">
             <div class="col-lg-12">
                 <div class="table-responsive">
-            
-                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+           
+            <input type="search" class="light-table-filter form-control" data-table="order-table" placeholder="Search" style="width:30%; float:right; margin-bottom:1%;">
+                    <table class=" table table-striped table-bordered table-hover order-table table" id="dataTables-example">
                         <thead>
                             <tr>
-                                <th width="100">Customer Name</th>
+                                <th>Customer Name</th>
                                 <th>Address</th>
+                                <th>Type</th>
                                 <th align="center" width="135px">Action</th>
                             </tr>
                         </thead>
                         <tbody class="customer-data-row" >
                         	<?php foreach ($dataResult as $key => $val) { 
-							
-								echo "<td><a href=customers/detail/".$val->name.">".$val->name ."</td>";
+								echo "<tr>";
+								echo "<td><a href=customers/detail/".$val->cust_id.">".$val->name ."</td>";
 								echo "<td>".$val->address ."</td>";
-								echo "<td>edit</td>";
+								echo "<td>".$val->type."</td>";
+								echo "<td><a href='#' data-original-title='Edit this user' data-toggle='tooltip' type='button' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-edit'></i></a> &nbsp;<a data-original-title='Remove this user' data-toggle='tooltip' type='button' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a></td>";
+								echo "</tr>";
 							}
 							?>
                         	
@@ -112,5 +119,47 @@ function get_data(){
         }
     })
 }
+
+
+
+(function(document) {
+	'use strict';
+
+	var LightTableFilter = (function(Arr) {
+
+		var _input;
+
+		function _onInputEvent(e) {
+			_input = e.target;
+			var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+			Arr.forEach.call(tables, function(table) {
+				Arr.forEach.call(table.tBodies, function(tbody) {
+					Arr.forEach.call(tbody.rows, _filter);
+				});
+			});
+		}
+
+		function _filter(row) {
+			var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+			row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+		}
+
+		return {
+			init: function() {
+				var inputs = document.getElementsByClassName('light-table-filter');
+				Arr.forEach.call(inputs, function(input) {
+					input.oninput = _onInputEvent;
+				});
+			}
+		};
+	})(Array.prototype);
+
+	document.addEventListener('readystatechange', function() {
+		if (document.readyState === 'complete') {
+			LightTableFilter.init();
+		}
+	});
+
+})(document);
 
 </script>

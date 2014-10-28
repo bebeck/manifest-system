@@ -113,6 +113,13 @@
                                           <input type="text" name="address" placeholder="please fill address field" class="form-control" required="required">
                                         </div>
                              
+                             
+                              <div class="form-group">
+                                      <label >State</label>
+                                     
+                                        <input id="state" name="state" type="text" class="form-control">
+             
+          					  </div>
                             
                         <div class="form-group">
                                   <label>City</label>
@@ -380,12 +387,7 @@
                               
                             </div>
                             
-            <div class="form-group">
-              <label >State</label>
-             
-                <input id="state" name="state" type="text" class="form-control">
-             
-            </div>
+           
             
              <div class="form-group">
               <label >Post Code</label>
@@ -454,6 +456,7 @@
              
              			  <select required class="form-control" name="tax_class" >
                           <option value=""></option>
+                          	<option value="0">None</option>
                				<option value="1">1%</option>
                             <option value="10">10%</option>
                             </select>

@@ -62,11 +62,11 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="upload_manifest_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="upload_progress_modal" class="colorbox-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="progress">
+        <div class="progress progress-striped active">
           <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <div class="progress-message" style="text-align:center;"></div>
@@ -88,25 +88,25 @@ $(function () {
             $('.progress-message').html('Please wait . . .');
         },
         beforeSubmit: function() {
-            $('#upload_manifest_modal').modal({
-                backdrop: false,
-                keyboard: false,
-                show: true
-            });
+            $.colorbox({
+                inline:true,
+                href:$('#upload_progress_modal'),
+                onLoad: function(){ $('.colorbox-modal').show(); }
+            })
         },
         dataType: 'json',
         success: function(data) {
             if(data.status == 'error') {
                 $('.progress-message').html(data.message);
                 setTimeout(function(){
-                    $('#upload_manifest_modal').modal('toggle');
+                    $.colorbox.close();
                     $('.progress-message').html('');
                 }, 2000);
             } else {
                 $('#form_upload_manifest').resetForm();
                 $('.progress-message').html('Upload Finished . . .');
                 setTimeout(function(){
-                    $('#upload_manifest_modal').modal('toggle');
+                    $.colorbox.close();
                 }, 4000);
             }
         }

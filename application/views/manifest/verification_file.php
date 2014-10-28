@@ -37,32 +37,30 @@
                                                 <td>'.$row->HAWB_NO.'</td>
                                             ';
 
+                                            //SHIPPER
+                                            echo '<td>';
                                             $shipper = $this->customers_model->get_customer($row->SHIPPER,'SHIPPER');
                                             if($shipper != FALSE) {                                                
-                                                echo '<td>
-                                                    '.$shipper->name.' <br/>
+                                                echo $shipper->name.' <br/>
                                                     '.$shipper->address.' <br/>
-                                                    '.$shipper->country.'
-                                                </td>';
+                                                    '.$shipper->country;
                                             } else {
-                                                echo '<td>
-                                                    '.$row->SHIPPER.'<br/>
-                                                    <p><button type="button" class="btn btn-xs btn-danger">Add as new customer</button></p>
-                                                </td>';
+                                                echo $row->SHIPPER.'<br/>
+                                                    <p><button type="button" class="btn btn-xs btn-danger add-customer">Add as new customer</button></p>';
                                             }
+                                            echo '</td>';
 
+                                            //CONSIGNEE
+                                            echo '<td>';
                                             $consignee = $this->customers_model->get_customer($row->CONSIGNEE,'CONSIGNEE');
                                             if($consignee != FALSE) {                                                
-                                                echo '<td>
+                                                echo '
                                                     '.$consignee->name.' <br/>
                                                     '.$consignee->address.' <br/>
-                                                    '.$consignee->country.'
-                                                </td>';
+                                                    '.$consignee->country;
                                             } else {
-                                                echo '<td>
-                                                    '.$row->CONSIGNEE.'<br/>
-                                                    <p><button type="button" class="btn btn-xs btn-danger">Add as new customer</button></p>
-                                                </td>';
+                                                echo $row->CONSIGNEE.'<br/>
+                                                    <p><button type="button" class="btn btn-xs btn-danger add-customer">Add as new customer</button></p>';
                                             }
                                             
                                             echo '
@@ -101,8 +99,35 @@
     </div>
 </div>
 
+
+<div id="add_new_customer_modal" class="colorbox-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Add New Customer</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-sm btn-primary">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
 <script type="text/javascript">
-$(function () {
+$(document).ready(function(){
+    $('.add-customer').click(function(){
+        $.colorbox({
+            inline:true,
+            href:$('#add_new_customer_modal'),
+            onLoad: function(){ $('.colorbox-modal').show(); }
+        })
+    })
+
     $('#form_verification').ajaxForm();
 });
 </script>

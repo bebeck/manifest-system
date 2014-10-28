@@ -25,4 +25,8 @@ $(function() {
             $("#page-wrapper").css("min-height", (height) + "px");
         }
     })
+
+    $('.close-modal').on('click',function(){
+        $.colorbox.close();
+    })
 })

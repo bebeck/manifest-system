@@ -469,15 +469,27 @@
                </div>
                
                 <div class="form-group">
-              <label>Status</label>
+              <label>Type</label>
               		
-  					 <select required class="form-control" name="status" >
+  					 <select required class="form-control" name="type" >
                           <option value=""></option>
                				<option value="shipper">Shipper</option>
                             <option value="consignee">Consignee</option>
                             </select>
                
                </div>
+               
+               
+                 <div class="form-group">
+              <label>Status</label>
+              		
+  					 <select required class="form-control" name="status" >
+                          <option value=""></option>
+               				<option value="regular">regular customer</option>
+                            </select>
+               
+               </div>
+               
                
                 <div class="form-group">
               <label >Register Doc</label>

@@ -67,7 +67,7 @@ Class Customers extends MY_Controller {
 				$data['bank_account'] = $this->input->post('bank_account');
 				
 				$data['vat_doc'] = $this->input->post('vat_doc');
-				$data['status'] = $this->input->post('status');
+				$data['type'] = $this->input->post('type');
 				$data['register_doc'] = $this->input->post('register_doc');
 				$data['register_date'] = $this->input->post('register_date');
 				$data['due_date_payment'] = $this->input->post('due_date_payment');
@@ -80,7 +80,7 @@ Class Customers extends MY_Controller {
 				$data['credit_limit'] = $this->input->post('credit_limit');
 				$data['remark'] = $this->input->post('remark');
 				$data['available'] = $this->input->post('active_status');
-				$data['last_login'] = date('y-m-d');
+				$data['status'] = $this->input->post('status');
 				
 				
 				$this->customers_model->save_customer($data);

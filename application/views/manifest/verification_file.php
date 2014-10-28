@@ -80,7 +80,7 @@
                             }
                         ?>
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-default">Save Verification</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Save Verification</button>
                         </div>
                         </form>
                     </div>

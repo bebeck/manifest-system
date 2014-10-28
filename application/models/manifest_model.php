@@ -36,10 +36,19 @@ class Manifest_model extends CI_Model {
 	}
 
 	function get_file() {
-		$get = $this->db->get('MANIFEST_FILE_TABLE');
+		$this->db->join('MANIFEST_DATA_TABLE D','D.FILE_ID = F.FILE_ID');
+		$this->db->where('D.STATUS','VALID');
+		$this->db->group_by('F.FILE_ID');
+		$get = $this->db->get('MANIFEST_FILE_TABLE F');
 		return $get->result();
 	}
 
+	function get_by_file_id($file_id) {
+		$this->db->where('FILE_ID',$file_id);
+		$get = $this->db->get('MANIFEST_FILE_TABLE');
+		if($get->num_rows() > 0) return $get->row();
+		else return false;
+	}
 
 
 	#DATA MANIFEST ->
@@ -82,6 +91,12 @@ class Manifest_model extends CI_Model {
 		";
 		$get = $this->db->query($QUERY);
 		return $get->num_rows();
+	}
+
+	function set_status_data($file_id,$status) {
+		$this->db->where('FILE_ID',$file_id);
+		$this->db->set('STATUS',$status);
+		$this->db->update('MANIFEST_DATA_TABLE');
 	}
 }
 ?>

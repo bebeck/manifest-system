@@ -4,16 +4,7 @@ class Customers_model extends CI_Model {
 	
 	function get_customer($address = null, $type = null) {
 		$CUSTOMER = $this->check_speeling_address($address, $type);
-		if($CUSTOMER) {
-			return $CUSTOMER;
-		} else {
-			$return = $address . '
-				<div class="btn-group btn-group-xs">
-	                <button type="button" class="btn btn-default add-customer">Add Customer</button>
-	            </div>
-			';
-			return $return;
-		}
+		return $CUSTOMER;
 	}
 	
 	function save_customer($data)
@@ -41,25 +32,27 @@ class Customers_model extends CI_Model {
 	}
 
 	function check_speeling_address($address,$type){
-		$array = explode(' ', $address);
+		$array = explode(' ',$address);
 		$QUERY = "
 			SELECT
 				*
 			FROM
 				(
 					SELECT
+						CUST.cust_id,
+						CUST.name,
+						CUST.address,
+						CUST.country,
 						CONCAT(
-							CUST. NAME,
+							CUST. name,
 							' ',
-							CUST.PHONE,
+							CUST.address,
 							' ',
-							CUST.PHONE,
+							CUST.phone,
 							' ',
-							CUST.FAX,
+							CUST.email,
 							' ',
-							CUST.EMAIL,
-							' ',
-							CUST.COUNTRY
+							CUST.country
 						)AS FULL_ADDRESS
 					FROM
 						CUSTOMER_TABLE CUST
@@ -67,13 +60,29 @@ class Customers_model extends CI_Model {
 			WHERE
 		";
 		for ($i=0;$i<=count($array)-1;$i++) {
-			$QUERY .= "CUST.FULL_ADDRESS LIKE '% ".strip_tags(str_ireplace(array(',','/',"'"),'',$array[$i]))."%'";
-			$QUERY .= " OR ";
+			if(trim($array[$i])) {
+				$QUERY .= "CUST.FULL_ADDRESS LIKE '%".trim(strip_tags(str_ireplace(array(',','/',"'"),'',trim($array[$i]))))."%'";
+				$QUERY .= " OR ";
+			}
 		}
 		$QUERY = substr($QUERY, 0, -4);
 		$get = $this->db->query($QUERY);
 		if($get->num_rows() > 0) {
-			return $get->result();
+			$similar['percent'] = array();
+			foreach ($get->result() as $key => $value) {
+				similar_text($value->FULL_ADDRESS, $address, $percent);
+				if($percent > 90) {
+					$similar['percent'][] = $percent;
+					$similar['cust_id'][] = $value->cust_id;
+				}
+
+				if(count($similar['percent']) > 0) {
+					$this->db->where_in('cust_id',$similar['cust_id']);
+					$get = $this->db->get('customer_table');
+					if($get->num_rows() > 0) return $get->result();
+					else return FALSE;
+				} else return FALSE;
+			}
 		} else return FALSE;
 	}
 }

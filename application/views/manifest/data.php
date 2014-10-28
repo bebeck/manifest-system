@@ -34,7 +34,7 @@
                                 </div>          
                             </div>
                             <div class="col-lg-12">
-                                <button type="submit" class="btn btn-default find-data">Find</button>
+                                <button type="submit" class="btn btn-sm btn-primary find-data">Find</button>
                             </div>
                         </div>
                     </div>

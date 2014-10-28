@@ -26,7 +26,7 @@ class Manifest extends MY_Controller {
 		} else {
 			$FILE_ID = $_GET['FILE_ID'];
 			$where = array('F.FILE_ID' => $FILE_ID);
-			$data = array('list_data' => $this->manifest_model->get_filtering_data(null,null,$where));
+			$data = array('file' => $this->manifest_model->get_by_file_id($FILE_ID), 'list_data' => $this->manifest_model->get_filtering_data(null,null,$where));
 			$this->set_layout('manifest/verification_file',$data);			
 		}
 	}
@@ -123,10 +123,9 @@ class Manifest extends MY_Controller {
 				}
 			break;
 
-			case 'fileupload':
-				error_reporting(E_ALL | E_STRICT);
-				include PATH_APP . 'libraries/UploadHandler.php';
-				$upload_handler = new UploadHandler();
+		case 'verification':
+			$FILE_ID = $_POST['FILE_ID'];
+			$this->manifest_model->set_status_data($FILE_ID,'VALID');
 			break;
 			
 			default:

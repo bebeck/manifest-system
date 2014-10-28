@@ -35,8 +35,37 @@
                                             <tr class="row-' . $row->DATA_ID.'">
                                                 <td>'.$row->DATA_NO.'</td>
                                                 <td>'.$row->HAWB_NO.'</td>
-                                                <td>'.$this->customers_model->get_customer($row->SHIPPER,'SHIPPER').'</td>
-                                                <td>'.$this->customers_model->get_customer($row->CONSIGNEE,'CONSIGNEE').'</td>
+                                            ';
+
+                                            $shipper = $this->customers_model->get_customer($row->SHIPPER,'SHIPPER');
+                                            if($shipper != FALSE) {                                                
+                                                echo '<td>
+                                                    '.$shipper->name.' <br/>
+                                                    '.$shipper->address.' <br/>
+                                                    '.$shipper->country.'
+                                                </td>';
+                                            } else {
+                                                echo '<td>
+                                                    '.$row->SHIPPER.'<br/>
+                                                    <p><button type="button" class="btn btn-xs btn-danger">Add as new customer</button></p>
+                                                </td>';
+                                            }
+
+                                            $consignee = $this->customers_model->get_customer($row->CONSIGNEE,'CONSIGNEE');
+                                            if($consignee != FALSE) {                                                
+                                                echo '<td>
+                                                    '.$consignee->name.' <br/>
+                                                    '.$consignee->address.' <br/>
+                                                    '.$consignee->country.'
+                                                </td>';
+                                            } else {
+                                                echo '<td>
+                                                    '.$row->CONSIGNEE.'<br/>
+                                                    <p><button type="button" class="btn btn-xs btn-danger">Add as new customer</button></p>
+                                                </td>';
+                                            }
+                                            
+                                            echo '
                                                 <td>'.$row->PKG.'</td>
                                                 <td>'.$row->DESCRIPTION.'</td>
                                                 <td>'.$row->PCS.'</td>
@@ -60,25 +89,7 @@
                             </tbody>
                         </table>
                         <form id="form_verification" method="post" action="<?=site_url('manifest/ajax/verification')?>">
-                        <?php
-                            foreach ($list_data as $key => $row) {
-                                echo '
-                                    <input type="hidden" id="'.$row->DATA_ID.' - DATA_ID" name="DATA_ID[]" value="'.$row->DATA_ID.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - DATA_NO" name="DATA_NO[]" value="'.$row->DATA_NO.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - HAWB_NO" name="HAWB_NO[]" value="'.$row->HAWB_NO.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - SHIPPER" name="SHIPPER[]" value="'.$row->SHIPPER.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - CONSIGNEE" name="CONSIGNEE[]" value="'.$row->CONSIGNEE.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - PKG" name="PKG[]" value="'.$row->PKG.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - DESCRIPTION" name="DESCRIPTION[]" value="'.$row->DESCRIPTION.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - PCS" name="PCS[]" value="'.$row->PCS.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - KG" name="KG[]" value="'.$row->KG.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - VALUE" name="VALUE[]" value="'.$row->VALUE.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - PREPAID" name="PREPAID[]" value="'.$row->PREPAID.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - COLLECT" name="COLLECT[]" value="'.$row->COLLECT.'">
-                                    <input type="hidden" id="'.$row->DATA_ID.' - REMARKS" name="REMARKS[]" value="'.$row->REMARKS.'">
-                                ';
-                            }
-                        ?>
+                        <input type="hidden" name="FILE_ID" value="<?=$file->FILE_ID?>">
                         <div class="btn-group">
                             <button type="submit" class="btn btn-sm btn-primary">Save Verification</button>
                         </div>

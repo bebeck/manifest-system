@@ -60,7 +60,7 @@
                         <tbody class="customer-data-row" >
                         	<?php foreach ($dataResult as $key => $val) { 
 							
-								echo "<td><a href=".$val->name.">".$val->name ."</td>";
+								echo "<td><a href=customers/detail/".$val->name.">".$val->name ."</td>";
 								echo "<td>".$val->address ."</td>";
 								echo "<td>edit</td>";
 							}

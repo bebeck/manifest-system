@@ -25,6 +25,16 @@ Class Customers extends MY_Controller {
 		$this->set_layout('customers/data',$data);
 	}
 	
+	function detail(){
+		
+		$name 		= $this->uri->segment(3);
+		$getUser 	= $this->customers_model->getuser($name); 
+		
+		$data['getUser'] = $getUser;
+		$this->set_layout('customers/customer_view',$data);	
+		
+	}
+	
 	function register()
 	{
 		if($this->session->userdata('login') != TRUE) redirect(base_url());	

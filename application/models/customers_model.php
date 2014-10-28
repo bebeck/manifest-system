@@ -32,6 +32,13 @@ class Customers_model extends CI_Model {
 		
 		
 	}
+	
+	function getuser($name)
+	{
+		$this->db->where('name',$name);
+		$query = $this->db->get('customer_table');
+		return $query->row();
+	}
 
 	function check_speeling_address($address,$type){
 		$array = explode(' ', $address);

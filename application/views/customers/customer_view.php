@@ -38,14 +38,16 @@
 
 </style>
 
-<div class="container">
+<div class="wrapper">
+    <div id="page-wrapper">
+
     
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
    
    
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">Sheena Kristin A.Eschor</h3>
+              <h3 class="panel-title"><?= $getUser->name?></h3>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -67,33 +69,34 @@
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>Department:</td>
-                        <td>Programming</td>
+                        <td>Name:</td>
+                        <td><?= $getUser->sort_name ?></td>
                       </tr>
                       <tr>
-                        <td>Hire date:</td>
-                        <td>06/23/2013</td>
+                        <td>Address</td>
+                         <td><?= $getUser->address ?></td>
                       </tr>
                       <tr>
-                        <td>Date of Birth</td>
-                        <td>01/24/1988</td>
+                        <td>Status</td>
+                        <td><?= $getUser->status ?></td>
                       </tr>
                    
                          <tr>
                              <tr>
-                        <td>Gender</td>
-                        <td>Male</td>
+                        <td>Tax Class</td>
+                        <td><?= $getUser->tax_class ?></td>
                       </tr>
-                        <tr>
-                        <td>Home Address</td>
-                        <td>Metro Manila,Philippines</td>
-                      </tr>
+                      
                       <tr>
                         <td>Email</td>
-                        <td><a href="mailto:info@support.com">info@support.com</a></td>
+                       
+                        <td><a href="mailto:info@support.com"><?= $getUser->email?></a></td>
                       </tr>
                         <td>Phone Number</td>
-                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+                        <?php if($getUser->mobile != ""){
+								$mobile = $getUser->mobile."(mobile)";
+							}else $mobile = ""?>
+                        <td><?php echo $getUser->phone."(Phone)" ?><br><br><?= $mobile?>
                         </td>
                            
                       </tr>
@@ -116,5 +119,6 @@
             
           </div>
         </div>
+      </div>
       </div>
     </div>

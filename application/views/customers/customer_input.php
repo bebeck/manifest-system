@@ -110,7 +110,7 @@
                                 
                                   <div class="form-group">
                                             <label>Address</label>
-                                          <input type="text" name="address" placeholder="please fill address field" class="form-control" required="required">
+                                    <textarea name="address" rows="5" style="resize:none" class="form-control" required="required"></textarea>
                                         </div>
                              
                              

@@ -35,13 +35,14 @@ class Customers_model extends CI_Model {
 	
 	function customer_new_id(){
 		$get = $this->db->count_all('customer_table');
-		$get = $get + 1;
+		$get = $get + 111;
 		$len = strlen($get);
 			switch ($len) {
-			case '1': return 'THS0000' . $get; break;
-			case '2': return 'THS000' . $get; break;
-			case '3': return 'THS00' . $get; break;
-			case '4': return 'THS0' . $get; break;   
+			case '1': return 'THS00000' . $get; break;
+			case '2': return 'THS0000' . $get; break;
+			case '3': return 'THS000' . $get; break;
+			case '4': return 'THS00' . $get; break;   
+			case '5': return 'THS0' . $get; break;   
 			default: return $get; break;
 			}
 	}

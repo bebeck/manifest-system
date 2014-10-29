@@ -32,16 +32,16 @@ Class Customers extends MY_Controller {
 		if($this->session->userdata('login') != TRUE) redirect(base_url());	
 	
 		
-		
+	
 		
 			
 		if($this->input->post('register'))
 		{
 			
-				$data['name'] = $this->input->post('name');
 				$data['reference_id'] = $this->input->post('reference_id');
-				$data['sort_name'] = $this->input->post('sort_name');
+				$data['name'] = $this->input->post('name');
 				$data['address'] = $this->input->post('address');
+				$data['sort_name'] = $this->input->post('attn');
 				$data['email'] = $this->input->post('email');
 				$data['city'] = $this->input->post('city');
 				$data['country'] = $this->input->post('country');
@@ -76,12 +76,14 @@ Class Customers extends MY_Controller {
 				
 				
 				$this->customers_model->save_customer($data);
-				
 			
 					
 			
 		}
-		$this->set_layout('customers/customer_input');
+		
+		$refcust = $this->customers_model->customer_new_id();
+		$array['refcust'] = $refcust;
+		$this->set_layout('customers/customer_input',$array);
 	}
 	
 	function customer_view()

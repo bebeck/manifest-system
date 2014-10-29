@@ -30,6 +30,22 @@ class Customers_model extends CI_Model {
 		$query = $this->db->get('customer_table');
 		return $query->row();
 	}
+	
+	
+	
+	function customer_new_id(){
+		$get = $this->db->count_all('customer_table');
+		$get = $get + 1;
+		$len = strlen($get);
+			switch ($len) {
+			case '1': return 'THS0000' . $get; break;
+			case '2': return 'THS000' . $get; break;
+			case '3': return 'THS00' . $get; break;
+			case '4': return 'THS0' . $get; break;   
+			default: return $get; break;
+			}
+	}
+	
 
 	function check_speeling_address($address,$type){
 		$array = explode(' ',$address);

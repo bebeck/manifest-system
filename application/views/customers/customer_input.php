@@ -87,31 +87,32 @@
         <div class="col-xs-12">
             <div class="col-md-12">
                 <h3> Step 1</h3>
+                
+                <div class="form-group">
+                        <label>Reference Id</label>
+                        <input id="reference_id"  name="reference_id"  type="text"  class="form-control" value="<?= $refcust ?>" readonly="readonly">
+                    </div>
                  <div class="form-group">
                     <label>Name</label>
                     <input id="name" name="name" required="required" type="text" placeholder="Please fill name field" class="form-control">
                 </div>
                                 
-                    <div class="form-group">
-                        <label>Reference Id</label>
-                        <input id="reference_id"  name="reference_id"  type="text"  class="form-control">
-                    </div>
-                                
-                                <div class="form-group">
-                                    <label>Sort Name</label>
-                                   <input id="sort_name" required="required" name="sort_name" type="text" placeholder="Please fill sort name field" class="form-control">
-                                   
-                                </div>     
-                                
+
                                      <div class="form-group">
                                       <label >E-mail</label>
                                   <input id="email" name="email" type="text" placeholder="please fill email field" class="form-control">
                                 </div>
                                 
                                   <div class="form-group">
-                                            <label>Address</label>
-                                    <textarea name="address" rows="5" style="resize:none" class="form-control" required="required"></textarea>
+                           <label>Address</label>
+                      <textarea name="address" rows="5" style="resize:none" class="form-control" required="required"></textarea>
                                         </div>
+                                        
+                                  <div class="form-group">
+                                    <label>Attn</label>
+                                   <input id="attn" required="required" name="attn" type="text" placeholder="Please fill Attn field" class="form-control">
+                                   
+                                </div>     
                              
                              
                               <div class="form-group">

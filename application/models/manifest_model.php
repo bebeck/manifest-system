@@ -98,5 +98,16 @@ class Manifest_model extends CI_Model {
 		$this->db->set('STATUS',$status);
 		$this->db->update('MANIFEST_DATA_TABLE');
 	}
+
+	function get_header_format(){
+		$header = array('no','hawb_no','shipper','consignee','pkg','description','pcs','kg','value','pp','cc','remarks');
+		return $header;
+	}
+
+	function get_by_data_id($data_id){
+		$this->db->where('DATA_ID',$data_id);
+		$get = $this->db->get('MANIFEST_DATA_TABLE');
+		return $get->row();
+	}
 }
 ?>

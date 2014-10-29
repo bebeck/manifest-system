@@ -125,6 +125,13 @@ Class Customers extends MY_Controller {
 				echo json_encode(array('data' => $customer_html, 'pagination', 'pagination' => $pagination_html));
 				break;
 			
+			case 'get_new_cust_id':
+				echo $this->customers_model->customer_new_id();
+				break;
+
+			case 'add_customer':
+				
+				break;
 			default:
 				# code...
 				break;

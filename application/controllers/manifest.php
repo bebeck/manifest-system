@@ -61,6 +61,7 @@ class Manifest extends MY_Controller {
 
 			case 'upload':
 				include PATH_APP . 'libraries/PHPExcel/IOFactory.php';
+				$status = ''; $message = ''; $redirect = '';
 
 				$config['allowed_types'] = '*';
 				$config['upload_path'] = PATH_ATTACH;
@@ -83,44 +84,57 @@ class Manifest extends MY_Controller {
 						$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 						$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 						
+						$header_format = $this->manifest_model->get_header_format();
 						$header = array();
-						foreach ($sheetData[1] as $key => $value) { if($value) $header[strtolower(trim(str_ireplace(' ', '_', $value)))] = $key; }
+						foreach ($sheetData[1] as $key => $value) {
+							$value = strtolower(trim(str_ireplace(' ', '_', $value)));
+							if(in_array($value, $header_format)) $header[$value] = $key; 
+						}
 						unset($sheetData[1]);
 
-						$no = 1;
-						foreach ($sheetData as $key => $value) {
-							if(!empty($value[$header['no']])) {
-								#$shipper 	= $this->customers_model->get($value[$header['shipper']], 'SHIPPER');
-								#$consignee	= $this->customers_model->get($value[$header['cnee']], 'CONSIGNEE');
-
-								$mapping[$no]['DATA_ID'] 		= 'THS' . date('ymdhis') . $this->manifest_model->data_new_id();
-								$mapping[$no]['FILE_ID'] 		= $FILE_ID;
-								$mapping[$no]['DATA_NO'] 		= $value[$header['no']];
-								$mapping[$no]['HAWB_NO'] 		= $value[$header['hawb_no']];
-								$mapping[$no]['SHIPPER'] 		= $this->tools->remove_tags_excel($value[$header['shipper']]);
-								$mapping[$no]['CONSIGNEE'] 		= $this->tools->remove_tags_excel($value[$header['cnee']]);
-								$mapping[$no]['PKG'] 			= $value[$header['pkg']];
-								$mapping[$no]['DESCRIPTION'] 	= $value[$header['description']];
-								$mapping[$no]['PCS'] 			= $value[$header['pcs']];
-								$mapping[$no]['KG']				= $value[$header['kg']];
-								$mapping[$no]['VALUE'] 			= $value[$header['value']];
-								$mapping[$no]['PREPAID']		= $value[$header['pp']];
-								$mapping[$no]['COLLECT']		= $value[$header['cc']];
-								$mapping[$no]['REMARKS'] 		= $value[$header['remarks']];
-								$mapping[$no]['STATUS']			= 'NOT VERIFIED';
-								$mapping[$no]['CREATE_DATE']	= date('Y-m-d h:i:s');
-								$mapping[$no]['LAST_UPDATE']	= date('Y-m-d h:i:s');
-								$mapping[$no]['USER_ID']		= $this->session->userdata('user_id');
-								
-								$this->manifest_model->data_insert_new($mapping[$no]);
-								$no++;
+						if(count($header_format) == count($header)) {
+							$no = 1;
+							foreach ($sheetData as $key => $value) {
+								if(!empty($value[$header['no']])) {
+									$mapping[$no]['DATA_ID'] 		= 'THS' . date('ymdhis') . $this->manifest_model->data_new_id();
+									$mapping[$no]['FILE_ID'] 		= $FILE_ID;
+									$mapping[$no]['DATA_NO'] 		= $value[$header['no']];
+									$mapping[$no]['HAWB_NO'] 		= $value[$header['hawb_no']];
+									$mapping[$no]['SHIPPER'] 		= $this->tools->remove_tags_excel($value[$header['shipper']]);
+									$mapping[$no]['CONSIGNEE'] 		= $this->tools->remove_tags_excel($value[$header['consignee']]);
+									$mapping[$no]['PKG'] 			= $value[$header['pkg']];
+									$mapping[$no]['DESCRIPTION'] 	= $value[$header['description']];
+									$mapping[$no]['PCS'] 			= $value[$header['pcs']];
+									$mapping[$no]['KG']				= $value[$header['kg']];
+									$mapping[$no]['VALUE'] 			= $value[$header['value']];
+									$mapping[$no]['PREPAID']		= $value[$header['pp']];
+									$mapping[$no]['COLLECT']		= $value[$header['cc']];
+									$mapping[$no]['REMARKS'] 		= $value[$header['remarks']];
+									$mapping[$no]['STATUS']			= 'NOT VERIFIED';
+									$mapping[$no]['CREATE_DATE']	= date('Y-m-d h:i:s');
+									$mapping[$no]['LAST_UPDATE']	= date('Y-m-d h:i:s');
+									$mapping[$no]['USER_ID']		= $this->session->userdata('user_id');
+									
+									$this->manifest_model->data_insert_new($mapping[$no]);
+									$no++;
+								}
 							}
+							$redirect = site_url('manifest/verification?FILE_ID=' . $FILE_ID);
+						} else {
+							$status = 'error';
+							$message = 'Format header incorrect, please check and try again';
 						}
-						echo json_encode(array('redirect' => site_url('manifest/verification?FILE_ID=' . $FILE_ID)));
 					}
 				} else {
-					echo json_encode(array('status' => 'error', 'message' => $this->upload->display_errors()));
+					$status = 'error';
+					$message = $this->upload->display_errors();
 				}
+				echo json_encode(array('status' => $status, 'message' => $message, 'redirect' => $redirect));
+			break;
+		case 'get_by_data_id':
+			$data_id = $_POST['manifest_data_id'];
+			$data = $this->manifest_model->get_by_data_id($data_id);
+			echo json_encode($data);
 			break;
 
 		case 'verification':

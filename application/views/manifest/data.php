@@ -1,6 +1,4 @@
-
 <div id="wrapper">
-
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -44,19 +42,19 @@
         <table  class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Flight No</th>
-                    <th>Hawb No</th>
+                    <th width="100">Flight No</th>
+                    <th width="100">Hawb No</th>
                     <th>Shipper</th>
                     <th>Consignee</th>
-                    <th>PKG</th>
+                    <th width="40">PKG</th>
                     <th>Description</th>
-                    <th>PCS</th>
-                    <th>KG</th>
-                    <th>Value</th>
-                    <th>PP</th>
-                    <th>CC</th>
+                    <th width="40">PCS</th>
+                    <th width="40">KG</th>
+                    <th width="40">Val</th>
+                    <th width="40">PP</th>
+                    <th width="40">CC</th>
                     <th>Remarks</th>
-                    <th align="center" width="135px">Action</th>
+                    <th align="center" width="85px">Action</th>
                 </tr>
             </thead>
             <tbody class="manifest-data-row" style="display:none;"></tbody>

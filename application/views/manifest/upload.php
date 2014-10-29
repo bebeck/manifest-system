@@ -10,6 +10,20 @@
                     <form id="form_upload_manifest" method="post" action="<?=site_url('manifest/ajax/upload')?>">
                     <div class="row">
                         <div class="col-lg-12">
+                            <div class="alert alert-warning" role="alert">
+                                <span class="glyphicon glyphicon-warning-sign"></span> Format header excel
+                                <table class="table table-striped table-bordered" style="margin-top:20px;">
+                                    <tbody>
+                                        <tr>
+                                            <?php
+                                                foreach ($this->manifest_model->get_header_format() as $key => $value) {
+                                                    echo '<td align="center">'.str_ireplace('_', ' ', $value).'</td>';
+                                                }
+                                            ?>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                             <div class="form-group">
                                 <label>Consign To</label>
                                 <input class="form-control" name="consign_to" required>

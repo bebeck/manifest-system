@@ -1,3 +1,10 @@
+<style>
+.table-responsive
+{
+    overflow-x: auto;
+}
+
+</style>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="row">

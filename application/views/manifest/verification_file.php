@@ -30,14 +30,21 @@
                                     if($list_data != false) {
                                         $no = 1;
                                         foreach ($list_data as $key => $row) {
+                                            $check_valid_status = $this->manifest_model->check_valid_status($row->DATA_ID);
+                                            switch ($check_valid_status) {
+                                                case '0': $status_class = ''; break;
+                                                case '1': $status_class = 'warning'; break;
+                                                case '2': $status_class = 'success'; break;
+                                                default: $status_class = ''; break;
+                                            }
                                             echo '
-                                            <tr class="row-' . $row->DATA_ID.'">
-                                                <td>'.$row->DATA_NO.'</td>
-                                                <td>'.$row->HAWB_NO.'</td>
+                                            <tr id="' . $row->DATA_ID.'" class="'.$status_class.'">
+                                                <td class="DATA_NO">'.$row->DATA_NO.'</td>
+                                                <td class="HAWB_NO">'.$row->HAWB_NO.'</td>
                                             ';
 
                                             //SHIPPER
-                                            echo '<td>';
+                                            echo '<td class="SHIPPER">';
                                             $shipper = $this->customers_model->get_customer($row->SHIPPER,'SHIPPER');
                                             if($shipper != FALSE) {                                                
                                                 echo $shipper->name.' <br/>
@@ -50,7 +57,7 @@
                                             echo '</td>';
 
                                             //CONSIGNEE
-                                            echo '<td>';
+                                            echo '<td class="CONSIGNEE">';
                                             $consignee = $this->customers_model->get_customer($row->CONSIGNEE,'CONSIGNEE');
                                             if($consignee != FALSE) {                                                
                                                 echo '
@@ -63,14 +70,14 @@
                                             }
                                             
                                             echo '
-                                                <td align="center">'.$row->PKG.'</td>
-                                                <td>'.$row->DESCRIPTION.'</td>
-                                                <td align="center">'.$row->PCS.'</td>
-                                                <td align="center">'.$row->KG.'</td>
-                                                <td align="center">'.$row->VALUE.'</td>
-                                                <td align="center">'.$row->PREPAID.'</td>
-                                                <td align="center">'.$row->COLLECT.'</td>
-                                                <td>'.$row->REMARKS.'</td>
+                                                <td align="center" class="PKG">'.$row->PKG.'</td>
+                                                <td class="DESCRIPTION">'.$row->DESCRIPTION.'</td>
+                                                <td align="center" class="PCS">'.$row->PCS.'</td>
+                                                <td align="center" class="KG">'.$row->KG.'</td>
+                                                <td align="center" class="VALUE">'.$row->VALUE.'</td>
+                                                <td align="center" class="PREPAID">'.$row->PREPAID.'</td>
+                                                <td align="center" class="COLLECT">'.$row->COLLECT.'</td>
+                                                <td class="REMARKS">'.$row->REMARKS.'</td>
                                             </tr>
                                             ';
                                             $no++;
@@ -99,9 +106,12 @@
 </div>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_add_customer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <form id="add_customer_modal" method="post" action="<?=base_url()?>customers/ajax/add_customer">
     <input type="hidden" class="form-control cust_id" name="cust_id" value="">
+    <input type="hidden" class="form-control data_id" name="data_id" value="">
+    <input type="hidden" class="form-control data_type" name="data_type" value="">
+
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -203,13 +213,24 @@ $(document).ready(function(){
         $.post('<?=base_url()?>manifest/ajax/get_by_data_id',{'manifest_data_id':data_id},function(data){
             data = JSON.parse(data);
             $('.manifest-data-id').html('#' + data.DATA_ID);
-            $('.address-string').html(data_type + ': ' +data.SHIPPER);
+            if(data_type == 'SHIPPER') $('.address-string').html(data_type + ': ' +data.SHIPPER);
+            if(data_type == 'CONSIGNEE') $('.address-string').html(data_type + ': ' +data.CONSIGNEE);
+            
+            $('input.data_id').val(data.DATA_ID);
+            $('input.data_type').val(data_type);
         })
 
-        $('#myModal').modal('show');
+        $('#modal_add_customer').modal('show');
     })
 
-    $('#add_customer_modal').ajaxForm();
+    $('#add_customer_modal').ajaxForm({
+        dataType:'json',
+        success: function(data){
+            $('tr#' + data.DATA_ID).removeClass('warning').addClass(data.STATUS);
+            $('tr#' + data.DATA_ID).find('td.' + data.TYPE).html(data.data);
+            $('#modal_add_customer').modal('hide');
+        }
+    });
 
     $('#form_verification').ajaxForm();
 });

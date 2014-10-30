@@ -109,5 +109,27 @@ class Manifest_model extends CI_Model {
 		$get = $this->db->get('MANIFEST_DATA_TABLE');
 		return $get->row();
 	}
+
+	function set_data_customer($cust_id,$data_id,$type) {
+		$this->db->set($type,$cust_id);
+		$this->db->where('DATA_ID',$data_id);
+		$this->db->update('MANIFEST_DATA_TABLE');
+	}
+
+	function check_valid_status($DATA_ID) {
+		$this->db->where('DATA_ID',$DATA_ID);
+		$DATA = $this->db->get('MANIFEST_DATA_TABLE');
+		$status = 0;
+
+		$this->db->where('reference_id',$DATA->row()->SHIPPER);
+		$get = $this->db->get('customer_table');
+		if($get->num_rows() > 0) $status++;
+
+		$this->db->where('reference_id',$DATA->row()->CONSIGNEE);
+		$get = $this->db->get('customer_table');
+		if($get->num_rows() > 0) $status++;
+
+		return $status;
+	}
 }
 ?>

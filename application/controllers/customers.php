@@ -186,7 +186,37 @@ Class Customers extends MY_Controller {
 				break;
 
 			case 'add_customer':
-				
+				$data['reference_id'] 	= $_POST['cust_id'];
+				$data['name'] 			= $_POST['cust_name'];
+				$data['address'] 		= $_POST['cust_address'];
+				$data['state'] 			= $_POST['cust_state'];
+				$data['city'] 			= $_POST['cust_city'];
+				$data['country'] 		= $_POST['cust_country'];
+				$data['email'] 			= $_POST['cust_email'];
+				$data['phone'] 			= $_POST['cust_phone'];
+				$this->customers_model->save_customer($data);
+
+				$return_data = '
+				'.$data['name'].'<br/>
+				'.$data['address'].'<br/>
+				'.$data['country'].'<br/>
+				';
+
+				#Set Customer To Data
+				$DATA_ID = $_POST['data_id'];
+				$TYPE 	= $_POST['data_type'];
+				$this->manifest_model->set_data_customer($data['reference_id'],$DATA_ID,$TYPE);
+
+				$check_valid_status = $this->manifest_model->check_valid_status($DATA_ID);
+                switch ($check_valid_status) {
+                    case '0': $status_class = ''; break;
+                    case '1': $status_class = 'warning'; break;
+                    case '2': $status_class = 'success'; break;
+                    default: $status_class = ''; break;
+                }
+
+				echo json_encode(array('data' => $return_data, 'DATA_ID' => $DATA_ID, 'TYPE' => $TYPE, 'STATUS' => $status_class));
+
 				break;
 			default:
 				# code...

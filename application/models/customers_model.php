@@ -3,10 +3,22 @@
 class Customers_model extends CI_Model {
 	
 	function get_customer($address = null, $type = null) {
-		$CUSTOMER = $this->check_speeling_address($address, $type);
-		return $CUSTOMER;
+		$customer = $this->get_by_id($address);
+		if($customer != FALSE) {
+			return $customer;
+		} else {
+			$customer = $this->check_speeling_address($address, $type);
+			return $customer;
+		}
 	}
 	
+	function get_by_id($ref_id) {
+		$this->db->where('reference_id',$ref_id);
+		$get = $this->db->get('customer_table');
+		if($get->num_rows() > 0) return $get->row();
+		else return FALSE;
+	}
+
 	function save_customer($data)
 	{
 		
@@ -17,7 +29,7 @@ class Customers_model extends CI_Model {
 	function get_data($type){
 		
 		$this->db->where('type', $type);
-		$query = $this->db->get('customer_table');
+		$query = $this->db->get('CUSTOMER_TABLE');
 		return $query->result();
 		
 		
@@ -27,14 +39,14 @@ class Customers_model extends CI_Model {
 	function getuser($UserId)
 	{
 		$this->db->where('cust_id',$UserId);
-		$query = $this->db->get('customer_table');
+		$query = $this->db->get('CUSTOMER_TABLE');
 		return $query->row();
 	}
 	
 	
 	
 	function customer_new_id(){
-		$get = $this->db->count_all('customer_table');
+		$get = $this->db->count_all('CUSTOMER_TABLE');
 		$get = $get + 111;
 		$len = strlen($get);
 			switch ($len) {
@@ -109,7 +121,7 @@ class Customers_model extends CI_Model {
 
 				if(count($similar['percent']) > 0) {
 					$this->db->where_in('cust_id',$similar['cust_id']);
-					$get = $this->db->get('customer_table');
+					$get = $this->db->get('CUSTOMER_TABLE');
 					if($get->num_rows() > 0) return $get->result();
 					else return FALSE;
 				} else return FALSE;

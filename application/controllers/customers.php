@@ -197,7 +197,7 @@ Class Customers extends MY_Controller {
 				$this->customers_model->save_customer($data);
 
 				$return_data = '
-				'.$data['name'].'<br/>
+				<strong>'.$data['name'].'</strong><br/>
 				'.$data['address'].'<br/>
 				'.$data['country'].'<br/>
 				';

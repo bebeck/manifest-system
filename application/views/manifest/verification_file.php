@@ -45,28 +45,57 @@
 
                                             //SHIPPER
                                             echo '<td class="SHIPPER">';
-                                            $shipper = $this->customers_model->get_customer($row->SHIPPER,'SHIPPER');
+                                            $shipper = $this->customers_model->get_by_id($row->SHIPPER);
                                             if($shipper != FALSE) {                                                
-                                                echo $shipper->name.' <br/>
-                                                    '.$shipper->address.' <br/>
+                                                echo '
+                                                    <strong>'.$shipper->name.'</strong><br/>
+                                                    '.$shipper->address.'<br/>
                                                     '.$shipper->country;
                                             } else {
-                                                echo $row->SHIPPER.'<br/
-                                                    <p><button type="button" class="btn btn-xs btn-danger add-customer" title="Add as new customer" manifest_data_id="'.$row->DATA_ID.'" data_type="SHIPPER"><span class="glyphicon glyphicon-plus"></span></button></p>';
+                                                echo $row->SHIPPER;
+                                                echo '<hr/>';
+                                                $similar = $this->customers_model->check_speeling_address($row->SHIPPER);
+                                                echo '<div class="btn-group">';
+                                                if($similar != FALSE) {
+                                                    echo '
+                                                        <button class="btn btn-xs btn-info show-similar" type="button" title="You have '.count($similar).' similar customer(s)" manifest_data_id="'.$row->DATA_ID.'" data_type="SHIPPER">
+                                                          Similar <span class="badge">'.count($similar).'</span>
+                                                        </button>
+                                                    ';
+                                                }
+                                                echo '
+                                                <button type="button" class="btn btn-xs btn-danger add-customer" title="Add as new customer" manifest_data_id="'.$row->DATA_ID.'" data_type="SHIPPER">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                </button>
+                                                </div>';
                                             }
                                             echo '</td>';
 
                                             //CONSIGNEE
                                             echo '<td class="CONSIGNEE">';
-                                            $consignee = $this->customers_model->get_customer($row->CONSIGNEE,'CONSIGNEE');
+                                            $consignee = $this->customers_model->get_by_id($row->CONSIGNEE);
                                             if($consignee != FALSE) {                                                
                                                 echo '
-                                                    '.$consignee->name.' <br/>
-                                                    '.$consignee->address.' <br/>
+                                                    <strong>'.$consignee->name.'</strong><br/>
+                                                    '.$consignee->address.'<br/>
                                                     '.$consignee->country;
                                             } else {
-                                                echo $row->CONSIGNEE.'<br/>
-                                                    <p><button type="button" class="btn btn-xs btn-danger add-customer" title="Add as new customer" manifest_data_id="'.$row->DATA_ID.'" data_type="CONSIGNEE"><span class="glyphicon glyphicon-plus"></span></button></p>';
+                                                echo $row->CONSIGNEE;
+                                                echo '<hr/>';
+                                                $similar = $this->customers_model->check_speeling_address($row->CONSIGNEE);
+                                                echo '<div class="btn-group">';
+                                                if($similar != FALSE) {
+                                                    echo '
+                                                        <button class="btn btn-xs btn-info show-similar" type="button" title="You have '.count($similar).' similar customer(s)" manifest_data_id="'.$row->DATA_ID.'" data_type="CONSIGNEE">
+                                                          Similar <span class="badge">'.count($similar).'</span>
+                                                        </button>
+                                                    ';
+                                                }
+                                                echo '
+                                                    <button class="btn btn-xs btn-danger add-customer" title="Add as new customer" manifest_data_id="'.$row->DATA_ID.'" data_type="CONSIGNEE">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </div>';
                                             }
                                             
                                             echo '

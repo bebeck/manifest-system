@@ -29,7 +29,7 @@ class Customers_model extends CI_Model {
 	function get_data($type){
 		
 		$this->db->where('type', $type);
-		$query = $this->db->get('CUSTOMER_TABLE');
+		$query = $this->db->get('customer_table');
 		return $query->result();
 		
 		
@@ -39,14 +39,14 @@ class Customers_model extends CI_Model {
 	function getuser($UserId)
 	{
 		$this->db->where('cust_id',$UserId);
-		$query = $this->db->get('CUSTOMER_TABLE');
+		$query = $this->db->get('customer_table');
 		return $query->row();
 	}
 	
 	
 	
 	function customer_new_id(){
-		$get = $this->db->count_all('CUSTOMER_TABLE');
+		$get = $this->db->count_all('customer_table');
 		$get = $get + 111;
 		$len = strlen($get);
 			switch ($len) {
@@ -74,7 +74,7 @@ class Customers_model extends CI_Model {
 	}
 	
 
-	function check_speeling_address($address,$type){
+	function check_speeling_address($address){
 		$array = explode(' ',$address);
 		$QUERY = "
 			SELECT
@@ -98,7 +98,7 @@ class Customers_model extends CI_Model {
 							CUST.country
 						)AS FULL_ADDRESS
 					FROM
-						CUSTOMER_TABLE CUST
+						customer_table CUST
 				)CUST
 			WHERE
 		";
@@ -111,21 +111,22 @@ class Customers_model extends CI_Model {
 		$QUERY = substr($QUERY, 0, -4);
 		$get = $this->db->query($QUERY);
 		if($get->num_rows() > 0) {
-			$similar['percent'] = array();
+			$similar['cust_id'] = array();
 			foreach ($get->result() as $key => $value) {
 				similar_text($value->FULL_ADDRESS, $address, $percent);
-				if($percent > 90) {
+				$percent = round($percent);
+				if($percent > 50) {
 					$similar['percent'][] = $percent;
 					$similar['cust_id'][] = $value->cust_id;
 				}
-
-				if(count($similar['percent']) > 0) {
-					$this->db->where_in('cust_id',$similar['cust_id']);
-					$get = $this->db->get('CUSTOMER_TABLE');
-					if($get->num_rows() > 0) return $get->result();
-					else return FALSE;
-				} else return FALSE;
 			}
+			if(count($similar['cust_id']) > 0) {
+				$this->db->where_in('cust_id',$similar['cust_id']);
+				$this->db->where('reference_id !=','0');
+				$get = $this->db->get('customer_table');
+				if($get->num_rows() > 0) return $get->result();
+				else return FALSE;
+			} else return FALSE;
 		} else return FALSE;
 	}
 

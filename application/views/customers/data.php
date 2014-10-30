@@ -60,15 +60,20 @@
                                 <th>Address</th>
                                 <th>Type</th>
                                 <th align="center" width="135px">Action</th>
+                                
                             </tr>
                         </thead>
                         <tbody class="customer-data-row" >
-                        	<?php foreach ($dataResult as $key => $val) { 
+                        
+                        	<?php
+							
+							
+							 foreach ($dataResult as $key => $val) { 
 								echo "<tr>";
 								echo "<td><a href=customers/detail/".$val->cust_id.">".$val->name ."</td>";
 								echo "<td>".$val->address ."</td>";
 								echo "<td>".$val->type."</td>";
-								echo "<td><a href='#' data-original-title='Edit this user' data-toggle='tooltip' type='button' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-edit'></i></a> &nbsp;<a data-original-title='Remove this user' data-toggle='tooltip' type='button' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a></td>";
+								echo "<td><a href='customers/edit/".$val->cust_id."' data-original-title='Edit this user' data-toggle='tooltip' type='button' class='btn btn-sm btn-warning' name='edit'><i class='glyphicon glyphicon-edit'></i></a> &nbsp;<a href='#' data-href='customers/customer_delete/".$val->cust_id."' data-original-title='Remove this user' data-toggle='modal'  data-target='#confirm-delete' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a></td>";
 								echo "</tr>";
 							}
 							?>
@@ -77,11 +82,29 @@
                         
                         </tbody>
                     </table>
+                    
                 </div>  
             </div>
         </div>
 
         <div class="row pagination col-lg-12"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Confirmation 
+            </div>
+            <div class="modal-body">
+                Are You Sure Want To Delete This User?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="#" class="btn btn-danger danger">Delete</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -161,5 +184,10 @@ function get_data(){
 	});
 
 })(document);
+
+$('#confirm-delete').on('show.bs.modal', function(e) {
+    $(this).find('.danger').attr('href', $(e.relatedTarget).data('href'));
+});
+
 
 </script>

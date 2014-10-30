@@ -47,6 +47,20 @@ class Customers_model extends CI_Model {
 			}
 	}
 	
+	function customer_edit($UserId,$data)
+	{
+		$this->db->where('cust_id', $UserId);
+		$this->db->update('customer_table', $data); 	
+		
+	}
+	
+	function customer_delete($UserId)
+	{
+		$this->db->where('cust_id', $UserId);
+		$this->db->delete('customer_table'); 
+		
+	}
+	
 
 	function check_speeling_address($address,$type){
 		$array = explode(' ',$address);

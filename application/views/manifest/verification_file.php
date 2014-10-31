@@ -30,7 +30,7 @@
                                     if($list_data != false) {
                                         $no = 1;
                                         foreach ($list_data as $key => $row) {
-                                            $check_valid_status = $this->manifest_model->check_valid_status($row->DATA_ID);
+                                            $check_valid_status = $this->manifest_model->check_valid_status($row->data_id);
                                             switch ($check_valid_status) {
                                                 case '0': $status_class = ''; break;
                                                 case '1': $status_class = 'warning'; break;
@@ -38,75 +38,73 @@
                                                 default: $status_class = ''; break;
                                             }
                                             echo '
-                                            <tr id="' . $row->DATA_ID.'" class="'.$status_class.'">
-                                                <td class="DATA_NO">'.$row->DATA_NO.'</td>
-                                                <td class="HAWB_NO">'.$row->HAWB_NO.'</td>
+                                            <tr id="' . $row->data_id.'" class="'.$status_class.'">
+                                                <td class="data_no">'.$row->data_no.'</td>
+                                                <td class="hawb_no">'.$row->hawb_no.'</td>
                                             ';
 
-                                            //SHIPPER
-                                            echo '<td class="SHIPPER">';
-                                            $shipper = $this->customers_model->get_by_id($row->SHIPPER);
+                                            echo '<td class="shipper">';
+                                            $shipper = $this->customers_model->get_by_id($row->shipper);
                                             if($shipper != FALSE) {                                                
                                                 echo '
                                                     <strong>'.$shipper->name.'</strong><br/>
                                                     '.$shipper->address.'<br/>
                                                     '.$shipper->country;
                                             } else {
-                                                echo $row->SHIPPER;
+                                                echo $row->shipper;
                                                 echo '<hr/>';
-                                                $similar = $this->customers_model->check_speeling_address($row->SHIPPER);
+                                                $similar = $this->customers_model->check_speeling_address($row->shipper);
                                                 echo '<div class="btn-group">';
                                                 if($similar != FALSE) {
                                                     echo '
-                                                        <button class="btn btn-xs btn-info show-similar" type="button" title="You have '.count($similar).' similar customer(s)" manifest_data_id="'.$row->DATA_ID.'" data_type="SHIPPER">
+                                                        <button class="btn btn-xs btn-info show-similar" type="button" title="You have '.count($similar).' similar customer(s)" manifest_data_id="'.$row->data_id.'" data_type="shipper">
                                                           Similar <span class="badge">'.count($similar).'</span>
                                                         </button>
                                                     ';
                                                 }
                                                 echo '
-                                                <button type="button" class="btn btn-xs btn-danger add-customer" title="Add as new customer" manifest_data_id="'.$row->DATA_ID.'" data_type="SHIPPER">
+                                                <button type="button" class="btn btn-xs btn-danger add-customer" title="Add as new customer" manifest_data_id="'.$row->data_id.'" data_type="shipper">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                 </button>
                                                 </div>';
                                             }
                                             echo '</td>';
 
-                                            //CONSIGNEE
-                                            echo '<td class="CONSIGNEE">';
-                                            $consignee = $this->customers_model->get_by_id($row->CONSIGNEE);
+                                            echo '<td class="consignee">';
+                                            $consignee = $this->customers_model->get_by_id($row->consignee);
                                             if($consignee != FALSE) {                                                
                                                 echo '
                                                     <strong>'.$consignee->name.'</strong><br/>
                                                     '.$consignee->address.'<br/>
                                                     '.$consignee->country;
                                             } else {
-                                                echo $row->CONSIGNEE;
+                                                echo $row->consignee;
                                                 echo '<hr/>';
-                                                $similar = $this->customers_model->check_speeling_address($row->CONSIGNEE);
+                                                $similar = $this->customers_model->check_speeling_address($row->consignee);
                                                 echo '<div class="btn-group">';
                                                 if($similar != FALSE) {
                                                     echo '
-                                                        <button class="btn btn-xs btn-info show-similar" type="button" title="You have '.count($similar).' similar customer(s)" manifest_data_id="'.$row->DATA_ID.'" data_type="CONSIGNEE">
+                                                        <button class="btn btn-xs btn-info show-similar" type="button" title="You have '.count($similar).' similar customer(s)" manifest_data_id="'.$row->data_id.'" data_type="consignee">
                                                           Similar <span class="badge">'.count($similar).'</span>
                                                         </button>
                                                     ';
                                                 }
                                                 echo '
-                                                    <button class="btn btn-xs btn-danger add-customer" title="Add as new customer" manifest_data_id="'.$row->DATA_ID.'" data_type="CONSIGNEE">
+                                                    <button class="btn btn-xs btn-danger add-customer" title="Add as new customer" manifest_data_id="'.$row->data_id.'" data_type="consignee">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                     </button>
                                                 </div>';
                                             }
                                             
                                             echo '
-                                                <td align="center" class="PKG">'.$row->PKG.'</td>
-                                                <td class="DESCRIPTION">'.$row->DESCRIPTION.'</td>
-                                                <td align="center" class="PCS">'.$row->PCS.'</td>
-                                                <td align="center" class="KG">'.$row->KG.'</td>
-                                                <td align="center" class="VALUE">'.$row->VALUE.'</td>
-                                                <td align="center" class="PREPAID">'.$row->PREPAID.'</td>
-                                                <td align="center" class="COLLECT">'.$row->COLLECT.'</td>
-                                                <td class="REMARKS">'.$row->REMARKS.'</td>
+                                                <td align="center" class="pkg">'.$row->pkg.'</td>
+                                                <td class="description">'.$row->description.'</td>
+                                                <td align="center" class="pcs">'.$row->pcs.'</td>
+                                                <td align="center" class="kg">'.$row->kg.'</td>
+                                                <td align="center" class="value">'.$row->value.'</td>
+                                                <td align="center" class="prepaid">'.$row->prepaid.'</td>
+                                                <td align="center" class="collect">'.$row->collect.'</td>
+                                                <td class="remarks">'.$row->remarks.'</td>
                                             </tr>
                                             ';
                                             $no++;
@@ -122,7 +120,7 @@
                             </tbody>
                         </table>
                         <form id="form_verification" method="post" action="<?=site_url('manifest/ajax/verification')?>">
-                        <input type="hidden" name="FILE_ID" value="<?=$file->FILE_ID?>">
+                        <input type="hidden" name="FILE_ID" value="<?=$file->file_id?>">
                         <div class="btn-group">
                             <button type="submit" class="btn btn-sm btn-primary">Save Verification</button>
                         </div>
@@ -133,7 +131,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="modal fade" id="modal_add_customer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <form id="add_customer_modal" method="post" action="<?=base_url()?>customers/ajax/add_customer">
@@ -230,6 +227,42 @@
     </form>
 </div>
 
+<div class="modal fade" id="modal_similar_customer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form id="add_customer_modal" method="post" action="<?=base_url()?>customers/ajax/add_customer">
+    <input type="hidden" class="form-control cust_id" name="cust_id" value="">
+    <input type="hidden" class="form-control data_id" name="data_id" value="">
+    <input type="hidden" class="form-control data_type" name="data_type" value="">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Select Similar Customer</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody class="similar-customer-container"></tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default close-modal" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    </div>
+    </form>
+</div>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $('.country').select2();
@@ -238,17 +271,18 @@ $(document).ready(function(){
         $('#add_customer_modal').resetForm();
         data_id = $(this).attr('manifest_data_id');
         data_type = $(this).attr('data_type');
+        alert(data_type);
         $.post('<?=base_url()?>customers/ajax/get_new_cust_id',function(data){
             $('input.cust_id, input.cust_id_').val(data);
         })
 
-        $.post('<?=base_url()?>manifest/ajax/get_by_data_id',{'manifest_data_id':data_id},function(data){
+        $.post('<?=base_url()?>manifest/ajax/get_data',{'data_id':data_id},function(data){
             data = JSON.parse(data);
-            $('.manifest-data-id').html('#' + data.DATA_ID);
-            if(data_type == 'SHIPPER') $('.address-string').html(data_type + ': ' +data.SHIPPER);
-            if(data_type == 'CONSIGNEE') $('.address-string').html(data_type + ': ' +data.CONSIGNEE);
+            $('.manifest-data-id').html('#' + data.data_id);
+            if(data_type == 'shipper') $('.address-string').html(data_type + ': ' +data.shipper);
+            if(data_type == 'consignee') $('.address-string').html(data_type + ': ' +data.consignee);
             
-            $('input.data_id').val(data.DATA_ID);
+            $('input.data_id').val(data.data_id);
             $('input.data_type').val(data_type);
         })
 
@@ -258,12 +292,33 @@ $(document).ready(function(){
     $('#add_customer_modal').ajaxForm({
         dataType:'json',
         success: function(data){
-            $('tr#' + data.DATA_ID).removeClass('warning').addClass(data.STATUS);
-            $('tr#' + data.DATA_ID).find('td.' + data.TYPE).html(data.data);
+            $('tr#' + data.data_id).removeClass('warning').addClass(data.status);
+            $('tr#' + data.data_id).find('td.' + data.type).html(data.data);
             $('#modal_add_customer').modal('hide');
         }
     });
 
-    $('#form_verification').ajaxForm();
+    $('.show-similar').click(function(){
+        data_id = $(this).attr('manifest_data_id');
+        data_type = $(this).attr('data_type');
+        $.post('<?=base_url()?>customers/ajax/get_similar_customer',{'data_id':data_id,'type':data_type},function(data){
+            $('tbody.similar-customer-container').html(data);
+        })
+
+        $('#modal_similar_customer').modal('show');
+    })
+
+    $('.select-similar-customer').live('click',function(){
+        cust_id = $(this).attr('cust_id');
+        data_id = $(this).attr('data_id');
+        data_type = $(this).attr('data_type');
+
+        $.post('<?=base_url()?>customers/ajax/set_customer_to_data',{'cust_id':cust_id,'data_id':data_id,'type':data_type},function(data){
+            data = JSON.parse(data);
+            $('tr#' + data.data_id).removeClass('warning').addClass(data.status);
+            $('tr#' + data.data_id).find('td.' + data.type).html(data.data);
+            $('#modal_similar_customer').modal('hide');
+        })
+    })
 });
 </script>

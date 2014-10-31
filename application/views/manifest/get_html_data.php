@@ -5,10 +5,10 @@
         foreach ($manifest as $key => $row) {
             echo '
             <tr>
-                <td>'.$row->DATA_NO.'</td>
-                <td>'.$row->HAWB_NO.'</td>
+                <td>'.$row->data_no.'</td>
+                <td>'.$row->hawb_no.'</td>
                 <td>';
-                $shipper = $this->customers_model->get_by_id($row->SHIPPER);
+                $shipper = $this->customers_model->get_by_id($row->shipper);
                 if($shipper != FALSE) {                                                
                     echo '
                         <strong>'.$shipper->name.'</strong><br/>
@@ -17,7 +17,7 @@
                 } else echo '<span class="label label-danger">Data Belum di Verifikasi</span>';
                 echo '</td>
                 <td>';
-                $consginee = $this->customers_model->get_by_id($row->CONSIGNEE);
+                $consginee = $this->customers_model->get_by_id($row->consignee);
                 if($shipper != FALSE) {                                                
                     echo '
                         <strong>'.$consginee->name.'</strong><br/>
@@ -25,14 +25,14 @@
                         '.$consginee->country;
                 } else echo '<span class="label label-danger">Data Belum di Verifikasi</span>';
                 echo '</td>
-                <td>'.$row->PKG.'</td>
-                <td>'.$row->DESCRIPTION.'</td>
-                <td>'.$row->PCS.'</td>
-                <td>'.$row->KG.'</td>
-                <td>'.$row->VALUE.'</td>
-                <td>'.$row->PREPAID.'</td>
-                <td>'.$row->COLLECT.'</td>
-                <td>'.$row->REMARKS.'</td>
+                <td>'.$row->pkg.'</td>
+                <td>'.$row->description.'</td>
+                <td>'.$row->pcs.'</td>
+                <td>'.$row->kg.'</td>
+                <td>'.$row->value.'</td>
+                <td>'.$row->prepaid.'</td>
+                <td>'.$row->collect.'</td>
+                <td>'.$row->remarks.'</td>
                 <td>
                     <div class="btn-group btn-group-xs">
                         <button type="button" class="btn btn-default" title="Details"><span class="glyphicon glyphicon-search"></span></button>

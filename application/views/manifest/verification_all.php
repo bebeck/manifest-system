@@ -24,14 +24,14 @@
                                             $no = 1;
                                             foreach ($list_file as $key => $value) {
                                                 echo '
-                                                    <tr class="cursor list-file" file_id="'.$value->FILE_ID.'">
+                                                    <tr class="cursor list-file" file_id="'.$value->file_id.'">
                                                         <td>'.$no.'</td>
-                                                        <td>'.$value->FILE_NAME.'</td>
-                                                        <td>'.$value->CREATE_DATE.'</td>
-                                                        <td>'.$this->user_model->get_by_id($value->USER_ID)->USERNAME.'</td>
+                                                        <td>'.$value->file_name.'</td>
+                                                        <td>'.$value->created_date.'</td>
+                                                        <td>'.$this->user_model->get_by_id($value->user_id)->username.'</td>
                                                         <td> 
                                                             <div class="btn-group btn-group-xs">
-                                                                <button type="button" class="btn btn-default open-file" FILE_ID="'.$value->FILE_ID.'">Select</button>
+                                                                <button type="button" class="btn btn-default open-file" file_id="'.$value->file_id.'">Select</button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -58,8 +58,8 @@
 <script type="text/javascript">
 $(function(){
     $('button.open-file').click(function(){
-        FILE_ID = $(this).attr('FILE_ID');
-        window.location = '<?=site_url('manifest/verification?FILE_ID=')?>' + FILE_ID;
+        file_id = $(this).attr('file_id');
+        window.location = '<?=site_url('manifest/verification?file_id=')?>' + file_id;
     })
 })
 </script>

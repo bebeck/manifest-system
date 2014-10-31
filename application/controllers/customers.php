@@ -187,8 +187,8 @@ Class Customers extends MY_Controller {
 
 			case 'add_customer':
 				#Set Customer To Data
-				$DATA_ID = $_POST['data_id'];
-				$TYPE 	= $_POST['data_type'];
+				$data_id = $_POST['data_id'];
+				$type 	= $_POST['data_type'];
 
 				$data['reference_id'] 	= $_POST['cust_id'];
 				$data['name'] 			= $_POST['cust_name'];
@@ -198,7 +198,7 @@ Class Customers extends MY_Controller {
 				$data['country'] 		= $_POST['cust_country'];
 				$data['email'] 			= $_POST['cust_email'];
 				$data['phone'] 			= $_POST['cust_phone'];
-				$data['type'] 			= $TYPE;
+				$data['type'] 			= $type;
 				$data['created_date']	= date('Y-m-d h:i:s');
 				$data['user_id']		= $this->session->userdata('user_id');
 				$this->customers_model->save_customer($data);
@@ -209,9 +209,9 @@ Class Customers extends MY_Controller {
 				'.$data['country'].'<br/>
 				';
 
-				$this->manifest_model->set_data_customer($data['reference_id'],$DATA_ID,$TYPE);
+				$this->manifest_model->set_data_customer($data['reference_id'],$data_id,$type);
 
-				$check_valid_status = $this->manifest_model->check_valid_status($DATA_ID);
+				$check_valid_status = $this->manifest_model->check_valid_status($data_id);
                 switch ($check_valid_status) {
                     case '0': $status_class = ''; break;
                     case '1': $status_class = 'warning'; break;
@@ -219,8 +219,43 @@ Class Customers extends MY_Controller {
                     default: $status_class = ''; break;
                 }
 
-				echo json_encode(array('data' => $return_data, 'DATA_ID' => $DATA_ID, 'TYPE' => $TYPE, 'STATUS' => $status_class));
+				echo json_encode(array('data' => $return_data, 'data_id' => $data_id, 'type' => $type, 'status' => $status_class));
 
+				break;
+
+			case 'get_similar_customer':
+				$data_id 	= $_POST['data_id'];
+				$type 		= $_POST['type'];
+
+				$data = $this->manifest_model->get_by_data_id($data_id);
+
+				$data = $this->customers_model->check_speeling_address($data->$type);
+				$this->load->view('customers/get_similar_customer',array('customer' => $data, 'data_id' => $data_id, 'type' => $type));
+				break;
+
+			case 'set_customer_to_data':
+				$cust_id = $_POST['cust_id'];
+				$data_id = $_POST['data_id'];
+				$type = $_POST['type'];
+				$this->manifest_model->set_data_customer($cust_id,$data_id,$type);
+
+				$cust = $this->customers_model->get_by_id($cust_id);
+
+				$return_data = '
+				<strong>'.$cust->name.'</strong><br/>
+				'.$cust->address.'<br/>
+				'.$cust->country.'<br/>
+				';
+
+				$check_valid_status = $this->manifest_model->check_valid_status($data_id);
+                switch ($check_valid_status) {
+                    case '0': $status_class = ''; break;
+                    case '1': $status_class = 'warning'; break;
+                    case '2': $status_class = 'success'; break;
+                    default: $status_class = ''; break;
+                }
+
+				echo json_encode(array('data' => $return_data, 'data_id' => $data_id, 'type' => $type, 'status' => $status_class));
 				break;
 			default:
 				# code...

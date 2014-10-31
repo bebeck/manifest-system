@@ -19,14 +19,14 @@ class Manifest extends MY_Controller {
 	}
 
 	function verification() {
-		if(!isset($_GET['FILE_ID'])) {
-			$where = array('D.STATUS' => 'NOT VERIFIED');
+		if(!isset($_GET['file_id'])) {
+			$where = array('D.status' => 'NOT VERIFIED');
 			$data = array('list_file' => $this->manifest_model->get_filtering_data(null,null,$where,'F.FILE_NAME'));
 			$this->set_layout('manifest/verification_all',$data);
 		} else {
-			$FILE_ID = $_GET['FILE_ID'];
-			$where = array('F.FILE_ID' => $FILE_ID);
-			$data = array('file' => $this->manifest_model->get_by_file_id($FILE_ID), 'list_data' => $this->manifest_model->get_filtering_data(null,null,$where));
+			$file_id = $_GET['file_id'];
+			$where = array('F.file_id' => $file_id);
+			$data = array('file' => $this->manifest_model->get_by_file_id($file_id), 'list_data' => $this->manifest_model->get_filtering_data(null,null,$where));
 			$this->set_layout('manifest/verification_file',$data);			
 		}
 	}
@@ -43,13 +43,13 @@ class Manifest extends MY_Controller {
 
 		switch ($method) {
 			case 'get':
-				$page = $_GET['PAGE'];
+				$page = $_GET['page'];
 				$limit = 50;
 				$start = ($page - 1) * $limit;
 
 				$where = array();
-				if(isset($_GET['FILE_NAME']) && !empty($_GET['FILE_NAME'])) $where['F.FILE_ID']  = $_GET['FILE_NAME'];
-				if(isset($_GET['DATE']) && !empty($_GET['DATE'])) $where['F.CREATE_DATE']  = $_GET['DATE'];
+				if(isset($_GET['file_name']) && !empty($_GET['file_name'])) $where['F.file_id']  = $_GET['file_name'];
+				if(isset($_GET['date']) && !empty($_GET['date'])) $where['F.created_date']  = $_GET['date'];
 
 				$data_ = array('manifest' => $this->manifest_model->get_filtering_data($start,$limit,$where));
 				$data__ = array('total_row' => count($this->manifest_model->get_filtering_data(null,null,$where)), 'page' => $page, 'limit' => $limit);
@@ -68,19 +68,18 @@ class Manifest extends MY_Controller {
 				$this->load->library('upload', $config);
 
 				if ($this->upload->do_upload()) {
-					$FILE_DATA = $this->upload->data();
+					$file_data = $this->upload->data();
 
 					if(count($_POST) > 0) {
-						$file_name 		= $FILE_DATA['file_name'];
-						$consign_to 	= $_POST['consign_to'];
-						$flight_from 	= $_POST['flight_from'];
-						$flight_to 		= $_POST['flight_to'];
-						$mawb_no 		= $_POST['mawb_no'];
+						$file['file_id']		= 'FILE' . date('ymdhis') . $this->manifest_model->file_new_id();
+						$file['file_name'] 		= $file_data['file_name'];
+						$file['consign_to'] 	= $_POST['consign_to'];
+						$file['flight_from'] 	= $_POST['flight_from'];
+						$file['flight_to'] 		= $_POST['flight_to'];
+						$file['mawb_no'] 		= $_POST['mawb_no'];
+						$this->manifest_model->file_insert_new($file);
 
-						//Insert New FIle
-						$FILE_ID = $this->manifest_model->file_insert_new($file_name,$consign_to,$mawb_no,$flight_from,$flight_to);
-
-						$inputFileName = PATH_ATTACH . $file_name;
+						$inputFileName = PATH_ATTACH . $file_data['file_name'];
 						$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 						$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 						
@@ -96,30 +95,30 @@ class Manifest extends MY_Controller {
 							$no = 1;
 							foreach ($sheetData as $key => $value) {
 								if(!empty($value[$header['no']])) {
-									$mapping[$no]['DATA_ID'] 		= 'THS' . date('ymdhis') . $this->manifest_model->data_new_id();
-									$mapping[$no]['FILE_ID'] 		= $FILE_ID;
-									$mapping[$no]['DATA_NO'] 		= $value[$header['no']];
-									$mapping[$no]['HAWB_NO'] 		= $value[$header['hawb_no']];
-									$mapping[$no]['SHIPPER'] 		= $this->tools->remove_tags_excel($value[$header['shipper']]);
-									$mapping[$no]['CONSIGNEE'] 		= $this->tools->remove_tags_excel($value[$header['consignee']]);
-									$mapping[$no]['PKG'] 			= $value[$header['pkg']];
-									$mapping[$no]['DESCRIPTION'] 	= $value[$header['description']];
-									$mapping[$no]['PCS'] 			= $value[$header['pcs']];
-									$mapping[$no]['KG']				= $value[$header['kg']];
-									$mapping[$no]['VALUE'] 			= $value[$header['value']];
-									$mapping[$no]['PREPAID']		= $value[$header['pp']];
-									$mapping[$no]['COLLECT']		= $value[$header['cc']];
-									$mapping[$no]['REMARKS'] 		= $value[$header['remarks']];
-									$mapping[$no]['STATUS']			= 'NOT VERIFIED';
-									$mapping[$no]['CREATE_DATE']	= date('Y-m-d h:i:s');
-									$mapping[$no]['LAST_UPDATE']	= date('Y-m-d h:i:s');
-									$mapping[$no]['USER_ID']		= $this->session->userdata('user_id');
+									$mapping[$no]['data_id'] 		= 'THS' . date('ymdhis') . $this->manifest_model->data_new_id();
+									$mapping[$no]['file_id'] 		= $file['file_id'];
+									$mapping[$no]['data_no'] 		= $value[$header['no']];
+									$mapping[$no]['hawb_no'] 		= $value[$header['hawb_no']];
+									$mapping[$no]['shipper'] 		= $this->tools->remove_tags_excel($value[$header['shipper']]);
+									$mapping[$no]['consignee'] 		= $this->tools->remove_tags_excel($value[$header['consignee']]);
+									$mapping[$no]['pkg'] 			= $value[$header['pkg']];
+									$mapping[$no]['description'] 	= $value[$header['description']];
+									$mapping[$no]['pcs'] 			= $value[$header['pcs']];
+									$mapping[$no]['kg']				= $value[$header['kg']];
+									$mapping[$no]['value'] 			= $value[$header['value']];
+									$mapping[$no]['prepaid']		= $value[$header['pp']];
+									$mapping[$no]['collect']		= $value[$header['cc']];
+									$mapping[$no]['remarks'] 		= $value[$header['remarks']];
+									$mapping[$no]['status']			= 'NOT VERIFIED';
+									$mapping[$no]['created_date']	= date('Y-m-d h:i:s');
+									$mapping[$no]['last_update']	= date('Y-m-d h:i:s');
+									$mapping[$no]['user_id']		= $this->session->userdata('user_id');
 									
 									$this->manifest_model->data_insert_new($mapping[$no]);
 									$no++;
 								}
 							}
-							$redirect = site_url('manifest/verification?FILE_ID=' . $FILE_ID);
+							$redirect = site_url('manifest/verification?file_id=' . $file['file_id']);
 						} else {
 							$status = 'error';
 							$message = 'Format header incorrect, please check and try again';
@@ -131,15 +130,15 @@ class Manifest extends MY_Controller {
 				}
 				echo json_encode(array('status' => $status, 'message' => $message, 'redirect' => $redirect));
 			break;
-		case 'get_by_data_id':
-			$data_id = $_POST['manifest_data_id'];
+		case 'get_data':
+			$data_id = $_POST['data_id'];
 			$data = $this->manifest_model->get_by_data_id($data_id);
 			echo json_encode($data);
 			break;
 
 		case 'verification':
-			$FILE_ID = $_POST['FILE_ID'];
-			$this->manifest_model->set_status_data($FILE_ID,'VALID');
+			$file_id = $_POST['file_id'];
+			$this->manifest_model->set_status_data($file_id,'VALID');
 			break;
 			
 			default:

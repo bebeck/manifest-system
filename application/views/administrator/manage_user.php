@@ -22,13 +22,13 @@
                                             if(strtolower($row->TYPE) == 'admin') $disabled = 'disabled'; else $disabled = '';
                                             echo '
                                                 <tr>
-                                                    <td valign="middle">'.$row->USERNAME.'</td>
-                                                    <td valign="middle">'.$row->LAST_ACTIVITY.'</td>
+                                                    <td valign="middle">'.$row->username.'</td>
+                                                    <td valign="middle">'.$row->last_activity.'</td>
                                                     <td valign="middle">
                                                         <div class="btn-group btn-group-xs">
                                                             <button type="button" class="btn btn-default">Activity</button>
                                                             <button type="button" class="btn btn-default '.$disabled.'">Edit</button>
-                                                            <button type="button" class="btn btn-danger '.$disabled.' delete-user" USERNAME="'.$row->USERNAME.'" USER_ID="'.$row->USER_ID.'">Delete</button>
+                                                            <button type="button" class="btn btn-danger '.$disabled.' delete-user" username="'.$row->useraname.'" user_id="'.$row->user_id.'">Delete</button>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -85,7 +85,7 @@
       </div>
       <div class="modal-body">
         <p class="message-form-delete" style="padding:15px 15px; display:none;"></p>
-        <input type="hidden" name="USER_ID" id="USER_ID_DELETE"/>
+        <input type="hidden" name="user_id" id="USER_ID_DELETE"/>
         Are you sure want to delete user "<strong><span class="delete-username"><span></strong>"?
       </div>
       <div class="modal-footer">
@@ -104,11 +104,11 @@ $(document).ready(function(){
         $('#add_user_modal').modal('show');
     })
     $('.delete-user').click(function(){
-        USER_ID = $(this).attr('USER_ID');
-        USERNAME = $(this).attr('USERNAME');
+        user_id = $(this).attr('user_id');
+        username = $(this).attr('username');
 
-        $('#USER_ID_DELETE').val(USER_ID);
-        $('.delete-username').text(USERNAME);
+        $('#USER_ID_DELETE').val(user_id);
+        $('.delete-username').text(username);
         $('#delete_user_modal').modal('show');
     })
 

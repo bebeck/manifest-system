@@ -201,7 +201,6 @@ Class Customers extends MY_Controller {
 				$data['type'] 			= $TYPE;
 				$data['created_date']	= date('Y-m-d h:i:s');
 				$data['user_id']		= $this->session->userdata('user_id');
-				
 				$this->customers_model->save_customer($data);
 
 				$return_data = '

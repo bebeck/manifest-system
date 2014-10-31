@@ -187,7 +187,8 @@
                                 <select class="form-control bfh-states" name="cust_country">
                                     <?php
                                         foreach ($this->customers_model->list_country() as $key => $value) {
-                                            echo '<option value="'.$value.'">'.$value.'</option>';
+                                            $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
+                                            echo '<option value="'.$value.'" '.$selected.'>'.$value.'</option>';
                                         }
                                     ?>
                                 </select>

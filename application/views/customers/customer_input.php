@@ -490,7 +490,7 @@
                  <div class="form-group">
               <label>Status</label>
               		
-  					 <select required class="form-control" name="status" >
+  					 <select class="form-control" name="status" >
                           <option value=""></option>
                				<option value="regular">regular customer</option>
                             </select>

@@ -114,8 +114,9 @@
                  <div class="panel-footer">
                         <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
-                            <a href="#" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                           <?php  echo  "<a href='".base_url()."'customers/edit/".$getUser->cust_id."' data-original-title='Edit this user' data-toggle='tooltip' type='button' class='btn btn-sm btn-warning' name='edit'><i class='glyphicon glyphicon-edit'></i></a>
+                    
+                   <a href='#' data-href='".base_url()."'customers/customer_delete/".$getUser->cust_id."'data-original-title='Remove this user' data-toggle='modal'  data-target='#confirm-delete' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a>" ?>
                         </span>
                     </div>
             
@@ -124,3 +125,32 @@
       </div>
       </div>
     </div>
+    
+      <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Confirmation 
+            </div>
+            <div class="modal-body">
+                Are You Sure Want To Delete This User?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="<?=base_url()?>customers/customer_delete/<?= $getUser->cust_id ?>" class="btn btn-danger danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+$('#confirm-delete').onclick('show.bs.modal',function(e) {
+			
+ 		$(this).find('.danger').attr('href', $(e.relatedTarget).data('href'));
+});
+
+
+
+</script>

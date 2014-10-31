@@ -39,7 +39,7 @@
                             
                             <div class="form-group">
                                 <label>From</label>
-                                <select class="form-control" name="flight_from" required>
+                                <select class="form-control flight_from" name="flight_from" required>
                                     <?php
                                         foreach ($this->customers_model->list_country() as $key => $value) {
                                             $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
@@ -51,7 +51,7 @@
                             
                             <div class="form-group">
                                 <label>To</label>
-                                <select class="form-control" name="flight_to" required>
+                                <select class="form-control flight_to" name="flight_to" required>
                                     <?php
                                         foreach ($this->customers_model->list_country() as $key => $value) {
                                             $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
@@ -93,6 +93,8 @@
 
 <script type="text/javascript">
 $(function () {
+    $('.flight_from, .flight_to').select2();
+
     $('#form_upload_manifest').ajaxForm({
         beforeSend: function() {
             var percentVal = '0%';

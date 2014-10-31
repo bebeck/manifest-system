@@ -64,14 +64,7 @@
 </div>
 
 
-<link rel="stylesheet" href="<?=base_url() ?>asset/library/select2/select2.css">
-<link rel="stylesheet" href="<?=base_url() ?>asset/library/select2/bootstrap-select2.css">
-
-<link rel="stylesheet" href="<?=base_url() ?>asset/library/datepicker/datepicker3.css">
-<script type="text/javascript" src="<?=base_url('asset/library/datepicker/bootstrap-datepicker.js')?>"></script>
-<script type="text/javascript" src="<?=base_url('asset/library/select2/select2.min.js')?>"></script>
 <script type="text/javascript">
-
 var FILE_NAME = '';
 var NUM_PAGE = 1;
 var DATE = '';

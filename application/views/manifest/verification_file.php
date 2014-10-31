@@ -184,7 +184,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Country</label>
-                                <select class="form-control bfh-states" name="cust_country">
+                                <select class="form-control bfh-states country" name="cust_country">
                                     <?php
                                         foreach ($this->customers_model->list_country() as $key => $value) {
                                             $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
@@ -232,6 +232,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+    $('.country').select2();
+
     $('button.add-customer').click(function(){
         $('#add_customer_modal').resetForm();
         data_id = $(this).attr('manifest_data_id');

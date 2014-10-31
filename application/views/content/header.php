@@ -30,6 +30,13 @@
 
     <script src="<?=base_url()?>style/js/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="<?=base_url()?>style/js/sb-admin-2.js"></script>
+
+    <link rel="stylesheet" href="<?=base_url() ?>asset/library/select2/select2.css">
+    <link rel="stylesheet" href="<?=base_url() ?>asset/library/select2/bootstrap-select2.css">
+
+    <link rel="stylesheet" href="<?=base_url() ?>asset/library/datepicker/datepicker3.css">
+    <script type="text/javascript" src="<?=base_url('asset/library/datepicker/bootstrap-datepicker.js')?>"></script>
+    <script type="text/javascript" src="<?=base_url('asset/library/select2/select2.min.js')?>"></script>
 </head>
 
 <body>

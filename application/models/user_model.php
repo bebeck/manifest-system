@@ -23,7 +23,7 @@ class User_model extends CI_Model {
 
 	function create_user($username,$password) {
 		$this->db->set('user_id','USR' . $this->create_user_id());
-		$this->db->set('useraname',$username);
+		$this->db->set('username',$username);
 		$this->db->set('password',$password);
 		$this->db->set('type','User');
 		$this->db->set('created_date',date('Y-m-d h:i:s'));

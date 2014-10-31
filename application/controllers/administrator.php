@@ -41,9 +41,9 @@ class Administrator extends MY_Controller {
 				break;
 			case 'delete_user':
 				$error = ''; $message = '';
-				$USER_ID = $_POST['USER_ID'];
-				if($this->user_model->get_by_id($USER_ID) != FALSE) {
-					$this->user_model->delete_user($USER_ID);
+				$user_id = $_POST['user_id'];
+				if($this->user_model->get_by_id($user_id) != FALSE) {
+					$this->user_model->delete_user($user_id);
 					$message = 'User has been deleted';
 				} else {
 					$error = 'error';

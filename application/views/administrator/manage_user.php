@@ -19,7 +19,7 @@
                                 <tbody>
                                     <?php
                                         foreach ($list_user as $key => $row) {
-                                            if(strtolower($row->TYPE) == 'admin') $disabled = 'disabled'; else $disabled = '';
+                                            if(strtolower($row->type) == 'admin') $disabled = 'disabled'; else $disabled = '';
                                             echo '
                                                 <tr>
                                                     <td valign="middle">'.$row->username.'</td>
@@ -28,7 +28,7 @@
                                                         <div class="btn-group btn-group-xs">
                                                             <button type="button" class="btn btn-default">Activity</button>
                                                             <button type="button" class="btn btn-default '.$disabled.'">Edit</button>
-                                                            <button type="button" class="btn btn-danger '.$disabled.' delete-user" username="'.$row->useraname.'" user_id="'.$row->user_id.'">Delete</button>
+                                                            <button type="button" class="btn btn-danger '.$disabled.' delete-user" username="'.$row->username.'" user_id="'.$row->user_id.'">Delete</button>
                                                         </div>
                                                     </td>
                                                 </tr>

@@ -186,6 +186,10 @@ Class Customers extends MY_Controller {
 				break;
 
 			case 'add_customer':
+				#Set Customer To Data
+				$DATA_ID = $_POST['data_id'];
+				$TYPE 	= $_POST['data_type'];
+
 				$data['reference_id'] 	= $_POST['cust_id'];
 				$data['name'] 			= $_POST['cust_name'];
 				$data['address'] 		= $_POST['cust_address'];
@@ -194,6 +198,10 @@ Class Customers extends MY_Controller {
 				$data['country'] 		= $_POST['cust_country'];
 				$data['email'] 			= $_POST['cust_email'];
 				$data['phone'] 			= $_POST['cust_phone'];
+				$data['type'] 			= $TYPE;
+				$data['created_date']	= date('Y-m-d h:i:s');
+				$data['user_id']		= $this->session->userdata('user_id');
+				
 				$this->customers_model->save_customer($data);
 
 				$return_data = '
@@ -202,9 +210,6 @@ Class Customers extends MY_Controller {
 				'.$data['country'].'<br/>
 				';
 
-				#Set Customer To Data
-				$DATA_ID = $_POST['data_id'];
-				$TYPE 	= $_POST['data_type'];
 				$this->manifest_model->set_data_customer($data['reference_id'],$DATA_ID,$TYPE);
 
 				$check_valid_status = $this->manifest_model->check_valid_status($DATA_ID);

@@ -16,9 +16,9 @@ class System extends CI_Model {
 		$this->session->set_userdata($session);
 	}
 
-	function remove_session_login($username) {
-		$session = array('login'=>FALSE,'user'=>'', 'time'=>'', 'ip'=>'');
-		$this->session->unset_userdata($session);
+	function remove_session_login() {
+		$session = array('login'=>'','user_id'=>'','username'=>'', 'time'=>'', 'ip'=>'');
+		$this->session->set_userdata($session);
 	}
 
 }

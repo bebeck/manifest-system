@@ -7,8 +7,24 @@
             <tr>
                 <td>'.$row->DATA_NO.'</td>
                 <td>'.$row->HAWB_NO.'</td>
-                <td>'.$row->SHIPPER.'</td>
-                <td>'.$row->CONSIGNEE.'</td>
+                <td>';
+                $shipper = $this->customers_model->get_by_id($row->SHIPPER);
+                if($shipper != FALSE) {                                                
+                    echo '
+                        <strong>'.$shipper->name.'</strong><br/>
+                        '.$shipper->address.'<br/>
+                        '.$shipper->country;
+                } else echo '<span class="label label-danger">Data Belum di Verifikasi</span>';
+                echo '</td>
+                <td>';
+                $consginee = $this->customers_model->get_by_id($row->CONSIGNEE);
+                if($shipper != FALSE) {                                                
+                    echo '
+                        <strong>'.$consginee->name.'</strong><br/>
+                        '.$consginee->address.'<br/>
+                        '.$consginee->country;
+                } else echo '<span class="label label-danger">Data Belum di Verifikasi</span>';
+                echo '</td>
                 <td>'.$row->PKG.'</td>
                 <td>'.$row->DESCRIPTION.'</td>
                 <td>'.$row->PCS.'</td>

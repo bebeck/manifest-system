@@ -1,3 +1,14 @@
+
+ <script> 
+        // wait for the DOM to be loaded 
+        $(document).ready(function() { 
+            // bind 'myForm' and provide a simple callback function 
+            $('#myForm').ajaxForm(function() { 
+                alert("Register Success"); 
+				window.location = "<?=site_url()?>customers";
+            }); 
+        }); 
+    </script> 
 <style>
 
 
@@ -82,7 +93,7 @@
         </div>
     </div>
 </div>
-<form role="form" method="post">
+<form role="form" method="post" id="myForm" action=	"<?php site_url().'customers/register'?>">
     <div class="row setup-content" id="step-1">
         <div class="col-xs-12">
             <div class="col-md-12">

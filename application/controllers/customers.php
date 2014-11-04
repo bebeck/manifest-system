@@ -86,9 +86,9 @@ Class Customers extends MY_Controller {
 		$this->set_layout('customers/customer_input',$array);
 	}
 	
-	function edit()
+	function edit($cust_id = null)
 	{
-		$UserId 			= $this->uri->segment(3);
+		
 		if($this->input->post('edit')){
 					$data['name'] = $this->input->post('name');
 					$data['address'] = $this->input->post('address');
@@ -124,21 +124,21 @@ Class Customers extends MY_Controller {
 					$data['remark'] = $this->input->post('remark');
 					$data['status'] = $this->input->post('status');
 					
-					$this->customers_model->customer_edit($UserId,$data);
+					$this->customers_model->customer_edit($cust_id,$data);
 			
 		}
 		
 		
 		
 			
-			$getUser 			= $this->customers_model->getuser($UserId); 
+			$getUser 			= $this->customers_model->getuser($cust_id); 
 			$array['getUser'] 	= $getUser;
 			$this->set_layout('customers/customer_editform',$array);
 	}
 	
-	function customer_delete($UserId=""){
+	function customer_delete($cust_id = null){
 			
-			$this->customers_model->customer_delete($UserId);
+			$this->customers_model->customer_delete($cust_id);
 			redirect ('customers');
 	}
 	
@@ -150,16 +150,19 @@ Class Customers extends MY_Controller {
 		
 	}
 	
-	function detail(){
-		
-		$UserId 		= $this->uri->segment(3);
-		$getUser 	= $this->customers_model->getuser($UserId); 
-		
-		
-		$data['getUser']   = $getUser;
+	function detail($cust_id = null){		
 	
-		$this->set_layout('customers/customer_view',$data);	
+		if($this->input->post('subRegular')){
+			$data['status'] 			= "regular";$this->customers_model->customer_edit($cust_id,$data);
+			$this->customers_model->customer_edit($cust_id,$data);
+		}elseif($this->input->post('unRegular')){
+			$data['status'] 			= "";
+			$this->customers_model->customer_edit($cust_id,$data);
+		}
 		
+		$data['customer_data']			= $this->customers_model->getuser($cust_id);
+		$data['cust_activity']			= $this->customers_model->getactivity($data['customer_data']->reference_id);			
+		$this->set_layout('customers/customer_view',$data);	
 	}
 
 	function ajax($method = null) {
@@ -193,6 +196,7 @@ Class Customers extends MY_Controller {
 				$data['reference_id'] 	= $_POST['cust_id'];
 				$data['name'] 			= $_POST['cust_name'];
 				$data['address'] 		= $_POST['cust_address'];
+				$data['sort_name'] 		= $_POST['attn'];
 				$data['state'] 			= $_POST['cust_state'];
 				$data['city'] 			= $_POST['cust_city'];
 				$data['country'] 		= $_POST['cust_country'];

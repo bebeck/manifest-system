@@ -59,17 +59,27 @@ class Customers_model extends CI_Model {
 			}
 	}
 	
-	function customer_edit($UserId,$data)
+	function customer_edit($cust_id,$data)
 	{
-		$this->db->where('cust_id', $UserId);
+		$this->db->where('cust_id', $cust_id);
 		$this->db->update('customer_table', $data); 	
 		
 	}
 	
-	function customer_delete($UserId)
+	function customer_delete($cust_id)
 	{
-		$this->db->where('cust_id', $UserId);
+		$this->db->where('cust_id', $cust_id);
 		$this->db->delete('customer_table'); 
+		
+	}
+	
+	function getactivity ($refference_id)
+	{
+		$this->db->where('shipper',$refference_id);
+		$this->db->or_where('consignee',$refference_id);
+		$query = $this->db->get('manifest_data_table');
+		if($query->num_rows() > 0) return $query->result();
+		else return FALSE;
 		
 	}
 	

@@ -47,7 +47,7 @@
    
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title"><?= $getUser->name?></h3>
+              <h3 class="panel-title"><?= $customer_data->name?></h3>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -65,64 +65,149 @@
                     <dd>Male</dd>
                   </dl>
                 </div>-->
-                <div class=" col-md-9 col-lg-9 "> 
+               
+                <div class=" col-md-9 col-lg-9 ">
+   <form method="post">              
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>Name:</td>
-                        <td><?= $getUser->sort_name ?></td>
+                        <td>Attn:</td>
+                        <td><?= $customer_data->sort_name ?></td>
                       </tr>
                       <tr>
                         <td>Address</td>
-                         <td><?= $getUser->address ?></td>
+                         <td><?= $customer_data->address ?></td>
                       </tr>
                       <tr>
                         <td>Status</td>
-                        <td><?= $getUser->status ?></td>
+                        <td><?= $customer_data->status ?></td>
                       </tr>
                    
                          <tr>
                              <tr>
                         <td>Tax Class</td>
-                        <?php if ($getUser->tax_class >0 ){$tax_class = $getUser->tax_class."%";}elseif($getUser->tax_class== "none"){
-							 $tax_class = $getUser->tax_class;}else $tax_class="" ?>
+                        <?php if ($customer_data->tax_class >0 ){$tax_class = $customer_data->tax_class."%";}elseif($customer_data->tax_class== "none"){
+							 $tax_class = $customer_data->tax_class;}else $tax_class="" ?>
                         <td><?= $tax_class ?></td>
                       </tr>
                       
                       <tr>
                         <td>Email</td>
                        
-                        <td><a href="mailto:info@support.com"><?= $getUser->email?></a></td>
+                        <td><a href="mailto:<?= $customer_data->email?>"><?= $customer_data->email?></a></td>
                       </tr>
                         <td>Phone Number</td>
-                        <?php if($getUser->mobile != ""){
-								$mobile = $getUser->mobile."(mobile)";
+                        <?php if($customer_data->mobile != ""){
+								$mobile = $customer_data->mobile."(mobile)";
 							}else $mobile = ""?>
-                        <td><?php echo $getUser->phone."(Phone)" ?><br><br><?= $mobile?>
+                        <td><?php echo $customer_data->phone."(Phone)" ?><br><br><?= $mobile?>
                         </td>
                            
                       </tr>
                      
                     </tbody>
                   </table>
-                  
-                  <a href="#" class="btn btn-primary">Make Regular Customer</a>
-                 
+               
+                  <?php if($customer_data->status == "regular"){
+                 	echo "<input type='submit' name='unRegular' class='btn btn-primary' value='set Unregular customer'>";
+				  }elseif($customer_data->status == ""){
+					echo "<input type='submit' name='subRegular' class='btn btn-primary' value='make regular customer'>";
+				  }
+                    ?>
+               </form>
                 </div>
               </div>
             </div>
                  <div class="panel-footer">
                         <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
-                           <?php  echo  "<a href='".base_url()."customers/edit/".$getUser->cust_id."' data-original-title='Edit this user' data-toggle='tooltip' type='button' class='btn btn-sm btn-warning' name='edit'><i class='glyphicon glyphicon-edit'></i></a>
+                           <?php  echo  "<a href='".base_url()."customers/edit/".$customer_data->cust_id."' data-original-title='Edit this user' data-toggle='tooltip' type='button' class='btn btn-sm btn-warning' name='edit'><i class='glyphicon glyphicon-edit'></i></a>
                     
-                   <a href='#' data-href='".base_url()."'customers/customer_delete/".$getUser->cust_id."'data-original-title='Remove this user' data-toggle='modal'  data-target='#confirm-delete' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a>" ?>
+                   <a href='#' data-href='".base_url()."'customers/customer_delete/".$customer_data->cust_id."'data-original-title='Remove this user' data-toggle='modal'  data-target='#confirm-delete' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a>" ?>
                         </span>
                     </div>
             
           </div>
+          
         </div>
+
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="100">Flight No</th>
+                                        <th width="100">Hawb No</th>
+                                        <th>Shipper</th>
+                                        <th>Consignee</th>
+                                        <th width="40">PKG</th>
+                                        <th>Description</th>
+                                        <th width="40">PCS</th>
+                                        <th width="40">KG</th>
+                                        <th width="40">Val</th>
+                                        <th width="40">PP</th>
+                                        <th width="40">CC</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="manifest-data-row">
+                                <?php
+                                    if($cust_activity != false) {
+                                        $no = 1;
+                                        foreach ($cust_activity as $key => $row) {
+                                            echo '
+                                            <tr id="' . $row->data_id.'">
+                                                <td class="data_no">'.$row->data_no.'</td>
+                                                <td class="hawb_no">'.$row->hawb_no.'</td>
+                                            ';
+
+                                            echo '<td class="shipper">';
+                                            $shipper = $this->customers_model->get_by_id($row->shipper);
+                                            if($shipper != FALSE) {                                                
+                                                echo '
+                                                    <strong>'.$shipper->name.'</strong><br/>
+                                                    '.$shipper->address.'<br/>
+                                                    '.$shipper->country;
+                                            }
+                                            echo '</td>';
+
+                                            echo '<td class="consignee">';
+                                            $consignee = $this->customers_model->get_by_id($row->consignee);
+                                            if($consignee != FALSE) {                                                
+                                                echo '
+                                                    <strong>'.$consignee->name.'</strong><br/>
+                                                    '.$consignee->address.'<br/>
+                                                    '.$consignee->country;
+                                            }
+                                            echo '</td>';
+											
+                                            echo '
+                                                <td align="center" class="pkg">'.$row->pkg.'</td>
+                                                <td class="description">'.$row->description.'</td>
+                                                <td align="center" class="pcs">'.$row->pcs.'</td>
+                                                <td align="center" class="kg">'.$row->kg.'</td>
+                                                <td align="center" class="value">'.$row->value.'</td>
+                                                <td align="center" class="prepaid">'.$row->prepaid.'</td>
+                                                <td align="center" class="collect">'.$row->collect.'</td>
+                                                <td class="remarks">'.$row->remarks.'</td>
+                                            </tr>
+                                            ';
+                                            $no++;
+                                        }
+                                    } else {
+                                        echo '
+                                        <tr>
+                                            <td colspan="13" align="center">No found data</td>
+                                        </tr>
+                                        ';
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+
       </div>
+     
+      
+      
+      
       </div>
     </div>
     
@@ -140,8 +225,17 @@
                 <a href="<?=base_url()?>customers/customer_delete/<?= $getUser->cust_id ?>" class="btn btn-danger danger">Delete</a>
             </div>
         </div>
+        
+       
+        
+        
+        
+        
     </div>
 </div>
+
+
+
 
 <script type="text/javascript">
 

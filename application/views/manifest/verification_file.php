@@ -160,16 +160,23 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>Refference Id</label>
                                 <input type="text" class="form-control cust_id_" name="cust_id" value="" disabled>
                             </div>
                             <div class="form-group">   
                                 <label>Name</label>
                                 <input type="text" class="form-control" name="cust_name" required>
                             </div>
+                            
+                            
                             <div class="form-group">
                                 <label>Address</label>
                                 <textarea class="form-control" name="cust_address" rows="3" required></textarea>
+                            </div>
+                            
+                             <div class="form-group">   
+                                <label>Attn</label>
+                                <input type="text" class="form-control" name="attn" required>
                             </div>
                             <div class="form-group">
                                 <label >State</label>

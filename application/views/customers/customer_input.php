@@ -8,6 +8,11 @@
 				window.location = "<?=site_url()?>customers";
             }); 
         }); 
+		
+		
+		
+		
+		
     </script> 
 <style>
 
@@ -116,7 +121,7 @@
                                 
                                   <div class="form-group">
                            <label>Address</label>
-                      <textarea name="address" rows="5" style="resize:none" class="form-control" required="required"></textarea>
+                      <textarea class="form-control" name="cust_address" placeholder="please fill address field" style="resize:none" required></textarea>
                                         </div>
                                         
                                   <div class="form-group">
@@ -624,14 +629,14 @@ $(document).ready(function () {
         var curStep = $(this).closest(".setup-content"),
             curStepBtn = curStep.attr("id"),
             nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            curInputs = curStep.find("input[type='text'],input[type='url'],textarea"),
             isValid = true;
 
         $(".form-group").removeClass("has-error");
         for(var i=0; i<curInputs.length; i++){
             if (!curInputs[i].validity.valid){
                 isValid = false;
-                $(curInputs[i]).closest(".form-group").addClass("has-error");
+               $(curInputs[i]).closest(".form-group").addClass("has-error");
             }
         }
 

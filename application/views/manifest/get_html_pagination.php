@@ -3,7 +3,7 @@
 ?>
 
 <div class="col-lg-6">
-<span style="line-height:70px;">Page: <?=$page?> From: <?=$total_page?></span>
+<span style="line-height:70px;">Total Data: <?=$total_row?></span>
 </div>
 
 <div class="col-lg-6" style="text-align:right;">

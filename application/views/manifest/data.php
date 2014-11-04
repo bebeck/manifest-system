@@ -31,6 +31,34 @@
                                     </div>
                                 </div>          
                             </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Shipper</label>
+                                    <select class="form-control" id="shipper" multiple>
+                                        <?php
+                                            if($list_shipper != FALSE) {
+                                                foreach ($list_shipper as $key => $value) {
+                                                    echo '<option value="'.$value->reference_id.'">'.$value->name.' ('.$value->country.')</option>';
+                                                }
+                                            }
+                                        ?>
+                                    </select>
+                                </div>                                             
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Consignee</label>
+                                    <select class="form-control" id="consignee" multiple>
+                                        <?php
+                                            if($list_consignee != FALSE) {
+                                                foreach ($list_consignee as $key => $value) {
+                                                    echo '<option value="'.$value->reference_id.'">'.$value->name.' ('.$value->country.')</option>';
+                                                }
+                                            }
+                                        ?>
+                                    </select>
+                                </div>          
+                            </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-sm btn-primary find-data">Find</button>
                             </div>
@@ -66,13 +94,17 @@
 
 <script type="text/javascript">
 var file_name = '';
+var shipper = '';
+var consignee = '';
 var date = '';
 var page = 1;
 
 $(document).ready(function(){
-    $('#file_name').select2();
+    $('#file_name, #shipper, #consignee').select2({
+        minimumInputLength: 2
+    });
     $('.input-group.date').datepicker({
-        format: "yyyy-m-d",
+        format: "yyyy-mm-dd",
         keyboardNavigation: false,
         forceParse: false,
         autoclose: true
@@ -80,6 +112,8 @@ $(document).ready(function(){
     $('.find-data').click(function(){ 
         page = 1;
         file_name = $('#file_name').select2('val');
+        shipper = $('#shipper').select2('val');
+        consignee = $('#consignee').select2('val');
         date = ($('#created_date').val()) ? $('#created_date').val() : '';
         get_data(); 
     })
@@ -94,7 +128,7 @@ function get_data(){
     $.ajax({
         url: '<?=site_url('manifest/ajax/get')?>',
         type: 'get',
-        data: {'file_name': file_name,'date': date,'page': page},
+        data: {'file_name': file_name,'shipper':shipper,'consignee':consignee,'date': date,'page': page},
         dataType: 'json',
         success: function(get){
             elem = $('.manifest-data-row');
@@ -106,5 +140,12 @@ function get_data(){
     })
 }
 
+function show_details(data_id){
+    $.colorbox({
+        iframe:true,
+        href:'<?=base_url()?>manifest/modal/details?data_id='+data_id,
+        width:800,
+        height:393
+    })
+}
 </script>
-  

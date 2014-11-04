@@ -2,6 +2,13 @@
 
 class Customers_model extends CI_Model {
 	
+	function get_list($type = null) {
+		if($type != null) $this->db->where('LOWER(type)',$type);
+		$get = $this->db->get('customer_table');
+		if($get->num_rows() > 0) return $get->result();
+		else return FALSE;
+	}
+
 	function get_customer($address = null, $type = null) {
 		$customer = $this->get_by_id($address);
 		if($customer != FALSE) {

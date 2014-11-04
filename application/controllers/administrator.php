@@ -12,9 +12,13 @@ class Administrator extends MY_Controller {
 	}
 
 	function manage_user() {
-
 		$data = array('list_user' => $this->user_model->get_list());
 		$this->set_layout('administrator/manage_user',$data);
+	}
+
+	function manage_kurs() {
+		$data = array('kurs' => $this->tools->get_kurs());
+		$this->set_layout('administrator/manage_kurs',$data);
 	}
 
 	function ajax($method = null) {
@@ -50,6 +54,9 @@ class Administrator extends MY_Controller {
 					$message = 'Failed to delete!';
 				}
 				echo json_encode(array('error'=>$error,'message'=>$message));					
+				break;
+			case 'update_kurs':
+				$this->tools->update_kurs($_POST['kurs']);
 				break;
 			default:
 				# code...

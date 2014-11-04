@@ -65,7 +65,7 @@
                                 <input id="fileupload" type="file" name="userfile">
                             </div>
                            
-                            <button type="submit" class="btn btn-info submit-upload">Submit <img src="<?=base_url('asset/images/ajax-loader.gif')?>" class="ajax-loader" style="margin-left:20px; display:none;"></button>
+                            <button type="submit" class="btn btn-success btn-sm submit-upload">Submit <img src="<?=base_url('asset/images/ajax-loader.gif')?>" class="ajax-loader" style="margin-left:20px; display:none;"></button>
                         </div>
                     </div>
                     </form>

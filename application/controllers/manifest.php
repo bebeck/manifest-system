@@ -31,10 +31,19 @@ class Manifest extends MY_Controller {
 		}
 	}
 	
+	function current_rate(){
+		$from = "TWD";
+		$to = "IDR";
+		$amount = 321;
+		$url = "http://www.exchangerate-api.com/".$from."/".$to."/".$amount."?k=API_KEY";
+		$result = file_get_contents($url);
+		echo $result;
+	}
+
 	function data() {
 		if($this->session->userdata('login') != TRUE) redirect(base_url());
 
-		$data = array('list_file' => $this->manifest_model->get_file());
+		$data = array('list_file' => $this->manifest_model->get_file(), 'list_shipper' => $this->customers_model->get_list('shipper'), 'list_consignee' => $this->customers_model->get_list('consignee'));
 		$this->set_layout('manifest/data',$data);
 	}
 
@@ -49,7 +58,11 @@ class Manifest extends MY_Controller {
 
 				$where = array();
 				if(isset($_GET['file_name']) && !empty($_GET['file_name'])) $where['F.file_id']  = $_GET['file_name'];
-				if(isset($_GET['date']) && !empty($_GET['date'])) $where['F.created_date']  = $_GET['date'];
+				if(isset($_GET['date']) && !empty($_GET['date'])) $where['LEFT(F.created_date,10)']  = $_GET['date'];
+				if(isset($_GET['shipper']) && !empty($_GET['shipper'])) $where['D.shipper']  = $_GET['shipper'];
+				if(isset($_GET['consignee']) && !empty($_GET['consignee'])) $where['D.consignee']  = $_GET['consignee'];
+
+				$where['D.status'] = 'VALID';
 
 				$data_ = array('manifest' => $this->manifest_model->get_filtering_data($start,$limit,$where));
 				$data__ = array('total_row' => count($this->manifest_model->get_filtering_data(null,null,$where)), 'page' => $page, 'limit' => $limit);
@@ -76,6 +89,9 @@ class Manifest extends MY_Controller {
 						$file['consign_to'] 	= $_POST['consign_to'];
 						$file['flight_from'] 	= $_POST['flight_from'];
 						$file['flight_to'] 		= $_POST['flight_to'];
+						$file['mawb_no'] 		= $_POST['mawb_no'];
+						$file['created_date'] 	= date('Y-m-d h:i:s');
+						$file['user_id']	 	= $this->session->userdata('user_id');
 						$file['mawb_no'] 		= $_POST['mawb_no'];
 						$this->manifest_model->file_insert_new($file);
 
@@ -112,6 +128,7 @@ class Manifest extends MY_Controller {
 									$mapping[$no]['collect']		= $value[$header['cc']];
 									$mapping[$no]['remarks'] 		= $value[$header['remarks']];
 									$mapping[$no]['status']			= 'NOT VERIFIED';
+									$mapping[$no]['nt_kurs']		= $this->tools->get_kurs();
 									$mapping[$no]['created_date']	= date('Y-m-d h:i:s');
 									$mapping[$no]['last_update']	= date('Y-m-d h:i:s');
 									$mapping[$no]['user_id']		= $this->session->userdata('user_id');
@@ -142,6 +159,19 @@ class Manifest extends MY_Controller {
 			$file_id = $_POST['file_id'];
 			$this->manifest_model->set_status_data($file_id,'VALID');
 			break;
+			
+			default:
+				# code...
+				break;
+		}
+	}
+
+	function modal($method = null){
+		switch ($method) {
+			case 'details':
+				$data_id = $_GET['data_id'];
+				$this->load->view('download/airwaybill');
+				break;
 			
 			default:
 				# code...

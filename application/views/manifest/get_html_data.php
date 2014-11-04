@@ -35,9 +35,9 @@
                 <td>'.$row->remarks.'</td>
                 <td>
                     <div class="btn-group btn-group-xs">
-                        <button type="button" class="btn btn-default" title="Details"><span class="glyphicon glyphicon-search"></span></button>
-                        <button type="button" class="btn btn-default" title="Edit"><span class="glyphicon glyphicon-edit"></span></button>
-                        <button type="button" class="btn btn-default" title="Print"><span class="glyphicon glyphicon-print"></span></button>
+                        <button type="button" class="btn btn-default" title="Details" onCLick="show_details(\''.$row->data_id.'\')"><span class="glyphicon glyphicon-search"></span></button>
+                        <button type="button" class="btn btn-default" title="Edit" onCLick="edit_data(\''.$row->data_id.'\')"><span class="glyphicon glyphicon-edit"></span></button>
+                        <button type="button" class="btn btn-default" title="Print" onCLick="print_data(\''.$row->data_id.'\')"><span class="glyphicon glyphicon-print"></span></button>
                     </div>
                 </td>
             </tr>

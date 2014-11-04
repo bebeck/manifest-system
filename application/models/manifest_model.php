@@ -79,8 +79,8 @@ class Manifest_model extends CI_Model {
 		return $get->num_rows();
 	}
 
-	function set_status_data($file_id,$status) {
-		$this->db->where('file_id',$file_id);
+	function set_status_data($data_id,$status) {
+		$this->db->where('data_id',$data_id);
 		$this->db->set('status',$status);
 		$this->db->update('manifest_data_table');
 	}
@@ -102,18 +102,20 @@ class Manifest_model extends CI_Model {
 		$this->db->update('manifest_data_table');
 	}
 
-	function check_valid_status($DATA_ID) {
-		$this->db->where('data_id',$DATA_ID);
-		$DATA = $this->db->get('manifest_data_table');
+	function check_valid_status($data) {
+		$this->db->where('data_id',$data);
+		$data = $this->db->get('manifest_data_table');
 		$status = 0;
 
-		$this->db->where('reference_id',$DATA->row()->shipper);
+		$this->db->where('reference_id',$data->row()->shipper);
 		$get = $this->db->get('customer_table');
 		if($get->num_rows() > 0) $status++;
 
-		$this->db->where('reference_id',$DATA->row()->consignee);
+		$this->db->where('reference_id',$data->row()->consignee);
 		$get = $this->db->get('customer_table');
 		if($get->num_rows() > 0) $status++;
+
+		if($status == 2) $this->set_status_data($data->row()->data_id,'VALID');
 
 		return $status;
 	}

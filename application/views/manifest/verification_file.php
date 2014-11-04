@@ -119,11 +119,11 @@
                                 ?>
                             </tbody>
                         </table>
-                        <form id="form_verification" method="post" action="<?=site_url('manifest/ajax/verification')?>">
+                        <!--<form id="form_verification" method="post" action="<?=site_url('manifest/ajax/verification')?>">
                         <input type="hidden" name="FILE_ID" value="<?=$file->file_id?>">
                         <div class="btn-group">
                             <button type="submit" class="btn btn-sm btn-primary">Save Verification</button>
-                        </div>
+                        </div>-->
                         </form>
                     </div>
                 </div>
@@ -278,7 +278,6 @@ $(document).ready(function(){
         $('#add_customer_modal').resetForm();
         data_id = $(this).attr('manifest_data_id');
         data_type = $(this).attr('data_type');
-        alert(data_type);
         $.post('<?=base_url()?>customers/ajax/get_new_cust_id',function(data){
             $('input.cust_id, input.cust_id_').val(data);
         })

@@ -87,7 +87,9 @@ class Manifest extends MY_Controller {
 						$header = array();
 						foreach ($sheetData[1] as $key => $value) {
 							$value = strtolower(trim(str_ireplace(' ', '_', $value)));
-							if(in_array($value, $header_format)) $header[$value] = $key; 
+							if(strlen($value) > 0) {
+								if(in_array($value, $header_format)) $header[$value] = $key;
+							}
 						}
 						unset($sheetData[1]);
 

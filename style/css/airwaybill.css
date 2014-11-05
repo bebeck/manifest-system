@@ -1,70 +1,15 @@
-html, body {
-	font-size:12px;
-	font-family:Tahoma;
-	font-color:#000;
-	padding: 2px 0px;
-	margin:0px;
-}
-.content {
-	width: 783px;
-	height: 374px;
-	margin: auto;
-	padding: 5px;
-	background-color: #f9f9f9;
+.invoice-title h2, .invoice-title h3 {
+    display: inline-block;
 }
 
-.header {
-	height:80px;
-	border-bottom: 1px solid #d2d2d2;
-	padding-bottom: 5px;
-}
-.header > .logo {
-	float: left;
-	width: 350px;
-}
-.header > .logo > img {
-	width: 350px;
-	height: 80px;
-}
-.header > .description {
-	float: left;
-	width: 350px;
-	height: 73px;
-	text-align: center;
-	padding-top: 7px;
-}
-.header > .qrcode {
-	float: left;
-}
-.header > .qrcode > img {
-	width:80px;
-	height:80px;
+.table > tbody > tr > .no-line {
+    border-top: none;
 }
 
-.body-content {
-	padding:5px 0px;
+.table > thead > tr > .no-line {
+    border-bottom: none;
 }
 
-.information-shipping {
-	height: 120px;
-}
-.information-shipping > .shipping-details {
-	float: left;
-	width: 381px;
-	border: 1px solid blue;
-	margin: 3px;
-}
-.information-shipping > .shipping-details > .title {
-	height: 25px;
-	line-height: 25px;
-	background-color: #e2e2e2;
-	padding: 0px 3px;
-	border-bottom: 1px solid blue;
-}
-.information-shipping > .shipping-details > .shipping-content > table {
-	font-size: 12px;
-	font-family: Tahoma;
-}
-.information-shipping > .shipping-details > .shipping-content > table > tr > td:first-child {
-	vertical-align: top;
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
 }

@@ -2,7 +2,7 @@
 <head>
 <title>Airway Bill</title>
 <link rel="stylesheet" href="<?=base_url() ?>style/css/airwaybill.css">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>style/css/bootstrap.min.css">
 </head>
 
 <body>

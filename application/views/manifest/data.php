@@ -144,8 +144,9 @@ function show_details(data_id){
     $.colorbox({
         iframe:true,
         href:'<?=base_url()?>manifest/modal/details?data_id='+data_id,
-        width:800,
-        height:393
+        width:900,
+        height:450,
+        overlayClose:true
     })
 }
 </script>

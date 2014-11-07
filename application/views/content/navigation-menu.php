@@ -242,7 +242,7 @@
                     
                 </li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-file"></i>  Customers Card</a>
+                    <a href="<?=base_url()?>report/customer_card"><i class="glyphicon glyphicon-file"></i>  Customers Card</a>
                 </li>
                 <li>
                     <a href="#"><i class="glyphicon glyphicon-file"></i>  Administrator<span class="fa arrow"></span></a>

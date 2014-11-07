@@ -109,11 +109,12 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('manifest_model','customers_model','user_model','system', 'tools');
+$autoload['model'] = array('manifest_model','customers_model','user_model','system', 'tools','qr_code');
 
 define('PATH',realpath('./'));
 define('PATH_APP',PATH.'/application/');
 define('PATH_ATTACH',PATH.'/attach/');
+define('PATH_QRCODE',PATH.'/asset/qrcode/');
 
 
 /* End of file autoload.php */

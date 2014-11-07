@@ -113,7 +113,10 @@ class Manifest extends MY_Controller {
 							$no = 1;
 							foreach ($sheetData as $key => $value) {
 								if(!empty($value[$header['no']])) {
-									$mapping[$no]['data_id'] 		= 'THS' . date('ymdhis') . $this->manifest_model->data_new_id();
+									$new_data_id = 'THS' . date('ymdhis') . $this->manifest_model->data_new_id();
+									$rand_data_id = str_shuffle($new_data_id.time());
+
+									$mapping[$no]['data_id'] 		= $new_data_id;
 									$mapping[$no]['file_id'] 		= $file['file_id'];
 									$mapping[$no]['data_no'] 		= $value[$header['no']];
 									$mapping[$no]['hawb_no'] 		= $value[$header['hawb_no']];
@@ -132,8 +135,11 @@ class Manifest extends MY_Controller {
 									$mapping[$no]['created_date']	= date('Y-m-d h:i:s');
 									$mapping[$no]['last_update']	= date('Y-m-d h:i:s');
 									$mapping[$no]['user_id']		= $this->session->userdata('user_id');
-									
+									$mapping[$no]['status_payment']	= 'UNPAID';
+									$mapping[$no]['status_delivery']= 'PENDING';
+									$mapping[$no]['rand_data_id']	= $rand_data_id;
 									$this->manifest_model->data_insert_new($mapping[$no]);
+									$this->qr_code->generate($new_data_id,base_url().'tracking/'.$rand_data_id);
 									$no++;
 								}
 							}
@@ -170,7 +176,9 @@ class Manifest extends MY_Controller {
 		switch ($method) {
 			case 'details':
 				$data_id = $_GET['data_id'];
-				$this->load->view('download/airwaybill');
+
+				$data['details'] = $this->manifest_model->get_by_data_id($data_id);
+				$this->load->view('download/airwaybill',$data);
 				break;
 			
 			default:

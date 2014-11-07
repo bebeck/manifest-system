@@ -1,3 +1,4 @@
+
 <div id="wrapper">
 
     <div id="page-wrapper">
@@ -52,19 +53,20 @@
             <div class="col-lg-12">
                 <div class="table-responsive">
            
-            <input type="search" class="light-table-filter form-control" data-table="order-table" placeholder="Search" style="width:30%; float:right; margin-bottom:1%;">
-                    <table class=" table table-striped table-bordered table-hover order-table table" id="dataTables-example">
-                        <thead>
+           
+                    
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+					<thead>
                             <tr>
                                 <th>Customer Name</th>
                                 <th>Address</th>
                                 <th>Type</th>
-                                <th align="center" width="135px">Action</th>
+                                <th align="center">Action</th>
                                 
                             </tr>
-                        </thead>
-                        <tbody class="customer-data-row" >
-                        
+                    </thead>
+				<tbody>
+		
                         	<?php
 							
 							
@@ -77,11 +79,9 @@
 								echo "</tr>";
 							}
 							?>
-                        	
-                        
-                        
-                        </tbody>
-                    </table>
+				</tbody>
+		</table>
+			
                     
                 </div>  
             </div>
@@ -188,6 +188,7 @@ function get_data(){
 $('#confirm-delete').on('show.bs.modal', function(e) {
     $(this).find('.danger').attr('href', $(e.relatedTarget).data('href'));
 });
+
 
 
 </script>

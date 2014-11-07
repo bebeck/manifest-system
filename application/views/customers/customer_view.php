@@ -131,7 +131,7 @@
           
         </div>
 
-                            <table class="table table-striped table-bordered table-hover">
+                           <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
                                 <thead>
                                     <tr>
                                         <th width="100">Flight No</th>

@@ -206,7 +206,7 @@
                 <div class="panel-heading">
                   <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                      Contact
+                      Other
                     </a>
                   </h4>
                 </div>
@@ -214,12 +214,23 @@
                   <div class="panel-body">
                     <div class="form-group">   
                         <label>Email</label>
-                        <input type="email" class="form-control" name="cust_email" required>
+                        <input type="email" class="form-control" name="cust_email" >
                     </div>                   
                     <div class="form-group">   
                         <label>Phone</label>
-                        <input type="text" class="form-control" name="cust_phone" required>
-                    </div>                   
+                        <input type="text" class="form-control" name="cust_phone" >
+                    </div>   
+                     <div class="form-group">
+                        <label>Tax Class</label>
+                        <select required class="form-control" name="tax_class" >
+                          <option value=""></option>
+                          	<option value="0">None</option>
+               				<option value="1">1%</option>
+                            <option value="10">10%</option>
+                        </select>
+                       
+                      </div>    
+                            
                   </div>
                 </div>
               </div>

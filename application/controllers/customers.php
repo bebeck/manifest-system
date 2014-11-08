@@ -202,6 +202,7 @@ Class Customers extends MY_Controller {
 				$data['country'] 		= $_POST['cust_country'];
 				$data['email'] 			= $_POST['cust_email'];
 				$data['phone'] 			= $_POST['cust_phone'];
+				$data['tax_class'] 		= $_POST['tax_class'];
 				$data['type'] 			= $type;
 				$data['created_date']	= date('Y-m-d h:i:s');
 				$data['user_id']		= $this->session->userdata('user_id');

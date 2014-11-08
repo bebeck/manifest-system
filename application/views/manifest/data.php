@@ -140,7 +140,7 @@ function get_data(){
     })
 }
 
-function show_details(data_id){
+function details(data_id){
     $.colorbox({
         iframe:true,
         href:'<?=base_url()?>manifest/modal/details?data_id='+data_id,
@@ -148,5 +148,8 @@ function show_details(data_id){
         height:450,
         overlayClose:true
     })
+}
+function print(data_id) {
+    window.open('<?=base_url()?>download/pdf?data_id=' + data_id,'_blank');
 }
 </script>

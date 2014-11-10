@@ -4,6 +4,7 @@ class Welcome extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
+		$this->load->model('general');
 	}
 
 	function index() {
@@ -13,7 +14,21 @@ class Welcome extends MY_Controller {
 	}
 
 	function home() {
-		$this->set_layout(null);
+		
+		if($this->input->post('btnchat'))
+		{
+			
+			$data['user'] 			= $this->session->userdata('user_id');
+			$data['message'] 		= $this->input->post('message');	
+			$data['datepost']		= date('Y-m-d h:i:s');
+			$this->general->chatInput($data);
+			
+		}
+		
+		
+		$getChat 			= $this->general->chatView();
+		$data['getChat']	= $getChat;
+		$this->set_layout('home',$data);
 	}
 
 	function login(){

@@ -29,6 +29,7 @@
     <script src="<?=base_url('asset/javascript/ajax.form.min.js')?>"></script>
 
     <link rel="stylesheet" href="<?=base_url() ?>asset/library/colorbox/colorbox.css">
+    <link rel="stylesheet" href="<?=base_url() ?>style/css/chat.css">
     <script src="<?=base_url('asset/library/colorbox/jquery.colorbox.js')?>"></script>
 
 

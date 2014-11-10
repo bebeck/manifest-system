@@ -17,5 +17,19 @@ class General extends CI_Model
 		$this->db->insert('contact',$data);
 	}
 	
+	function chatInput($data)
+	{
+		$this->db->insert('chat',$data);
+	}
+	
+	function chatView()
+	{
+		$get 	= $this->db->get('chat');
+		if($get->num_rows() > 0) return $get->result();
+		else return FALSE;
+			
+		
+	}
+	
 	
 }

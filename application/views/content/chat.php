@@ -1,4 +1,7 @@
+
+
 <div class="container">
+<form id="myform" method="post" action="<?= base_url()?>home">
     <div class="row">
         <div class="col-md-5">
             <div class="panel panel-primary">
@@ -90,14 +93,17 @@
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                <input type="text" class="form-control input-sm" placeholder="Type your message here..." name="message" maxlength="100"/>
+
                         <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat">
-                                Send</button>
+                           <input type="submit" class="btn btn-warning btn-sm" id="btn-chat" value="send">
                         </span>
+                      
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+  </form>
 </div>

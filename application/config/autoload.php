@@ -115,6 +115,7 @@ define('PATH',realpath('./'));
 define('PATH_APP',PATH.'/application/');
 define('PATH_ATTACH',PATH.'/attach/');
 define('PATH_QRCODE',PATH.'/asset/qrcode/');
+define('PATH_PDF',PATH.'/asset/pdf/');
 
 
 /* End of file autoload.php */

@@ -55,6 +55,13 @@ class Manifest_model extends CI_Model {
 		$this->db->insert('manifest_data_table',$data);
 	}
 
+	function get_all() {
+		$this->db->where('status','VALID');
+		$get = $this->db->get('manifest_data_table');
+		if($get->num_rows() > 0) return $get->result();
+		else return FALSE;
+	}
+
 	function get_filtering_data($start = null,$limit = null,$where,$group_by = false) {
 		$this->db->select('F.file_name, D.*');
 		$this->db->join('manifest_data_table D', 'D.FILE_ID = F.FILE_ID');
@@ -86,7 +93,7 @@ class Manifest_model extends CI_Model {
 	}
 
 	function get_header_format(){
-		$header = array('no','hawb_no','shipper','consignee','pkg','description','pcs','kg','value','pp','cc','remarks');
+		$header = array('no','hawb_no','shipper','consignee','pkg','description','pcs','kg','value','pp','cc','remarks','other_charge');
 		return $header;
 	}
 

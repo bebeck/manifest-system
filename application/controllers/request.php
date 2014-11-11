@@ -10,6 +10,13 @@ class Request extends MY_Controller {
 		$this->set_layout();
 	}
 
+	function add_new(){
+		$data = array(
+			'manifest_data' => $this->manifest_model->get_all()
+			);
+		$this->set_layout('request/new',$data);
+	}
+
 }
 
 ?>

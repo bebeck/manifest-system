@@ -22,7 +22,8 @@
                                         <th width="40">Val</th>
                                         <th width="40">PP</th>
                                         <th width="40">CC</th>
-                                        <th>Remarks</th>
+                                        <th width="70">Remarks</th>
+                                        <th width="70">Other Charge</th>
                                     </tr>
                                 </thead>
                                 <tbody class="manifest-data-row">
@@ -105,6 +106,7 @@
                                                 <td align="center" class="prepaid">'.$row->prepaid.'</td>
                                                 <td align="center" class="collect">'.$row->collect.'</td>
                                                 <td class="remarks">'.$row->remarks.'</td>
+                                                <td class="remarks">'.$row->other_charge.'</td>
                                             </tr>
                                             ';
                                             $no++;

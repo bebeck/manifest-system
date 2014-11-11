@@ -130,6 +130,7 @@ class Manifest extends MY_Controller {
 									$mapping[$no]['prepaid']		= $value[$header['pp']];
 									$mapping[$no]['collect']		= $value[$header['cc']];
 									$mapping[$no]['remarks'] 		= $value[$header['remarks']];
+									$mapping[$no]['other_charge'] 	= $value[$header['other_charge']];
 									$mapping[$no]['status']			= 'NOT VERIFIED';
 									$mapping[$no]['nt_kurs']		= $this->tools->get_kurs();
 									$mapping[$no]['created_date']	= date('Y-m-d h:i:s');
@@ -177,10 +178,16 @@ class Manifest extends MY_Controller {
 			case 'details':
 				$data_id = $_GET['data_id'];
 
-				$data['details'] = $this->manifest_model->get_by_data_id($data_id);
-				$this->load->view('download/airwaybill',$data);
+				$data['data'] = $this->manifest_model->get_by_data_id($data_id);
+				$this->set_modal('manifest/details',$data);
 				break;
 			
+			case 'edit':
+				$data_id = $_GET['data_id'];
+
+				$data['data'] = $this->manifest_model->get_by_data_id($data_id);
+				$this->set_modal('manifest/edit',$data);
+				break;
 			default:
 				# code...
 				break;

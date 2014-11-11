@@ -145,7 +145,7 @@ function details(data_id){
         iframe:true,
         href:'<?=base_url()?>manifest/modal/details?data_id='+data_id,
         width:900,
-        height:450,
+        height:500,
         overlayClose:true
     })
 }

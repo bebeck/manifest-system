@@ -226,23 +226,25 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="<?=base_url()?>request"><i class="glyphicon glyphicon-random"></i>  Request</a>
+                    <a href="#"><i class="glyphicon glyphicon-file"></i>  Request<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="<?= base_url()?>request/add_new">Add New</a></li>
+                        <li><a href="<?=base_url()?>request/list">List Request</a></li>
+                        <li><a href="<?=base_url()?>request/voucher">List Voucher</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="<?=base_url('customers')?>"><i class="glyphicon glyphicon-file"></i> Customers <span class="fa arrow"></span></a>
-                   
                       <ul class="nav nav-second-level">
                         <li><a href="<?= base_url()?>customers">Data </a></li>
                         <li><a href="<?= base_url()?>customers/register">Add Customer </a></li>
-                        
-                        
-                          
                     </ul>
-                    
-                    
                 </li>
                 <li>
-                    <a href="<?=base_url()?>report/customer_card"><i class="glyphicon glyphicon-file"></i>  Customers Card</a>
+                    <a href="javascript"><i class="glyphicon glyphicon-file"></i> Report <span class="fa arrow"></span></a>
+                      <ul class="nav nav-second-level">
+                        <li><a href="<?=base_url()?>report/customer_card"> Customers Card</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#"><i class="glyphicon glyphicon-file"></i>  Administrator<span class="fa arrow"></span></a>

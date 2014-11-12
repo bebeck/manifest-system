@@ -1,102 +1,75 @@
-
-
-<div class="container">
+ <script> 
+        // wait for the DOM to be loaded 
+        $(document).ready(function() { 
+            // bind 'myForm' and provide a simple callback function 
+            $('#myForm').ajaxForm(function() { 
+                alert("Register Success"); 
+				
+            }); 
+        }); 
+		
+		
+		
+		
+		
+    </script> 
+    <link rel="stylesheet" href="<?=base_url() ?>style/css/chat.css">
+<div class="container" id="container">
 <form id="myform" method="post" action="<?= base_url()?>home">
     <div class="row">
         <div class="col-md-5">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-comment"></span> Chat
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </button>
-                        <ul class="dropdown-menu slidedown">
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh">
-                            </span>Refresh</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign">
-                            </span>Available</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove">
-                            </span>Busy</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
-                                Away</a></li>
-                            <li class="divider"></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
-                                Sign Out</a></li>
-                        </ul>
-                    </div>
+                   
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="mychat">
                     <ul class="chat">
                          <?php 
-						 	
-						 foreach($getChat as $key => $val){
-								 
-						echo " <li class='left clearfix'><span class='chat-img pull-left'>";
-						echo " <img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />";
-						echo "</span>";
-						echo "<div class='chat-body clearfix'>";
-						echo "  <div class='header'>
-                                    <strong class='primary-font'>".$val->user."</strong> <small class='pull-right text-muted'>
-                                        <span class='glyphicon glyphicon-time'></span>".$val->datepost."</small>
-                                </div>";
+						$userid = $this->session->userdata('user_id');
+						foreach($getChat as $key => $val){
+							if($val->user != $userid){ 
+								echo " <li class='left clearfix'><span class='chat-img pull-left'>";
+								echo " <img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />";
+								echo "</span>";
+								echo "<div class='chat-body clearfix'>";
+								echo "  <div class='header'>
+										<strong class='primary-font'>".$val->username."</strong> <small class='pull-right text-muted'>
+												<span class='glyphicon glyphicon-time'></span>".$val->datepost."</small>
+										</div>";
+									
+								echo "<p>".$val->message."</p>";
+								echo "</div>";
+								echo "</li>";
+							}elseif($val->user == $userid)
 							
-						echo "<p>".$val->message."</p>";
-						echo "</div>";
-						echo "</li>";
+							{
 								
+								echo " <li class='right clearfix'><span class='chat-img pull-right'>";
+								echo " <img src='http://placehold.it/50/FA6F57/fff&text=ME' alt='User Avatar' class='img-circle' />";
+								echo "</span>";
+								echo "<div class='chat-body clearfix'>";
+								echo "  <div class='header'>
+										<strong class='primary-font'>".$val->username."</strong> <small class='pull-right text-muted'>
+												<span class='glyphicon glyphicon-time'></span>".$val->datepost."</small>
+										</div>";
+									
+								echo "<p>".$val->message."</p>";
+								echo "</div>";
+								echo "</li>";
+								
+							}
 							
 						 }?>
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
+                       
                     </ul>
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                <input type="text" class="form-control input-sm" placeholder="Type your message here..." name="message" maxlength="100"/>
+                <input type="text" required class="form-control input-sm" placeholder="Type your message here..." name="message" maxlength="100"/>
 
                         <span class="input-group-btn">
-                           <input type="submit" class="btn btn-warning btn-sm" id="btn-chat" value="send">
+                           <input type="submit" class="btn btn-warning btn-sm" name="btnchat" id="btn-chat" value="send">
                         </span>
                       
                         

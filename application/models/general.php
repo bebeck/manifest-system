@@ -24,7 +24,10 @@ class General extends CI_Model
 	
 	function chatView()
 	{
-		$get 	= $this->db->get('chat');
+		$this->db->select('*');
+		$this->db->from('user_table');
+		$this->db->join('chat','chat.user = user_table.user_id');
+		$get 	= $this->db->get();
 		if($get->num_rows() > 0) return $get->result();
 		else return FALSE;
 			

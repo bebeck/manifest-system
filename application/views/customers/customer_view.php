@@ -96,11 +96,25 @@
                        
                         <td><a href="mailto:<?= $customer_data->email?>"><?= $customer_data->email?></a></td>
                       </tr>
+					  <tr>
                         <td>Phone Number</td>
                         <?php if($customer_data->mobile != ""){
 								$mobile = $customer_data->mobile."(mobile)";
 							}else $mobile = ""?>
                         <td><?php echo $customer_data->phone."(Phone)" ?><br><br><?= $mobile?>
+                        </td>
+                           
+                      </tr>
+
+					  <tr>
+                        <td>Due Date Payment</td>
+                        <?php if($customer_data->due_date_payment != "0000-00-00"){
+								$duedate = $customer_data->due_date_payment;
+							}elseif($customer_data->due_date_payment == "0000-00-00"){
+								$duedate = "<div style='color:red'>not set </div>";
+							}
+							?>
+                        <td><?php echo $duedate?><br><br>
                         </td>
                            
                       </tr>

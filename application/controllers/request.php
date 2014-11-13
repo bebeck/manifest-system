@@ -16,6 +16,7 @@ class Request extends MY_Controller {
 			);
 		$this->set_layout('request/new',$data);
 	}
+	
 
 }
 

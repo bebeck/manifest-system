@@ -21,6 +21,10 @@ class Administrator extends MY_Controller {
 		$this->set_layout('administrator/manage_kurs',$data);
 	}
 
+
+	
+
+
 	function ajax($method = null) {
 		switch ($method) {
 			case 'add_user':
@@ -32,10 +36,10 @@ class Administrator extends MY_Controller {
 				if($this->form_validation->run() == TRUE) {
 					if($this->user_model->check_username(set_value('username'))) {
 						$this->user_model->create_user(set_value('username'),md5(set_value('password')));
-						$message = 'User telah dibuat.';
+						$message = 'User has been created.';
 					} else {
 						$error = 'error';
-						$message = 'Username Telah digunakan!';
+						$message = 'Username has been used!';
 					}
 				} else {
 					$error = 'error';
@@ -43,6 +47,28 @@ class Administrator extends MY_Controller {
 				}
 				echo json_encode(array('error'=>$error,'message'=>$message));
 				break;
+
+				case 'edit_user':
+						$error = ''; $message = '';
+
+						$this->form_validation->set_rules('username', 'Username', 'trim|alpha|min_length[5]|max_length[12]');
+					//	$this->form_validation->set_rules('password', 'Password', 'min_length[8]|max_length[12]');
+
+						if($this->form_validation->run() == TRUE) {
+						$user_id = $this->input->post('user_id');
+						$data['username'] = $this->input->post('username');
+						$data['password'] = md5($this->input->post('password'));
+						$data['type']	  = $this->input->post('type');
+						$this->user_model->edit_user($user_id,$data);
+						$message = 'Edit User successful.';
+						}else {
+
+						$error = 'error';
+						$message = htmlspecialchars_decode(validation_errors());
+						}
+						echo json_encode(array('error'=>$error,'message'=>$message));	
+				break;
+
 			case 'delete_user':
 				$error = ''; $message = '';
 				$user_id = $_POST['user_id'];
@@ -55,6 +81,10 @@ class Administrator extends MY_Controller {
 				}
 				echo json_encode(array('error'=>$error,'message'=>$message));					
 				break;
+
+			
+
+
 			case 'update_kurs':
 				$this->tools->update_kurs($_POST['kurs']);
 				break;

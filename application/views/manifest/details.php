@@ -10,14 +10,17 @@ $consignee = $consignee->name.'
 '.$consignee->country;
 ?>
 
+<nav class="navbar navbar-default navbar-fixed-top text-left" role="navigation" style="padding:0px 20px;">
+	<a class="navbar-brand" href="#">Details Data</a>
+</nav>
+
 <nav class="navbar navbar-default navbar-fixed-bottom text-right" role="navigation" style="padding:0px 10px;">
     <button type="button" class="btn btn-sm btn-primary navbar-btn" onCLick="window.location='<?=base_url()?>manifest/modal/edit?data_id=<?=$data->data_id;?>'">Edit data</button>
-    <button type="button" class="btn btn-sm btn-primary navbar-btn">Set Payment</button>
     <button type="button" class="btn btn-sm btn-primary navbar-btn" onClick="print('<?=$data->data_id?>')">Print</button>
     <button type="button" class="btn btn-sm btn-danger navbar-btn" onClick="parent.$.colorbox.close();">Close</button>
 </nav>
 
-<div id="wrapper" style="padding:20px;">
+<div id="wrapper" style="padding:20px; margin-top:40px; margin-bottom:40px;">
 	<div class="row">
 	    <div class="col-sm-6">
 	        <div class="form-group">
@@ -68,19 +71,19 @@ $consignee = $consignee->name.'
 	    <div class="col-sm-6">
 	    	<div class="form-group">
 		    	<label>Shipper</label>
-		        <textarea class="form-control" rows="5" disabled><?=ucfirst($shipper);?></textarea>
+		        <textarea class="form-control" rows="4" disabled><?=ucfirst($shipper);?></textarea>
 		    </div>
 	    </div>
 	    <div class="col-sm-6">
 	    	<div class="form-group">
 	    		<label>Consignee</label>
-	        	<textarea class="form-control" rows="5" disabled><?=ucfirst($shipper);?></textarea>
+	        	<textarea class="form-control" rows="4" disabled><?=ucfirst($shipper);?></textarea>
 	    	</div>
 	    </div>
 	    <div class="col-sm-6">
 	     	<div class="form-group">
 		    	<label>Description</label>
-		        <textarea class="form-control" rows="4" disabled><?=ucfirst($data->description);?></textarea>
+		        <textarea class="form-control" rows="3" disabled><?=ucfirst($data->description);?></textarea>
 		    </div>
 	    </div>
 	    <div class="col-sm-6">
@@ -94,6 +97,6 @@ $consignee = $consignee->name.'
 
 <script type="text/javascript">
 function print(data_id) {
-    window.open('<?=base_url()?>download/pdf?data_id=' + data_id,'_blank');
+    window.open('<?=base_url()?>download/preparation?data_id=' + data_id,'_blank');
 }
 </script>

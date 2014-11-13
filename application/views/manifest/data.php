@@ -145,11 +145,11 @@ function details(data_id){
         iframe:true,
         href:'<?=base_url()?>manifest/modal/details?data_id='+data_id,
         width:900,
-        height:500,
+        height:550,
         overlayClose:true
     })
 }
 function print(data_id) {
-    window.open('<?=base_url()?>download/pdf?data_id=' + data_id,'_blank');
+    window.open('<?=base_url()?>download/preparation?data_id=' + data_id,'_blank');
 }
 </script>

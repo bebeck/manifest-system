@@ -156,6 +156,21 @@ class Manifest extends MY_Controller {
 				}
 				echo json_encode(array('status' => $status, 'message' => $message, 'redirect' => $redirect));
 			break;
+
+		case 'update':
+			$data_id = $_POST['data_id'];
+			$mapping['hawb_no'] 		= $_POST['hawb_no'];
+			$mapping['pkg'] 			= $_POST['pkg'];
+			$mapping['description'] 	= $_POST['description'];
+			$mapping['pcs'] 			= $_POST['pcs'];
+			$mapping['kg']				= $_POST['kg'];
+			$mapping['value'] 			= $_POST['value'];
+			$mapping['prepaid']			= $_POST['prepaid'];
+			$mapping['collect']			= $_POST['collect'];
+			$mapping['other_charge'] 	= $_POST['other_charge'];
+			$this->manifest_model->data_update($mapping,$data_id);
+			echo json_encode(array('data_id'=>$data_id));
+			break;
 		case 'get_data':
 			$data_id = $_POST['data_id'];
 			$data = $this->manifest_model->get_by_data_id($data_id);

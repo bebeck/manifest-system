@@ -55,11 +55,9 @@ class Manifest_model extends CI_Model {
 		$this->db->insert('manifest_data_table',$data);
 	}
 
-	function get_all() {
-		$this->db->where('status','VALID');
-		$get = $this->db->get('manifest_data_table');
-		if($get->num_rows() > 0) return $get->result();
-		else return FALSE;
+	function data_update($data,$data_id) {
+		$this->db->where('data_id',$data_id);
+		$this->db->update('manifest_data_table',$data);
 	}
 
 	function get_filtering_data($start = null,$limit = null,$where,$group_by = false) {

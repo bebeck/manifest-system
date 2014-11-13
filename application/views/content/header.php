@@ -43,7 +43,7 @@
     <script type="text/javascript" src="<?=base_url('asset/library/datepicker/bootstrap-datepicker.js')?>"></script>
     <script type="text/javascript" src="<?=base_url('asset/library/select2/select2.min.js')?>"></script>
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>style/css/dataTables.bootstrap.css">	
-	<script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10-dev/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="<?=base_url('asset/javascript/jquery.dataTables.min.js')?>"></script>
 	<script type="text/javascript" language="javascript" src="<?=base_url()?>style/js/dataTables.bootstrap.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {

@@ -32,7 +32,8 @@ class Download extends MY_Controller {
 			$pdf->SetFont('times', '', 11);
 		    $pdf->AddPage(); 
 		    $pdf->writeHTML($html, true, false, true, false, '');
-		    $pdf->Output($data_id . '.pdf', 'I');    
+		    $pdf->Output(PATH_PDF . $data_id . '.pdf', 'F');
+		    $pdf->Output($data_id . '.pdf', 'D');  
 		} else {
 			echo 'Download file expired';
 		}

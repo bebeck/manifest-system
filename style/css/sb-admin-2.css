@@ -6,6 +6,7 @@
 
 #wrapper {
     width: 100%;
+	background-color: #F6F6F6;
 }
 
 #page-wrapper {
@@ -96,6 +97,7 @@
 
 .sidebar .arrow {
     float: right;
+	color: rgb(2, 115, 230);
 }
 
 .sidebar .fa.arrow:before {

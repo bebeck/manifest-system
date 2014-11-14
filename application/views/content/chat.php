@@ -14,7 +14,6 @@
 		
     </script> 
     <link rel="stylesheet" href="<?=base_url() ?>style/css/chat.css">
-<div class="container" id="container">
 <form id="myform" method="post" action="<?= base_url()?>home">
     <div class="row">
         <div class="col-md-5">
@@ -66,7 +65,7 @@
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                <input type="text" required class="form-control input-sm" placeholder="Type your message here..." name="message" maxlength="100"/>
+                <input type="text" required class="form-control input-sm" placeholder="Type your message here..." name="message" maxlength="50"/>
 
                         <span class="input-group-btn">
                            <input type="submit" class="btn btn-warning btn-sm" name="btnchat" id="btn-chat" value="send">
@@ -79,4 +78,4 @@
         </div>
     </div>
   </form>
-</div>
+

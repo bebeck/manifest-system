@@ -215,7 +215,7 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">              
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-file"></i>  Manifest<span class="fa arrow"></span></a>
+                    <a href="#"><i class="glyphicon glyphicon-upload"></i>  Manifest<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?= base_url()?>manifest/upload">Upload</a></li>
                         <li><a href="<?=base_url()?>manifest/data">Data</a></li>
@@ -226,7 +226,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-file"></i>  Request<span class="fa arrow"></span></a>
+                    <a href="#"><i class="glyphicon glyphicon-envelope"></i>  Request<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="<?= base_url()?>request/add_new">Add New</a></li>
                         <li><a href="<?=base_url()?>request/list">List Request</a></li>
@@ -241,13 +241,14 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="javascript"><i class="glyphicon glyphicon-file"></i> Report <span class="fa arrow"></span></a>
+                    <a href="javascript"><i class="glyphicon glyphicon-folder-open"></i> Report <span class="fa arrow"></span></a>
                       <ul class="nav nav-second-level">
                         <li><a href="<?=base_url()?>report/customer_card"> Customers Card</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-file"></i>  Administrator<span class="fa arrow"></span></a>
+                    <a href="#"><i class="glyphicon glyphicon-user"></i>  Administrator<span class="fa arrow"></span></a>
+					
                     <ul class="nav nav-second-level">
                         <li><a href="<?= base_url('administrator/manage_user')?>">Manage User</a></li>
                         <li><a href="<?= base_url('administrator/manage_kurs')?>">Manage Kurs</a></li>
@@ -258,3 +259,12 @@
         </div>
     </div>
 </nav>
+
+<div class="footer clearfix">
+			<div class="footer-inner">
+				2014 © clip-one by cliptheme.
+			</div>
+			<div class="footer-items">
+				<span class="go-top"><i class="clip-chevron-up"></i></span>
+			</div>
+		</div>

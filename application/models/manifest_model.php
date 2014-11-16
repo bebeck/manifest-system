@@ -91,7 +91,7 @@ class Manifest_model extends CI_Model {
 	}
 
 	function get_header_format(){
-		$header = array('no','hawb_no','shipper','consignee','pkg','description','pcs','kg','value','pp','cc','remarks','other_charge');
+		$header = array('no','hawb_no','shipper','consignee','pkg','description','pcs','kg','value','pp','cc','remarks','other_charge_tata','other_charge_pml','mawb_type');
 		return $header;
 	}
 

@@ -20,7 +20,7 @@ $consignee = $consignee->name.'
     <button type="button" class="btn btn-sm btn-danger navbar-btn" onClick="parent.$.colorbox.close();">Close</button>
 </nav>
 
-<div id="wrapper" style="padding:20px; margin-top:40px; margin-bottom:40px;">
+<div id="wrapper" style="padding:20px; margin-top:40px; margin-bottom:30px;">
 	<div class="row">
 	    <div class="col-sm-6">
 	        <div class="form-group">
@@ -86,10 +86,16 @@ $consignee = $consignee->name.'
 		        <textarea class="form-control" rows="3" disabled><?=ucfirst($data->description);?></textarea>
 		    </div>
 	    </div>
-	    <div class="col-sm-6">
+	    <div class="col-sm-3">
 	     	<div class="form-group">
-		    	<label>Other Charge</label>
-		        <input class="form-control" type="text" value="<?=$data->other_charge;?>" disabled>
+		    	<label>Other Charge Tata</label>
+		        <input class="form-control" type="text" value="<?=$data->other_charge_tata;?>" disabled>
+		    </div>
+	    </div>
+	   	<div class="col-sm-3">
+	     	<div class="form-group">
+		    	<label>Other Charge PML</label>
+		        <input class="form-control" type="text" value="<?=$data->other_charge_pml;?>" disabled>
 		    </div>
 	    </div>
 	</div>

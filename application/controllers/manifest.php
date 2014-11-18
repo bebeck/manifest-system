@@ -126,7 +126,7 @@ class Manifest extends MY_Controller {
 										$mapping[$no]['pkg'] 			= $value[$header['pkg']];
 										$mapping[$no]['description'] 	= $value[$header['description']];
 										$mapping[$no]['pcs'] 			= $value[$header['pcs']];
-										$mapping[$no]['kg']				= $value[$header['kg']];
+										$mapping[$no]['kg']				= $this->tools->rounded($value[$header['kg']]);
 										$mapping[$no]['value'] 			= $value[$header['value']];
 										$mapping[$no]['prepaid']		= $value[$header['pp']];
 										$mapping[$no]['collect']		= $value[$header['cc']];

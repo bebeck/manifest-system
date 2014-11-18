@@ -21,6 +21,19 @@ class Tools extends CI_Model {
 		$string = preg_replace('!\s+!', ' ',$string);
 		return $string;
 	}
+
+	function rounded($num) {
+		$exp = explode('.', $num);
+		if(is_array($exp) && count($exp) == 2) {
+			if(is_numeric($exp[0]) && is_numeric($exp[1])) {
+				if(end($exp) >= 1 && end($exp) <= 5) {
+					return $exp[0].'.5';
+				} else if(end($exp) >= 6 && end($exp) <= 9) {
+					return $exp[0] + 1 . '.0';
+				}
+			} return $num;
+		} return $num;
+	}
 }
 
 ?>

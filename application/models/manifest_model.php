@@ -21,6 +21,12 @@ class Manifest_model extends CI_Model {
 		$this->db->insert('manifest_file_table',$file);
 	}
 
+	function get_all_file() {
+		$this->db->join('manifest_data_table D','D.file_id = F.file_id');
+		$this->db->group_by('F.file_id');
+		$get = $this->db->get('manifest_file_table F');
+		return $get->result();
+	}
 	function get_file() {
 		$this->db->join('manifest_data_table D','D.file_id = F.file_id');
 		$this->db->where('D.status','VALID');
@@ -125,5 +131,25 @@ class Manifest_model extends CI_Model {
 		return $status;
 	}
 
+	#Counting
+	function get_total($field, $file_id = 'FILE14111807191200001') {
+		$this->db->select('SUM('.$field.') AS total');
+		$this->db->where('file_id',$file_id);
+		$get = $this->db->get('manifest_data_table');
+		return $get->row()->total;
+	}
+	function get_total_where($field, $file_id = 'FILE14111807191200001', $where, $value) {
+		$this->db->select('SUM('.$field.') AS total');
+		$this->db->where('file_id',$file_id);
+		$this->db->where($where,$value);
+		$get = $this->db->get('manifest_data_table');
+		return $get->row()->total;
+	}
+	function get_count_where($file_id = 'FILE14111807191200001', $where, $value) {
+		$this->db->where('file_id',$file_id);
+		$this->db->where($where,$value);
+		$get = $this->db->get('manifest_data_table');
+		return $get->num_rows();
+	}
 }
 ?>

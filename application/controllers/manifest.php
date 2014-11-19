@@ -162,7 +162,39 @@ class Manifest extends MY_Controller {
 					echo 'test';
 				}
 			break;
+		case 'insert':
+			$data_id = $_POST['data_id'];
+			$rand_data_id = str_shuffle($data_id.time());
 
+			$mapping['data_id'] 		= $data_id;
+			$mapping['file_id'] 		= NULL;
+			$mapping['data_no'] 		= NULL;
+			$mapping['hawb_no'] 		= $_POST['hawb_no'];
+			$mapping['shipper'] 		= $_POST['shipper'];
+			$mapping['consignee'] 		= $_POST['consignee'];
+			$mapping['pkg'] 			= $_POST['pkg'];
+			$mapping['description'] 	= $_POST['description'];
+			$mapping['pcs'] 			= $_POST['pcs'];
+			$mapping['kg']				= $this->tools->rounded($_POST['kg']);
+			$mapping['value'] 			= $_POST['value'];
+			$mapping['prepaid']			= $_POST['prepaid'];
+			$mapping['collect']			= $_POST['collect'];
+			$mapping['remarks'] 		= NULL;
+			$mapping['status']			= NULL;
+			$mapping['nt_kurs']			= $this->tools->get_kurs();
+			$mapping['created_date']	= date('Y-m-d h:i:s');
+			$mapping['last_update']		= date('Y-m-d h:i:s');
+			$mapping['user_id']			= $this->session->userdata('user_id');
+			$mapping['status_payment']		= NULL;
+			$mapping['status_delivery']		= NULL;
+			$mapping['other_charge_tata']	= $_POST['other_charge_tata'];
+			$mapping['other_charge_pml']	= $_POST['other_charge_pml'];
+			$mapping['mawb_type']			= NULL;
+			$mapping['rand_data_id']		= $rand_data_id;
+			$mapping['manifest_type']		= $_POST['manifest_type'];
+			$this->manifest_model->data_insert_new($mapping);
+			$this->qr_code->generate($data_id,base_url().'tracking/'.$rand_data_id);
+			break;
 		case 'update':
 			$data_id = $_POST['data_id'];
 			$mapping['hawb_no'] 		= $_POST['hawb_no'];

@@ -13,7 +13,6 @@ class Tools extends CI_Model {
 		$this->db->update('tools_table');
 	}
 
-
 	function remove_tags_excel($string) {
 		$string = str_ireplace('_x000D_', ' ',$string);
 		$string = preg_replace('/[^A-Za-z0-9\-]/', ' ',$string);

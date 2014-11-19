@@ -188,6 +188,11 @@ Class Customers extends MY_Controller {
 				echo $this->customers_model->customer_new_id();
 				break;
 
+			case 'get_customer':
+				$cust_id = $_POST['cust_id'];
+				$data = $this->customers_model->get_by_id($cust_id);
+				echo json_encode($data);
+				break;
 			case 'add_customer':
 				#Set Customer To Data
 				$data_id = $_POST['data_id'];
@@ -261,6 +266,14 @@ Class Customers extends MY_Controller {
                 }
 
 				echo json_encode(array('data' => $return_data, 'data_id' => $data_id, 'type' => $type, 'status' => $status_class));
+				break;
+
+			case 'search_customer':
+				$keyword = $_POST['keyword'];
+				$type = $_POST['type'];
+				$result = $this->customers_model->search($keyword);
+				if($result == FALSE) echo 0;
+				else echo $this->load->view('customers/search_result',array('result' => $result, 'type' => $type),true); 
 				break;
 			default:
 				# code...

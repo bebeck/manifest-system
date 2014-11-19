@@ -11,7 +11,7 @@
     <div class="row">
         <ul class="nav nav-tabs" role="tablist" id="request_tab">
           <li role="presentation" class="active"><a href="#tab-import" role="tab" data-toggle="tab">Import</a></li>
-          <li role="presentation"><a href="#tab-export" role="tab" data-toggle="tab">Export</a></li>
+          <li role="presentation"><a href="#tab-export" role="tab" data-toggle="tab">Sigle Item</a></li>
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="tab-import">
@@ -79,8 +79,18 @@
             </div>
 
             <div role="tabpane1" class="tab-pane fade in" id="tab-export">
-                <form method="post" action="<?=base_url()?>manifest/ajax/update" id="manifest_data_update">
+                <form method="post" action="<?=base_url()?>manifest/ajax/insert" id="form_upload_manifest_other">
                 <div class="row">
+                    <div class="col-lg-12 warning">
+                        <div class="form-group">
+                            <label>Upload Type</label>
+                            <select class="form-control upload_type" name="manifest_type" required>
+                                <option value="import">Import</option>
+                                <option value="export">Export</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Data ID</label>
@@ -134,19 +144,17 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Shipper</label>
-                            <p class="txt-shipper"></p>
-                            <input type="hidden" name="shipper" value="">
-                            <button type="submit" class="btn btn-success btn-xs submit-upload">Select shipper</button>
-                            <button type="submit" class="btn btn-success btn-xs submit-upload">Add new shipper</button>
+                            <p class="selected-shipper-text"></p>
+                            <input type="hidden" name="shipper" class="selected-shipper" value="">
+                            <button type="button" class="btn btn-default btn-xs submit-upload select-customer" data_type="shipper">Select shipper</button>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Consignee</label>
-                            <p class="txt-consignee"></p>
-                            <input type="hidden" name="consignee" value="">
-                            <button type="submit" class="btn btn-success btn-xs submit-upload">Select consignee</button>
-                            <button type="submit" class="btn btn-success btn-xs submit-upload">Add new consignee</button>
+                            <p class="selected-consignee-text"></p>
+                            <input type="hidden" name="consignee" class="selected-consignee" value="">
+                            <button type="button" class="btn btn-default btn-xs submit-upload select-customer" data_type="consignee">Select consignee</button>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -166,6 +174,9 @@
                             <label>Other Charge PML</label>
                             <input class="form-control" type="text" name="other_charge_pml">
                         </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-success btn-sm submit-upload-other">Save</button>
                     </div>
                 </div>
                 </form>
@@ -188,9 +199,37 @@
   </div>
 </div>
 
+<div id="select_customer_modal" class="colorbox-modal colorbox-style" style="width:100%;">
+    <div class="colorbox-header">
+        <span class="customer-type"></span>
+    </div>
+    <div class="colorbox-body">
+        <form id="search-customer">
+        <div class="form-group">
+            <label>Search Customer</label>
+            <input type="hidden" class="type-search-customer">
+            <input class="form-control" type="text" class="search-customer" onkeydown="search_customer(this)">
+            <span class="text-search-customer"><span>
+        </div>
+        </form>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th width="400px;">Address</th>
+                    <th width="100px;">Country</th>
+                    <th width="70px;">Select</th>
+                </tr>
+            </thead>
+            <tbody class="result-search-customer"></tbody>
+        </table>
+    </div>
+</div>
+
 <script type="text/javascript">
-$(function () {
-    $('.flight_from, .flight_to').select2();
+$(document).ready(function(){
+    $('#form_upload_manifest, #form_upload_manifest_other').resetForm();
+    $('.upload_type, .flight_from, .flight_to').select2();
 
     $('#form_upload_manifest').ajaxForm({
         beforeSend: function() {
@@ -224,6 +263,60 @@ $(function () {
                 }, 4000);
             }
         }
+    })
+    
+    $('#form_upload_manifest_other').ajaxForm({
+        success:function(){
+            alert('Data Saved');
+            location.reload();
+        }
     });
-});
+
+    $('button.select-search-customer').live('click',function(){
+        cust_id = $(this).attr('cust_id');
+        data_type = $(this).attr('data_type');
+
+        $.post('<?=base_url()?>customers/ajax/get_customer',{'cust_id':cust_id},function(data){
+            data = JSON.parse(data);
+            $('.selected-'+data_type+'-text').html(data.name + '<br/>' + data.address + '<br/>' + data.country);  
+            $('.selected-'+data_type).val(data.reference_id);
+            $('.result-search-customer').html();
+            $.colorbox.close();
+        })
+    })
+
+    $('button.select-customer').click(function(){
+        var type = $(this).attr('data_type');
+        $('.type-search-customer').val(type);
+        $('.search-customer').val('');
+        $('.text-search-customer').html('');
+        $('.customer-type').text('Select ' + type);
+        $('#search-customer').resetForm();
+        $.colorbox({
+            inline:true,
+            href: $('#select_customer_modal'),
+            width: 800,
+            height:400,
+            scrolling:true,
+        })
+    })
+})
+
+function search_customer(t) {
+    if(t.value.length > 0) {
+        $('.text-search-customer').html('Searching...');
+        $.post('<?=base_url()?>customers/ajax/search_customer',{'keyword': t.value, 'type':$('.type-search-customer').val()}, function(data){
+            if(data == 0) {
+                $('.text-search-customer').html('No Customers found!');
+                $('.result-search-customer').html('');
+            } else {
+                $('.result-search-customer').html(data);
+                $('.text-search-customer').html('');
+            }
+        })
+    } else {
+        $('.result-search-customer').html('');
+        $('.text-search-customer').html('');
+    }
+}
 </script>

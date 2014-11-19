@@ -8,7 +8,7 @@ class Qr_code extends CI_Model {
 	}
 
 	function generate($data_id,$content = null) {
-		$fileName = 'DATA_'.$data_id.'.png';
+		$fileName = $data_id.'.png';
 
 		$pngAbsoluteFilePath = PATH_QRCODE.$fileName;
 		$pngAbsoluteFilePath = PATH_QRCODE.$fileName;

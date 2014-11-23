@@ -11,7 +11,7 @@
     <div class="row">
         <ul class="nav nav-tabs" role="tablist" id="request_tab">
           <li role="presentation" class="active"><a href="#tab-import" role="tab" data-toggle="tab">Import</a></li>
-          <li role="presentation"><a href="#tab-export" role="tab" data-toggle="tab">Sigle Item</a></li>
+          <li role="presentation"><a href="#tab-export" role="tab" data-toggle="tab">Single Item</a></li>
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="tab-import">

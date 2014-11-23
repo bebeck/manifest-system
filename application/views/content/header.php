@@ -27,6 +27,8 @@
 
     <script type="text/javascript" src="<?=base_url('asset/javascript/bootstrap.min.js')?>"></script>
     <script src="<?=base_url('asset/javascript/ajax.form.min.js')?>"></script>
+    <script src="<?=base_url('asset/javascript/jquery.validate.js')?>"></script>
+    <script src="<?=base_url('asset/javascript/bootbox.min.js')?>"></script>
 
     <link rel="stylesheet" href="<?=base_url() ?>asset/library/colorbox/colorbox.css">
     

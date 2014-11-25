@@ -237,27 +237,28 @@ $(document).ready(function() {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		 
+
         <h4 class="modal-title">Edit User</h4>
       </div>
       <div class="modal-body">
         <p class="message-form-edit" style="padding:15px 15px; display:none;"></p>
+        <input type="hidden" name="user_id" class="form-control" id="USER_ID_EDIT"/>
         <div class="form-group">
             <label>Username</label>
             <input class="form-control username" type="text" name="username" min-length="3"  required/></span>
-        </div>                                             
+        </div>
         <div class="form-group">
             <label>Password</label>
             <input class="form-control password" type="password" name="password" min-length="8" />
         </div>
-		
+
 		<div class="form-group">
             <label>User Level</label>
            <select name="type" class="form-control input-lg type">
 				<option value=""></option>
 				<option value="admin">admin</option>
 				<option value="user">  user  </option>
-			
+
 			</select>
         </div>
 
@@ -305,10 +306,11 @@ $(document).ready(function(){
     })
 	$('.edit-user').click(function(){
         user_id = $(this).attr('user_id');
-        username = $(this).attr('username'); 
-		password = $(this).attr('password'); 
-		type = $(this).attr('type'); 
-		
+        username = $(this).attr('username');
+		password = $(this).attr('password');
+		type = $(this).attr('type');
+
+
 		$('#USER_ID_EDIT').val(user_id);
         $('.username').val(username);
 		$('.type').val(type);

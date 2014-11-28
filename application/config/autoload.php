@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('manifest_model','customers_model','user_model','system', 'tools','qr_code');
+$autoload['model'] = array('manifest_model','customers_model','user_model','system','tools');
 
 define('PATH',realpath('./'));
 define('PATH_APP',PATH.'/application/');

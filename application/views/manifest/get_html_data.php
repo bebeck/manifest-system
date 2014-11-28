@@ -1,4 +1,3 @@
-
 <?php
     if($manifest != false) {
         $no = 1;

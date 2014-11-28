@@ -143,7 +143,6 @@ class Manifest extends MY_Controller {
 										$mapping[$no]['mawb_type']			= $value[$header['mawb_type']];
 										$mapping[$no]['rand_data_id']		= $rand_data_id;
 										$this->manifest_model->data_insert_new($mapping[$no]);
-										$this->qr_code->generate($new_data_id,base_url().'tracking/'.$rand_data_id);
 										$no++;
 									}
 								}
@@ -220,7 +219,26 @@ class Manifest extends MY_Controller {
 			$file_id = $_POST['file_id'];
 			$this->manifest_model->set_status_data($file_id,'VALID');
 			break;
-			
+		
+		case 'extra_charge':
+			$type = $_GET['type'];
+			switch ($type) {
+				case 'add':
+					$charge['data_id'] 		= $_POST['data_id'];
+					$charge['type']		 	= $_POST['type_charge'];
+					$charge['description'] 	= $_POST['description'];
+					$charge['price'] 		= $_POST['price'];
+					$charge['created_date'] = date('Y-m-d h:i:s');
+					$charge['user_id'] 		= $this->session->userdata('user_id');
+					$this->manifest_model->add_extra_charge($charge);
+					echo 'test';
+					break;
+				
+				default:
+					# code...
+					break;
+			}
+			break;
 			default:
 				# code...
 				break;
@@ -233,6 +251,7 @@ class Manifest extends MY_Controller {
 				$data_id = $_GET['data_id'];
 
 				$data['data'] = $this->manifest_model->get_by_data_id($data_id);
+				$data['extra_charge'] = $this->manifest_model->get_extra_charge($data_id);
 				$this->set_modal('manifest/details',$data);
 				break;
 			
@@ -241,6 +260,13 @@ class Manifest extends MY_Controller {
 
 				$data['data'] = $this->manifest_model->get_by_data_id($data_id);
 				$this->set_modal('manifest/edit',$data);
+				break;
+
+			case 'extra_charge':
+				$data_id = $_GET['data_id'];
+				$data['data'] = $this->manifest_model->get_by_data_id($data_id);
+				$data['extra_charge'] = $this->manifest_model->get_extra_charge($data_id);
+				$this->set_modal('manifest/extra_charge',$data);
 				break;
 			default:
 				# code...

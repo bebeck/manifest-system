@@ -19,7 +19,7 @@ $consignee = $consignee->name.'
     <button type="button" class="btn btn-sm btn-danger navbar-btn" onClick="parent.$.colorbox.close();">Close</button>
 </nav>
 
-<div id="wrapper" style="padding:20px; margin-top:40px; margin-bottom:30px;">
+<div id="wrapper" style="padding:20px; margin-top:40px; margin-bottom:30px; background-color:#fff;">
 	<div class="row">
 		<form method="post" action="<?=base_url()?>manifest/ajax/update" id="manifest_data_update">
 		    <div class="col-sm-6">

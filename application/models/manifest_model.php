@@ -151,5 +151,22 @@ class Manifest_model extends CI_Model {
 		$get = $this->db->get('manifest_data_table');
 		return $get->num_rows();
 	}
+
+	#Extra Charge
+	function add_extra_charge($charge) {
+		$this->db->insert('manifest_extra_charge_table',$charge);
+	}
+
+	function get_charge_type() {
+		$get = $this->db->get('other_charge_type_table');
+		return $get->result();
+	}
+	
+	function get_extra_charge($data_id) {
+		$this->db->where('data_id',$data_id);
+		$get = $this->db->get('manifest_extra_charge_table');
+		if($get->num_rows() > 0) return $get->result();
+		else return FALSE;
+	}
 }
 ?>

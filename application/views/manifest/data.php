@@ -151,6 +151,6 @@ function details(data_id){
     })
 }
 function print(data_id) {
-    window.open('<?=base_url()?>download/preparation?data_id=' + data_id,'_blank');
+    window.open('<?=base_url()?>download/pdf?data_id=' + data_id,'_blank');
 }
 </script>

@@ -12,7 +12,7 @@
 	margin: auto;
 }
 .border-line {
-	border-bottom: 1px dashed #000;
+	border-bottom: 1px dotted #000;
 }
 
 .header {
@@ -63,7 +63,13 @@
 	float: right;
 	text-align: right;
 }
-.signature {
-	margin-top:20px;
+.item-field {
+	height: 170px;
 }
- 
+.signature {
+	position: fixed;
+	width: 20px;
+	height: 30px;
+	bottom: 0px;
+	right: 0px;
+}

@@ -24,12 +24,12 @@
                 $shipper = $this->customers_model->get_by_id($details->shipper);
                 $consignee = $this->customers_model->get_by_id($details->consignee);
                 ?>
-                <strong>Pengirim:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
+                <strong>From Sender:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
                 <?=ucwords(strtolower($shipper->address . ' ' . $shipper->country))?><br/>
                 <?=$shipper->phone?><br/>
                 <?php echo ($shipper->sort_name) ? 'Attn: '.$shipper->sort_name .'<br/>': '';?>
 
-                <div style="margin:7px 0px;"><strong>Penerima:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
+                <div style="margin:7px 0px;"><strong>To Consignee:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
                 <?=ucwords(strtolower($consignee->address . ' ' . $consignee->country))?><br/>
                 <?=$consignee->phone?><br/>
                 <?php echo ($consignee->sort_name) ? 'Attn: '.$consignee->sort_name .'<br/>': '';?></div>
@@ -40,10 +40,10 @@
 
             <div class="details">
                 <div class="item-field">
-                    <div class="item">Nt Kurs</div><div class="value"><?=$details->nt_kurs?></div>
+                    <div class="item">Exchange Rate</div><div class="value"><?=$details->nt_kurs?></div>
                     <div class="item">Pcs</div><div class="value"><?=$details->pcs?></div>
                     <div class="item">KG</div><div class="value"><?=$details->kg?></div>
-                    <div class="item">Value</div><div class="value"><?=$details->value?></div>
+                    <div class="item">Rate/kg</div><div class="value"><?=$details->value?></div>
                     <?php 
                     $total = ($details->value*$details->kg)*$details->nt_kurs;
                     if($extra_charge != false) {
@@ -53,7 +53,7 @@
                         }
                     }
                     ?>
-                    <div class="item"><strong>Total (Rp)</strong></div><div class="value">Rp. <?=number_format($total)?></div>
+                    <div class="item"><strong>Total Charge (Rp)</strong></div><div class="value"><?=number_format($total)?></div>
                 </div>
                 <div class="signature">
                     <div class="item">Jakarta, <?=date('dS m, Y')?></div><div class="value">Tanda tangan</div>
@@ -81,12 +81,12 @@
                 $shipper = $this->customers_model->get_by_id($details->shipper);
                 $consignee = $this->customers_model->get_by_id($details->consignee);
                 ?>
-                <strong>Pengirim:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
+                <strong>From Sender:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
                 <?=ucwords(strtolower($shipper->address . ' ' . $shipper->country))?><br/>
                 <?=$shipper->phone?><br/>
                 <?php echo ($shipper->sort_name) ? 'Attn: '.$shipper->sort_name .'<br/>': '';?>
 
-                <div style="margin:4px 0px;"><strong>Penerima:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
+                <div style="margin:7px 0px;"><strong>To Consignee:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
                 <?=ucwords(strtolower($consignee->address . ' ' . $consignee->country))?><br/>
                 <?=$consignee->phone?><br/>
                 <?php echo ($consignee->sort_name) ? 'Attn: '.$consignee->sort_name .'<br/>': '';?></div>
@@ -97,10 +97,10 @@
 
             <div class="details">
                 <div class="item-field">
-                    <div class="item">Nt Kurs</div><div class="value"><?=$details->nt_kurs?></div>
+                    <div class="item">Exchange Rate</div><div class="value"><?=$details->nt_kurs?></div>
                     <div class="item">Pcs</div><div class="value"><?=$details->pcs?></div>
                     <div class="item">KG</div><div class="value"><?=$details->kg?></div>
-                    <div class="item">Value</div><div class="value"><?=$details->value?></div>
+                    <div class="item">Rate/kg</div><div class="value"><?=$details->value?></div>
                     <?php 
                     $total = ($details->value*$details->kg)*$details->nt_kurs;
                     if($extra_charge != false) {
@@ -110,7 +110,7 @@
                         }
                     }
                     ?>
-                    <div class="item"><strong>Total (Rp)</strong></div><div class="value">Rp. <?=number_format($total)?></div>
+                    <div class="item"><strong>Total Charge (Rp)</strong></div><div class="value"><?=number_format($total)?></div>
                 </div>
                 <div class="signature">
                     <div class="item">Jakarta, <?=date('dS m, Y')?></div><div class="value">Tanda tangan</div>
@@ -138,12 +138,12 @@
                 $shipper = $this->customers_model->get_by_id($details->shipper);
                 $consignee = $this->customers_model->get_by_id($details->consignee);
                 ?>
-                <strong>Pengirim:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
+                <strong>From Sender:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
                 <?=ucwords(strtolower($shipper->address . ' ' . $shipper->country))?><br/>
                 <?=$shipper->phone?><br/>
                 <?php echo ($shipper->sort_name) ? 'Attn: '.$shipper->sort_name .'<br/>': '';?>
 
-                <div style="margin:4px 0px;"><strong>Penerima:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
+                <div style="margin:7px 0px;"><strong>To Consignee:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
                 <?=ucwords(strtolower($consignee->address . ' ' . $consignee->country))?><br/>
                 <?=$consignee->phone?><br/>
                 <?php echo ($consignee->sort_name) ? 'Attn: '.$consignee->sort_name .'<br/>': '';?></div>
@@ -154,10 +154,10 @@
 
             <div class="details">
                 <div class="item-field">
-                    <div class="item">Nt Kurs</div><div class="value"><?=$details->nt_kurs?></div>
+                    <div class="item">Exchange Rate</div><div class="value"><?=$details->nt_kurs?></div>
                     <div class="item">Pcs</div><div class="value"><?=$details->pcs?></div>
                     <div class="item">KG</div><div class="value"><?=$details->kg?></div>
-                    <div class="item">Value</div><div class="value"><?=$details->value?></div>
+                    <div class="item">Rate/kg</div><div class="value"><?=$details->value?></div>
                     <?php 
                     $total = ($details->value*$details->kg)*$details->nt_kurs;
                     if($extra_charge != false) {
@@ -167,7 +167,7 @@
                         }
                     }
                     ?>
-                    <div class="item"><strong>Total (Rp)</strong></div><div class="value">Rp. <?=number_format($total)?></div>
+                    <div class="item"><strong>Total Charge (Rp)</strong></div><div class="value"><?=number_format($total)?></div>
                 </div>
                 <div class="signature">
                     <div class="item">Jakarta, <?=date('dS m, Y')?></div><div class="value">Tanda tangan</div>

@@ -69,5 +69,8 @@ $(document).ready(function(){
 	    })
     })
 
+    $.get('<?=base_url('highchart/get')?>',{'type':'bar'},function(data){
+    	$('#container').html(data);
+    })
 })
 </script>

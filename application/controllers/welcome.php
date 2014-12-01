@@ -24,17 +24,7 @@ class Welcome extends MY_Controller {
 		$getChat 			= $this->general->chatView();
 		$data['getChat']	= $getChat;
 		$this->set_layout('home',$data);*/
-		$best_rank_kg = $this->chart->get_rank_kg(date('Y-m'),10);
-		if($best_rank_kg != false) {
-			$name = ''; $kg = '';
-			foreach ($best_rank_kg as $key => $row) {
-				$name 	.= "'" . $this->customers_model->get_by_id($row->shipper)->name . "',";
-				$kg 	.= $row->total_kg . ",";
-			}
-
-			$data['chart'] = array('name' => substr($name, 0,-1), 'kg' => substr($kg, 0,-1));
-		}
-		$this->set_layout('content/home',$data);
+		$this->set_layout('content/home');
 	}
 
 	function login(){

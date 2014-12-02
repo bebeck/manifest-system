@@ -27,15 +27,15 @@
 	                		<option value="total_kg">Total Kg</option>
 	                	</select>
 		            </div>
-				</div>
+				</div>-->
 	            <div class="col-lg-2">
 	            	<div class="form-group">
 		                <label>Month</label>
 		                <div class="input-group date">
-							<input type="text" class="form-control date" id="created_date">
+							<input type="text" class="form-control month">
 		                </div>
 		            </div>
-				</div>-->
+				</div>
 				<div class="col-lg-2">
 	            	<div class="form-group">
 		                <label>&nbsp;</label>
@@ -54,7 +54,7 @@
 $(document).ready(function(){
 	$('.type-chart, .priode, .filtering').select2();
 
-    $('.input-group .date').datepicker({
+    $('.input-group .month').datepicker({
         format: "yyyy-mm",
         keyboardNavigation: false,
         autoclose: true,
@@ -64,12 +64,14 @@ $(document).ready(function(){
 
     $('.process-chart').click(function(){
     	var type = $('.type-chart').select2('val');
-	    $.get('<?=base_url('highchart/get')?>',{'type':type},function(data){
+    	var month = $('.month').val();
+
+	    $.get('<?=base_url('highchart/get')?>',{'type':type, 'month':month},function(data){
 	    	$('#container').html(data);
 	    })
     })
 
-    $.get('<?=base_url('highchart/get')?>',{'type':'bar'},function(data){
+    $.get('<?=base_url('highchart/get')?>',{'type':'bar', 'motnh':'<?=date("Y-m")?>'},function(data){
     	$('#container').html(data);
     })
 })

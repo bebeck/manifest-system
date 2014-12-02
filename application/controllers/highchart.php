@@ -8,9 +8,10 @@ Class Highchart extends MY_Controller {
 
 	function get() {
 		$type = (isset($_GET['type'])) ? $_GET['type'] : 'bar';
+		$month = (isset($_GET['month'])) ? $_GET['month'] : date('Y-m');
 
 		$data['chart'] = array('name' => null, 'kg' => null);
-		$best_rank_kg = $this->chart->get_rank_kg(date('Y-m'),10);
+		$best_rank_kg = $this->chart->get_rank_kg($month,10);
 		if($best_rank_kg != false) {
 			$name = ''; $kg = '';
 			foreach ($best_rank_kg as $key => $row) {

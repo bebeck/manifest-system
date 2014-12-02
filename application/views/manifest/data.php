@@ -8,56 +8,60 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Select File</label>
-                                    <select class="form-control" id="file_name" multiple>
-                                        <?php
-                                            if($list_file != FALSE) {
-                                                foreach ($list_file as $key => $value) {
-                                                    echo '<option value="'.$value->file_id.'">'.$value->file_name.'</option>';
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Select File</label>
+                                        <select class="form-control" id="file_name" multiple>
+                                            <?php
+                                                if($list_file != FALSE) {
+                                                    foreach ($list_file as $key => $value) {
+                                                        echo '<option value="'.$value->file_id.'">'.$value->file_name.'</option>';
+                                                    }
                                                 }
-                                            }
-                                        ?>
-                                    </select>
-                                </div>                                             
+                                            ?>
+                                        </select>
+                                    </div>                                             
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Upload Date</label>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" id="created_date">
+                                            <span class="input-group-addon datapicker"><i class="glyphicon glyphicon-th"></i></span>
+                                        </div>
+                                    </div>          
+                                </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Upload Date</label>
-                                    <div class="input-group date">
-                                        <input type="text" class="form-control" id="created_date">
-                                        <span class="input-group-addon datapicker"><i class="glyphicon glyphicon-th"></i></span>
-                                    </div>
-                                </div>          
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Shipper</label>
-                                    <select class="form-control" id="shipper" multiple>
-                                        <?php
-                                            if($list_shipper != FALSE) {
-                                                foreach ($list_shipper as $key => $value) {
-                                                    echo '<option value="'.$value->reference_id.'">'.$value->name.' ('.$value->country.')</option>';
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Consignee</label>
+                                        <select class="form-control" id="consignee" multiple>
+                                            <?php
+                                                if($list_consignee != FALSE) {
+                                                    foreach ($list_consignee as $key => $value) {
+                                                        echo '<option value="'.$value->reference_id.'">'.$value->name.' ('.$value->country.')</option>';
+                                                    }
                                                 }
-                                            }
-                                        ?>
-                                    </select>
-                                </div>                                             
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Consignee</label>
-                                    <select class="form-control" id="consignee" multiple>
-                                        <?php
-                                            if($list_consignee != FALSE) {
-                                                foreach ($list_consignee as $key => $value) {
-                                                    echo '<option value="'.$value->reference_id.'">'.$value->name.' ('.$value->country.')</option>';
+                                            ?>
+                                        </select>
+                                    </div>          
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Shipper</label>
+                                        <select class="form-control" id="shipper" multiple>
+                                            <?php
+                                                if($list_shipper != FALSE) {
+                                                    foreach ($list_shipper as $key => $value) {
+                                                        echo '<option value="'.$value->reference_id.'">'.$value->name.' ('.$value->country.')</option>';
+                                                    }
                                                 }
-                                            }
-                                        ?>
-                                    </select>
-                                </div>          
+                                            ?>
+                                        </select>
+                                    </div>                                             
+                                </div>
                             </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-sm btn-primary find-data">Find</button>
@@ -144,8 +148,8 @@ function details(data_id){
     $.colorbox({
         iframe:true,
         href:'<?=base_url()?>manifest/modal/details?data_id='+data_id,
-        width:900,
-        height:510,
+        width:'90%',
+        height:'600',
         overlayClose:true,
         scrolling:true
     })

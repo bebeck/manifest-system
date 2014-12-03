@@ -133,6 +133,7 @@ class Manifest_model extends CI_Model {
 
 	function search_hawb($hawb) {
 		$this->db->like('hawb_no',$hawb);
+		$this->db->where('status','VALID');
 		$get = $this->db->get('manifest_data_table');
 		if($get->num_rows() > 0) return $get->result();
 		else return false;		

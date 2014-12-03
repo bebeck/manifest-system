@@ -9,7 +9,7 @@ class Discount extends CI_Model {
 		else return false;
 	}
 
-	function set_discount($discount) {
+	function set($discount) {
 		$this->db->insert('discount_table',$discount);
 	}
 }

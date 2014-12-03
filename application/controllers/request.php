@@ -12,8 +12,14 @@ class Request extends MY_Controller {
 
 	function discount($method = null){
 		switch ($method) {
-			case 'add':
+			case 'select':
 				$data = array();
+				$this->set_layout('request/discount_select',$data);
+				break;
+
+			case 'add':
+				$data_id = $_GET['data_id'];
+				$data['data'] = $this->manifest_model->get_by_data_id($data_id);
 				$this->set_layout('request/discount_add',$data);
 				break;
 			

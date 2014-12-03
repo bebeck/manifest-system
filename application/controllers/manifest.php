@@ -234,6 +234,16 @@ class Manifest extends MY_Controller {
 			else echo $this->load->view('manifest/hawb_result',array('result' => $result),true);
 			break;
 
+		case 'set_discount':
+			$discount['discount_id'] = time();
+			$discount['data_id'] = $_POST['data_id'];
+			$discount['type'] = $_POST['type_discount'];
+			$discount['set_to'] = $_POST['set_discount'];
+			$discount['status'] = 'Waiting Approval';
+			$discount['created_date'] = date('Y-m-d h:i:s');
+			$discount['user_id'] = $this->session->userdata('user_id');
+			$this->discount->set($discount);
+			break;
 		case 'extra_charge':
 			$type = $_GET['type'];
 			switch ($type) {

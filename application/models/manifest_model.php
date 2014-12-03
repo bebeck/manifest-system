@@ -131,6 +131,13 @@ class Manifest_model extends CI_Model {
 		return $status;
 	}
 
+	function search_hawb($hawb) {
+		$this->db->like('hawb_no',$hawb);
+		$get = $this->db->get('manifest_data_table');
+		if($get->num_rows() > 0) return $get->result();
+		else return false;		
+	}
+
 	#Counting
 	function get_total($field, $file_id = 'FILE14111807191200001') {
 		$this->db->select('SUM('.$field.') AS total');

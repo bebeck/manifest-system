@@ -209,10 +209,17 @@ class Manifest extends MY_Controller {
 			$this->manifest_model->data_update($mapping,$data_id);
 			echo json_encode(array('data_id'=>$data_id));
 			break;
+
 		case 'get_data':
 			$data_id = $_POST['data_id'];
 			$data = $this->manifest_model->get_by_data_id($data_id);
 			echo json_encode($data);
+			break;
+
+		case 'get_data_form':
+			$data_id = $_POST['data_id'];
+			$data = $this->load->view('manifest/data_form',array('data'=>$this->manifest_model->get_by_data_id($data_id)),true);
+			echo $data;
 			break;
 
 		case 'verification':
@@ -220,6 +227,13 @@ class Manifest extends MY_Controller {
 			$this->manifest_model->set_status_data($file_id,'VALID');
 			break;
 		
+		case 'search_hawb':
+			$keyword = $_POST['keyword'];
+			$result = $this->manifest_model->search_hawb($keyword);
+			if($result == FALSE) echo 0;
+			else echo $this->load->view('manifest/hawb_result',array('result' => $result),true);
+			break;
+
 		case 'extra_charge':
 			$type = $_GET['type'];
 			switch ($type) {

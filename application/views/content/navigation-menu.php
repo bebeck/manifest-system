@@ -228,7 +228,7 @@
                 <li>
                     <a href="#"><i class="glyphicon glyphicon-envelope"></i>  Request<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="<?= base_url()?>request/add_new">Add New</a></li>
+                        <li><a href="<?= base_url()?>request/discount">Discount</a></li>
                         <li><a href="<?=base_url()?>request/list">List Request</a></li>
                         <li><a href="<?=base_url()?>request/voucher">List Voucher</a></li>
                     </ul>

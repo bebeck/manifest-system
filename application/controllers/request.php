@@ -10,11 +10,18 @@ class Request extends MY_Controller {
 		$this->set_layout();
 	}
 
-	function add_new(){
-		$data = array(
-			'manifest_data' => $this->manifest_model->get_all()
-			);
-		$this->set_layout('request/new',$data);
+	function discount($method = null){
+		switch ($method) {
+			case 'add':
+				$data = array();
+				$this->set_layout('request/discount_add',$data);
+				break;
+			
+			default:
+				$data['list_dicount'] = $this->discount->get_list($this->session->userdata('user_id'));
+				$this->set_layout('request/discount',$data);
+				break;
+		}
 	}
 	
 

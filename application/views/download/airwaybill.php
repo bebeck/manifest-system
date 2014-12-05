@@ -24,12 +24,12 @@
                 $shipper = $this->customers_model->get_by_id($details->shipper);
                 $consignee = $this->customers_model->get_by_id($details->consignee);
                 ?>
-                <strong>Pengirim:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
+                <strong>From Sender:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
                 <?=ucwords(strtolower($shipper->address . ' ' . $shipper->country))?><br/>
                 <?=$shipper->phone?><br/>
                 <?php echo ($shipper->sort_name) ? 'Attn: '.$shipper->sort_name .'<br/>': '';?>
 
-                <div style="margin:7px 0px;"><strong>Penerima:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
+                <div style="margin:7px 0px;"><strong>To Consignee:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
                 <?=ucwords(strtolower($consignee->address . ' ' . $consignee->country))?><br/>
                 <?=$consignee->phone?><br/>
                 <?php echo ($consignee->sort_name) ? 'Attn: '.$consignee->sort_name .'<br/>': '';?></div>
@@ -39,8 +39,14 @@
             </div>
 
             <div class="details">
-                <div class="item-field">
-                    <div class="item">Nt Kurs <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
+                <div class="item-field">                    
+                    <div class="item">Pcs</div>
+                    <div class="value"><?=$details->pcs?></div>
+                    
+                    <div class="item">Kg</div>
+                    <div class="value"><?=$details->kg?></div>
+
+                    <div class="item">Exchange Rate <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
                     <div class="value">
                         <?php
                         $rate = $details->nt_kurs;
@@ -52,14 +58,8 @@
                         ?>
 
                     </div>
-                    
-                    <div class="item">Pcs</div>
-                    <div class="value"><?=$details->pcs?></div>
-                    
-                    <div class="item">KG</div>
-                    <div class="value"><?=$details->kg?></div>
-                    
-                    <div class="item">Value <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
+
+                    <div class="item">Rate/kg <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
                     <div class="value">
                         <?php
                         $value = $details->value;
@@ -76,7 +76,7 @@
                     $total = ($value * $details->kg) * $rate;
                     if($extra_charge != false) {
                         foreach ($extra_charge as $row) {
-                            echo '<div class="item">'.$row->type.' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
+                            echo '<div class="item">'.ucfirst(strtolower($row->type)).' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
                             $total = $total + $row->price;
                         }
                     }
@@ -88,7 +88,7 @@
                             echo '('.$total.') ';
                             $total = $total - $this->discount->get_by_data_id($details->data_id,'total')->discount;
                         }
-                        echo $total;
+                        echo number_format($total);
                         ?>
 
                     </div>
@@ -119,12 +119,12 @@
                 $shipper = $this->customers_model->get_by_id($details->shipper);
                 $consignee = $this->customers_model->get_by_id($details->consignee);
                 ?>
-                <strong>Pengirim:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
+                <strong>From Sender:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
                 <?=ucwords(strtolower($shipper->address . ' ' . $shipper->country))?><br/>
                 <?=$shipper->phone?><br/>
                 <?php echo ($shipper->sort_name) ? 'Attn: '.$shipper->sort_name .'<br/>': '';?>
 
-                <div style="margin:4px 0px;"><strong>Penerima:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
+                <div style="margin:7px 0px;"><strong>To Consignee:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
                 <?=ucwords(strtolower($consignee->address . ' ' . $consignee->country))?><br/>
                 <?=$consignee->phone?><br/>
                 <?php echo ($consignee->sort_name) ? 'Attn: '.$consignee->sort_name .'<br/>': '';?></div>
@@ -134,8 +134,14 @@
             </div>
 
             <div class="details">
-                <div class="item-field">
-                    <div class="item">Nt Kurs <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
+                <div class="item-field">                    
+                    <div class="item">Pcs</div>
+                    <div class="value"><?=$details->pcs?></div>
+                    
+                    <div class="item">Kg</div>
+                    <div class="value"><?=$details->kg?></div>
+
+                    <div class="item">Exchange Rate <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
                     <div class="value">
                         <?php
                         $rate = $details->nt_kurs;
@@ -147,14 +153,8 @@
                         ?>
 
                     </div>
-                    
-                    <div class="item">Pcs</div>
-                    <div class="value"><?=$details->pcs?></div>
-                    
-                    <div class="item">KG</div>
-                    <div class="value"><?=$details->kg?></div>
-                    
-                    <div class="item">Value <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
+
+                    <div class="item">Rate/kg <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
                     <div class="value">
                         <?php
                         $value = $details->value;
@@ -171,7 +171,7 @@
                     $total = ($value * $details->kg) * $rate;
                     if($extra_charge != false) {
                         foreach ($extra_charge as $row) {
-                            echo '<div class="item">'.$row->type.' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
+                            echo '<div class="item">'.ucfirst(strtolower($row->type)).' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
                             $total = $total + $row->price;
                         }
                     }
@@ -183,7 +183,7 @@
                             echo '('.$total.') ';
                             $total = $total - $this->discount->get_by_data_id($details->data_id,'total')->discount;
                         }
-                        echo $total;
+                        echo number_format($total);
                         ?>
 
                     </div>
@@ -214,12 +214,12 @@
                 $shipper = $this->customers_model->get_by_id($details->shipper);
                 $consignee = $this->customers_model->get_by_id($details->consignee);
                 ?>
-                <strong>Pengirim:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
+                <strong>From Sender:</strong> <?=ucwords(strtolower($shipper->name))?><br/>
                 <?=ucwords(strtolower($shipper->address . ' ' . $shipper->country))?><br/>
                 <?=$shipper->phone?><br/>
                 <?php echo ($shipper->sort_name) ? 'Attn: '.$shipper->sort_name .'<br/>': '';?>
 
-                <div style="margin:4px 0px;"><strong>Penerima:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
+                <div style="margin:7px 0px;"><strong>To Consignee:</strong> <?=ucwords(strtolower($consignee->name))?><br/>
                 <?=ucwords(strtolower($consignee->address . ' ' . $consignee->country))?><br/>
                 <?=$consignee->phone?><br/>
                 <?php echo ($consignee->sort_name) ? 'Attn: '.$consignee->sort_name .'<br/>': '';?></div>
@@ -229,8 +229,14 @@
             </div>
 
             <div class="details">
-                <div class="item-field">
-                    <div class="item">Nt Kurs <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
+                <div class="item-field">                    
+                    <div class="item">Pcs</div>
+                    <div class="value"><?=$details->pcs?></div>
+                    
+                    <div class="item">Kg</div>
+                    <div class="value"><?=$details->kg?></div>
+
+                    <div class="item">Exchange Rate <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
                     <div class="value">
                         <?php
                         $rate = $details->nt_kurs;
@@ -242,14 +248,8 @@
                         ?>
 
                     </div>
-                    
-                    <div class="item">Pcs</div>
-                    <div class="value"><?=$details->pcs?></div>
-                    
-                    <div class="item">KG</div>
-                    <div class="value"><?=$details->kg?></div>
-                    
-                    <div class="item">Value <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
+
+                    <div class="item">Rate/kg <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
                     <div class="value">
                         <?php
                         $value = $details->value;
@@ -263,10 +263,10 @@
                     </div>
 
                     <?php
-                    $total = ($value * $details->kg) * $rate;
+                    $total = ($value * $details->kg) * $rate * $details->pcs;
                     if($extra_charge != false) {
                         foreach ($extra_charge as $row) {
-                            echo '<div class="item">'.$row->type.' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
+                            echo '<div class="item">'.ucfirst(strtolower($row->type)).' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
                             $total = $total + $row->price;
                         }
                     }
@@ -278,7 +278,7 @@
                             echo '('.$total.') ';
                             $total = $total - $this->discount->get_by_data_id($details->data_id,'total')->discount;
                         }
-                        echo $total;
+                        echo number_format($total);
                         ?>
 
                     </div>

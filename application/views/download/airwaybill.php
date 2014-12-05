@@ -40,12 +40,40 @@
 
             <div class="details">
                 <div class="item-field">
-                    <div class="item">Nt Kurs</div><div class="value"><?=$details->nt_kurs?></div>
-                    <div class="item">Pcs</div><div class="value"><?=$details->pcs?></div>
-                    <div class="item">KG</div><div class="value"><?=$details->kg?></div>
-                    <div class="item">Value</div><div class="value"><?=$details->value?></div>
-                    <?php 
-                    $total = ($details->value*$details->kg)*$details->nt_kurs;
+                    <div class="item">Nt Kurs <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        $rate = $details->nt_kurs;
+                        if($this->discount->check($details->data_id,'rate',array('Approved')) == false) {
+                            $rate = $rate - $this->discount->get_by_data_id($details->data_id,'rate')->discount;
+                            echo '('.$details->nt_kurs.') ';
+                        }
+                        echo $rate;
+                        ?>
+
+                    </div>
+                    
+                    <div class="item">Pcs</div>
+                    <div class="value"><?=$details->pcs?></div>
+                    
+                    <div class="item">KG</div>
+                    <div class="value"><?=$details->kg?></div>
+                    
+                    <div class="item">Value <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        $value = $details->value;
+                        if($this->discount->check($details->data_id,'value',array('Approved')) == false) {
+                            $value = $value - $this->discount->get_by_data_id($details->data_id,'value')->discount;
+                            echo '('.$details->value.') ';
+                        }
+                        echo $value;
+                        ?>
+
+                    </div>
+
+                    <?php
+                    $total = ($value * $details->kg) * $rate;
                     if($extra_charge != false) {
                         foreach ($extra_charge as $row) {
                             echo '<div class="item">'.$row->type.' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
@@ -53,7 +81,17 @@
                         }
                     }
                     ?>
-                    <div class="item"><strong>Total (Rp)</strong></div><div class="value">Rp. <?=number_format($total)?></div>
+                    <div class="item"><strong>Total (Rp)</strong> <?php if($this->discount->check($details->data_id,'total',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'total')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        if($this->discount->check($details->data_id,'value',array('Approved')) == false) {
+                            echo '('.$total.') ';
+                            $total = $total - $this->discount->get_by_data_id($details->data_id,'total')->discount;
+                        }
+                        echo $total;
+                        ?>
+
+                    </div>
                 </div>
                 <div class="signature">
                     <div class="item">Jakarta, <?=date('dS m, Y')?></div><div class="value">Tanda tangan</div>
@@ -97,12 +135,40 @@
 
             <div class="details">
                 <div class="item-field">
-                    <div class="item">Nt Kurs</div><div class="value"><?=$details->nt_kurs?></div>
-                    <div class="item">Pcs</div><div class="value"><?=$details->pcs?></div>
-                    <div class="item">KG</div><div class="value"><?=$details->kg?></div>
-                    <div class="item">Value</div><div class="value"><?=$details->value?></div>
-                    <?php 
-                    $total = ($details->value*$details->kg)*$details->nt_kurs;
+                    <div class="item">Nt Kurs <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        $rate = $details->nt_kurs;
+                        if($this->discount->check($details->data_id,'rate',array('Approved')) == false) {
+                            $rate = $rate - $this->discount->get_by_data_id($details->data_id,'rate')->discount;
+                            echo '('.$details->nt_kurs.') ';
+                        }
+                        echo $rate;
+                        ?>
+
+                    </div>
+                    
+                    <div class="item">Pcs</div>
+                    <div class="value"><?=$details->pcs?></div>
+                    
+                    <div class="item">KG</div>
+                    <div class="value"><?=$details->kg?></div>
+                    
+                    <div class="item">Value <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        $value = $details->value;
+                        if($this->discount->check($details->data_id,'value',array('Approved')) == false) {
+                            $value = $value - $this->discount->get_by_data_id($details->data_id,'value')->discount;
+                            echo '('.$details->value.') ';
+                        }
+                        echo $value;
+                        ?>
+
+                    </div>
+
+                    <?php
+                    $total = ($value * $details->kg) * $rate;
                     if($extra_charge != false) {
                         foreach ($extra_charge as $row) {
                             echo '<div class="item">'.$row->type.' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
@@ -110,7 +176,17 @@
                         }
                     }
                     ?>
-                    <div class="item"><strong>Total (Rp)</strong></div><div class="value">Rp. <?=number_format($total)?></div>
+                    <div class="item"><strong>Total (Rp)</strong> <?php if($this->discount->check($details->data_id,'total',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'total')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        if($this->discount->check($details->data_id,'value',array('Approved')) == false) {
+                            echo '('.$total.') ';
+                            $total = $total - $this->discount->get_by_data_id($details->data_id,'total')->discount;
+                        }
+                        echo $total;
+                        ?>
+
+                    </div>
                 </div>
                 <div class="signature">
                     <div class="item">Jakarta, <?=date('dS m, Y')?></div><div class="value">Tanda tangan</div>
@@ -154,12 +230,40 @@
 
             <div class="details">
                 <div class="item-field">
-                    <div class="item">Nt Kurs</div><div class="value"><?=$details->nt_kurs?></div>
-                    <div class="item">Pcs</div><div class="value"><?=$details->pcs?></div>
-                    <div class="item">KG</div><div class="value"><?=$details->kg?></div>
-                    <div class="item">Value</div><div class="value"><?=$details->value?></div>
-                    <?php 
-                    $total = ($details->value*$details->kg)*$details->nt_kurs;
+                    <div class="item">Nt Kurs <?php if($this->discount->check($details->data_id,'rate',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'rate')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        $rate = $details->nt_kurs;
+                        if($this->discount->check($details->data_id,'rate',array('Approved')) == false) {
+                            $rate = $rate - $this->discount->get_by_data_id($details->data_id,'rate')->discount;
+                            echo '('.$details->nt_kurs.') ';
+                        }
+                        echo $rate;
+                        ?>
+
+                    </div>
+                    
+                    <div class="item">Pcs</div>
+                    <div class="value"><?=$details->pcs?></div>
+                    
+                    <div class="item">KG</div>
+                    <div class="value"><?=$details->kg?></div>
+                    
+                    <div class="item">Value <?php if($this->discount->check($details->data_id,'value',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'value')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        $value = $details->value;
+                        if($this->discount->check($details->data_id,'value',array('Approved')) == false) {
+                            $value = $value - $this->discount->get_by_data_id($details->data_id,'value')->discount;
+                            echo '('.$details->value.') ';
+                        }
+                        echo $value;
+                        ?>
+
+                    </div>
+
+                    <?php
+                    $total = ($value * $details->kg) * $rate;
                     if($extra_charge != false) {
                         foreach ($extra_charge as $row) {
                             echo '<div class="item">'.$row->type.' <em>('.$row->description.')</em></div><div class="value">'.number_format($row->price).'</div>';
@@ -167,7 +271,17 @@
                         }
                     }
                     ?>
-                    <div class="item"><strong>Total (Rp)</strong></div><div class="value">Rp. <?=number_format($total)?></div>
+                    <div class="item"><strong>Total (Rp)</strong> <?php if($this->discount->check($details->data_id,'total',array('Approved')) == false) echo '<em>discount: '.$this->discount->get_by_data_id($details->data_id,'total')->discount.'</em>';?></div>
+                    <div class="value">
+                        <?php
+                        if($this->discount->check($details->data_id,'value',array('Approved')) == false) {
+                            echo '('.$total.') ';
+                            $total = $total - $this->discount->get_by_data_id($details->data_id,'total')->discount;
+                        }
+                        echo $total;
+                        ?>
+
+                    </div>
                 </div>
                 <div class="signature">
                     <div class="item">Jakarta, <?=date('dS m, Y')?></div><div class="value">Tanda tangan</div>

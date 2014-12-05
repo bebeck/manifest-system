@@ -12,7 +12,7 @@ class System extends CI_Model {
 	}
 
 	function set_session_login($user) {
-		$session = array('login'=>TRUE,'user_id'=>$user->user_id,'username'=>$user->username, 'time'=>time(), 'ip'=>$this->input->ip_address());
+		$session = array('login'=>TRUE,'user_id'=>$user->user_id,'username'=>$user->username,'user_type'=>$user->type,'time'=>time(), 'ip'=>$this->input->ip_address());
 		$this->session->set_userdata($session);
 	}
 

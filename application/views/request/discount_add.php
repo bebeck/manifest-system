@@ -6,7 +6,7 @@
                     Add Discount
                 </div>
                 <div class="panel-body">
-                	<form id="form_add_discount" method="post" action="<?=base_url()?>manifest/ajax/set_discount">
+                	<form id="form_add_discount" method="post" action="<?=base_url()?>manifest/ajax/discount?type=add">
                         <?php
                         $shipper = $this->customers_model->get_by_id($data->shipper);
                         $shipper = $shipper->name.'
@@ -124,8 +124,8 @@
 	                	</div>
 	                	<div class="col-lg-6">
 	                		<div class="form-group">
-	                			<label>Set Discount</label>
-	                			<input type="text" class="form-control" name="set_discount" value="0">
+	                			<label>Discount</label>
+	                			<input type="text" class="form-control" name="discount" required>
 	                		</div>
 	                	</div>
            	    		<div class="col-lg-12">
@@ -141,11 +141,16 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $('.type-discount').select2();
+
+    $('#form_add_discount').validate();
     $('#form_add_discount').ajaxForm({
         dataType:'json',
         success:function(data){
-            alert('Add discount success');
-            window.location = '<?=base_url()?>request/discount';
+            if(data.status == 'false') {
+                alert(data.message);
+            } else {
+                window.location = data.redirect;
+            }
         }
     });
 })

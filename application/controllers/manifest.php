@@ -234,15 +234,48 @@ class Manifest extends MY_Controller {
 			else echo $this->load->view('manifest/hawb_result',array('result' => $result),true);
 			break;
 
-		case 'set_discount':
-			$discount['discount_id'] = time();
-			$discount['data_id'] = $_POST['data_id'];
-			$discount['type'] = $_POST['type_discount'];
-			$discount['set_to'] = $_POST['set_discount'];
-			$discount['status'] = 'Waiting Approval';
-			$discount['created_date'] = date('Y-m-d h:i:s');
-			$discount['user_id'] = $this->session->userdata('user_id');
-			$this->discount->set($discount);
+		case 'discount':
+			$type = $_GET['type'];
+			switch ($type) {
+				case 'add':
+					$discount['discount_id'] = time();
+					$discount['data_id'] = $_POST['data_id'];
+					$discount['type'] = $_POST['type_discount'];
+					$discount['discount'] = $_POST['discount'];
+					$discount['status'] = ($this->session->userdata('user_type') != 'Admin') ? 'Waiting Approval' : 'Approved';
+					$discount['created_date'] = date('Y-m-d h:i:s');
+					$discount['user_id'] = $this->session->userdata('user_id');
+
+					if($this->discount->check($discount['data_id'],$discount['type'])) {
+						if($this->discount->check_maximum_discount($discount['data_id'],$discount['type'],$discount['discount'])) {
+							$this->discount->set($discount);
+							echo json_encode(array('status' => 'true','redirect' => base_url() . 'request/discount'));
+						} else {
+							echo json_encode(array('status' => 'false','message' => 'Discount is over from normal price'));							
+						}
+					} else {
+						echo json_encode(array('status' => 'false','message' => 'Discount with type "'.$discount['type'].'" has been set to this data'));
+					}
+					break;
+				case 'edit':
+					$discount_id = $_GET['discount_id'];
+					break;
+				case 'cancel':
+					$discount_id = $_POST['discount_id'];
+					$this->discount->update_status($discount_id,'Cancelled');
+					break;
+				case 'approve':
+					$discount_id = $_POST['discount_id'];
+					$this->discount->update_status($discount_id,'Approved');
+					break;
+				case 'reject':
+					$discount_id = $_POST['discount_id'];
+					$this->discount->update_status($discount_id,'Rejected');
+					break;
+				default:
+					echo 'false';
+					break;
+			}
 			break;
 		case 'extra_charge':
 			$type = $_GET['type'];

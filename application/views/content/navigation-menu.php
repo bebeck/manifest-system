@@ -32,7 +32,7 @@
 											<em>Deadline: '.$row->deadline.'</em>
 										</span>
 									</div>
-									<div>
+									<div style="font-size:12px;">
 									'.ucwords(strtolower($consignee->name)).'<br/>
 									'.ucfirst(strtolower($consignee->address)).'
 									</div>

@@ -246,6 +246,14 @@
                         <li><a href="<?=base_url()?>report/customer_card"> Customers Card</a></li>
                     </ul>
                 </li>
+
+
+                <?php
+                $user_id =  $this->session->userdata('user_id');
+                $currentuser = $this->user_model->get_by_id($user_id);
+                $currentuser= $currentuser->type;
+                if($currentuser == "Admin" ){ ?>
+
                 <li>
                     <a href="#"><i class="glyphicon glyphicon-user"></i>  Administrator<span class="fa arrow"></span></a>
 					
@@ -255,6 +263,8 @@
                         <li><a href="<?=base_url()?>">Activity Users</a></li>
                     </ul>
                 </li>
+
+                <?php } ?>
             </ul>
         </div>
     </div>

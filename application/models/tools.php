@@ -33,6 +33,11 @@ class Tools extends CI_Model {
 			} return $num;
 		} return $num;
 	}
+	
+	function deadline($days = NULL) {
+		$date = strtotime($days . " day");
+		return date('Y-m-d', $date);
+	}
 }
 
 ?>

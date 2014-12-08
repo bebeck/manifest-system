@@ -142,6 +142,7 @@ class Manifest extends MY_Controller {
 										$mapping[$no]['other_charge_pml']	= $value[$header['other_charge_pml']];
 										$mapping[$no]['mawb_type']			= $value[$header['mawb_type']];
 										$mapping[$no]['rand_data_id']		= $rand_data_id;
+										$mapping[$no]['deadline']			= $this->tools->deadline('+7');
 										$this->manifest_model->data_insert_new($mapping[$no]);
 										$no++;
 									}

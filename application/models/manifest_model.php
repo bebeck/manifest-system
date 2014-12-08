@@ -138,6 +138,17 @@ class Manifest_model extends CI_Model {
 		if($get->num_rows() > 0) return $get->result();
 		else return false;		
 	}
+	
+	function deadline_data($days = NULL) {
+		$limit_date = $this->tools->deadline($days);
+		
+		$this->db->where('deadline <',$limit_date);
+		$this->db->where('status','VALID');
+		$this->db->order_by('deadline','asc');
+		$get = $this->db->get('manifest_data_table');
+		if($get->num_rows() > 0) return $get->result();
+		else return false;
+	}
 
 	#Counting
 	function get_total($field, $file_id = 'FILE14111807191200001') {

@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <input id="fileupload" type="file" name="userfile">
+                            <input id="fileupload" type="file" name="userfile" required>
                         </div>
                         <input type="hidden" name="manifest_type" value="import">
                         <button type="submit" class="btn btn-success btn-sm submit-upload">Upload</button>
@@ -230,7 +230,8 @@
 $(document).ready(function(){
     $('#form_upload_manifest, #form_upload_manifest_other').resetForm();
     $('.upload_type, .flight_from, .flight_to').select2();
-
+	
+	$('#form_upload_manifest').validate();
     $('#form_upload_manifest').ajaxForm({
         beforeSend: function() {
             var percentVal = '0%';

@@ -147,6 +147,7 @@ class Manifest extends MY_Controller {
 										$no++;
 									}
 								}
+								$this->system->set_activity('Import Manifest #'.$file['mawb_no']);
 								$redirect = site_url('manifest/verification?file_id=' . $file['file_id']);
 							} else {
 								$status = 'error';
@@ -193,7 +194,7 @@ class Manifest extends MY_Controller {
 			$mapping['rand_data_id']		= $rand_data_id;
 			$mapping['manifest_type']		= $_POST['manifest_type'];
 			$this->manifest_model->data_insert_new($mapping);
-			$this->qr_code->generate($data_id,base_url().'tracking/'.$rand_data_id);
+			$this->system->set_activity('Insert Single Data #'.$mapping['hawb_no']);
 			break;
 		case 'update':
 			$data_id = $_POST['data_id'];
@@ -250,6 +251,8 @@ class Manifest extends MY_Controller {
 					if($this->discount->check($discount['data_id'],$discount['type'])) {
 						if($this->discount->check_maximum_discount($discount['data_id'],$discount['type'],$discount['discount'])) {
 							$this->discount->set($discount);
+							$data = $this->manifest_model->get_by_data_id($discount['data_id']);
+							$this->system->set_activity('Request discount for #'.$data->hawb_no);
 							echo json_encode(array('status' => 'true','redirect' => base_url() . 'request/discount'));
 						} else {
 							echo json_encode(array('status' => 'false','message' => 'Discount is over from normal price'));							
@@ -264,14 +267,23 @@ class Manifest extends MY_Controller {
 				case 'cancel':
 					$discount_id = $_POST['discount_id'];
 					$this->discount->update_status($discount_id,'Cancelled');
+					
+					$data = $this->manifest_model->get_by_data_id($discount['data_id']);
+					$this->system->set_activity('Cancel discount for #'.$discount_id);
 					break;
 				case 'approve':
 					$discount_id = $_POST['discount_id'];
 					$this->discount->update_status($discount_id,'Approved');
+					
+					$data = $this->manifest_model->get_by_data_id($discount['data_id']);
+					$this->system->set_activity('Approve discount for #'.$discount_id);
 					break;
 				case 'reject':
 					$discount_id = $_POST['discount_id'];
 					$this->discount->update_status($discount_id,'Rejected');
+					
+					$data = $this->manifest_model->get_by_data_id($discount['data_id']);
+					$this->system->set_activity('Reject discount for #'.$discount_id);
 					break;
 				default:
 					echo 'false';
@@ -289,9 +301,14 @@ class Manifest extends MY_Controller {
 					$charge['created_date'] = date('Y-m-d h:i:s');
 					$charge['user_id'] 		= $this->session->userdata('user_id');
 					$this->manifest_model->add_extra_charge($charge);
-					echo 'test';
+					
+					$data = $this->manifest_model->get_by_data_id($charge['data_id']);
+					$this->system->set_activity('Add extra charge '.$charge['type'].' for #'.$data->hawb_no);
 					break;
-				
+					
+				case 'delete':
+					#$this->system->set_activity('Delete extra charge for #'.$data->hawb_no);
+					break;
 				default:
 					# code...
 					break;

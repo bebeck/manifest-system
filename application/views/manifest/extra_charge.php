@@ -92,7 +92,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.charge_type').select2();
-
+	
+	$('#form_extra_charge').validate();
 	$('#form_extra_charge').ajaxForm({
 		success:function(data){
 			location.reload();

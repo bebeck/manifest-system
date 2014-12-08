@@ -3,8 +3,10 @@
 class Discount extends CI_Model {
 	
 	function get_list($user_id = null,$status = null) {
-		if($user_id != null) $this->db->where('user_id',$user_id);
-		if($status != null) $this->db->where_in('status',$status);
+		$this->db->select('discount_table.*');
+		$this->db->join('manifest_data_table','manifest_data_table.data_id = discount_table.data_id');
+		if($user_id != null) $this->db->where('discount_table.user_id',$user_id);
+		if($status != null) $this->db->where_in('discount_table.status',$status);
 		$get = $this->db->get('discount_table');
 		if($get->num_rows() > 0) return $get->result();
 		else return false;

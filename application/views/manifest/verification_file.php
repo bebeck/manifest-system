@@ -149,95 +149,80 @@
             <h4 class="modal-title">Add New Customer <span class="manifest-data-id"></span></h4>
           </div>
           <div class="modal-body">
-            <div class="alert alert-info address-string" role="alert"></div>
-            <div class="panel-group" id="accordion">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                      General
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in">
-                  <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Refference Id</label>
-                                <input type="text" class="form-control cust_id_" name="cust_id" value="" disabled>
-                            </div>
-                            <div class="form-group">   
-                                <label>Name</label>
-                                <input type="text" class="form-control" name="cust_name" required>
-                            </div>
-                            
-                            
-                            <div class="form-group">
-                                <label>Address</label>
-                                <textarea class="form-control" name="cust_address" rows="3" required></textarea>
-                            </div>
-                            
-                             <div class="form-group">   
-                                <label>Attn</label>
-                                <input type="text" class="form-control" name="attn" required>
-                            </div>
-                            <div class="form-group">
-                                <label >State</label>
-                                <input id="state" name="cust_state" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>City</label>
-                                <input id="city" name="cust_city" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Country</label>
-                                <select class="form-control bfh-states country" name="cust_country">
-                                    <?php
-                                        foreach ($this->customers_model->list_country() as $key => $value) {
-                                            $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
-                                            echo '<option value="'.$value.'" '.$selected.'>'.$value.'</option>';
-                                        }
-                                    ?>
-                                </select>
-                            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Refference Id</label>
+                            <input type="text" class="form-control cust_id_" name="cust_id" value="" disabled>
                         </div>
-                    </div>                    
-                  </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">   
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="cust_name" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">   
+                            <label>Attn</label>
+                            <input type="text" class="form-control" name="attn">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea class="form-control" name="cust_address" required style="height:178px; resize:none;"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label >State</label>
+                            <input id="state" name="cust_state" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input id="city" name="cust_city" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select class="form-control bfh-states country" name="cust_country">
+                                <?php
+                                    foreach ($this->customers_model->list_country() as $key => $value) {
+                                        $selected = (strtolower($value) == 'indonesia') ? 'selected' : '';
+                                        echo '<option value="'.$value.'" '.$selected.'>'.$value.'</option>';
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">   
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="cust_email" required>
+                        </div>                   
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">   
+                            <label>Phone</label>
+                            <input type="text" class="form-control" name="cust_phone" required>
+                        </div>   
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Tax Class</label>
+                            <select required class="form-control tax_class" name="tax_class">
+                                <option value="0">None</option>
+                                <option value="1">1%</option>
+                                <option value="10">10%</option>
+                            </select>
+                        </div>
+                    </div>  
                 </div>
-              </div>
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                      Other
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <div class="form-group">   
-                        <label>Email</label>
-                        <input type="email" class="form-control" name="cust_email" >
-                    </div>                   
-                    <div class="form-group">   
-                        <label>Phone</label>
-                        <input type="text" class="form-control" name="cust_phone" >
-                    </div>   
-                     <div class="form-group">
-                        <label>Tax Class</label>
-                        <select required class="form-control" name="tax_class" >
-                          <option value=""></option>
-                          	<option value="0">None</option>
-               				<option value="1">1%</option>
-                            <option value="10">10%</option>
-                        </select>
-                       
-                      </div>    
-                            
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -287,10 +272,9 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    $('.country').select2();
+    $('.country, .tax_class').select2();
 
     $('button.add-customer').click(function(){
-        $('#add_customer_modal').resetForm();
         data_id = $(this).attr('manifest_data_id');
         data_type = $(this).attr('data_type');
         $.post('<?=base_url()?>customers/ajax/get_new_cust_id',function(data){
@@ -299,7 +283,7 @@ $(document).ready(function(){
 
         $.post('<?=base_url()?>manifest/ajax/get_data',{'data_id':data_id},function(data){
             data = JSON.parse(data);
-            $('.manifest-data-id').html('#' + data.data_id);
+            $('.manifest-data-id').html('#' + data.hawb_no);
             if(data_type == 'shipper') $('.address-string').html(data_type + ': ' +data.shipper);
             if(data_type == 'consignee') $('.address-string').html(data_type + ': ' +data.consignee);
             
@@ -308,8 +292,11 @@ $(document).ready(function(){
         })
 
         $('#modal_add_customer').modal('show');
+        $('#add_customer_modal').validate().resetForm();
+        validator.resetForm();
     })
 
+    $('#add_customer_modal').validate();
     $('#add_customer_modal').ajaxForm({
         dataType:'json',
         success: function(data){

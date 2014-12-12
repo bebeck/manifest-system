@@ -26,7 +26,7 @@
                                                 echo '
                                                     <tr class="cursor list-file" file_id="'.$value->file_id.'">
                                                         <td>'.$no.'</td>
-                                                        <td>'.$value->file_name.'</td>
+                                                        <td>'.$this->manifest_model->get_by_file_id($value->file_id)->file_name.'</td>
                                                         <td>'.$value->created_date.'</td>
                                                         <td>'.$this->user_model->get_by_id($value->user_id)->username.'</td>
                                                         <td> 

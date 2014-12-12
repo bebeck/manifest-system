@@ -57,12 +57,12 @@ class Customers_model extends CI_Model {
 		$get = $get + 111;
 		$len = strlen($get);
 			switch ($len) {
-			case '1': return 'THS00000' . $get; break;
-			case '2': return 'THS0000' . $get; break;
-			case '3': return 'THS000' . $get; break;
-			case '4': return 'THS00' . $get; break;   
-			case '5': return 'THS0' . $get; break;   
-			default: return $get; break;
+			case '1': return 'CUST00000' . $get; break;
+			case '2': return 'CUST0000' . $get; break;
+			case '3': return 'CUST000' . $get; break;
+			case '4': return 'CUST00' . $get; break;   
+			case '5': return 'CUST0' . $get; break;   
+			default: return 'CUST'.$get; break;
 			}
 	}
 	

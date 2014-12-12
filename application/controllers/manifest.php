@@ -21,11 +21,11 @@ class Manifest extends MY_Controller {
 	function verification() {
 		if(!isset($_GET['file_id'])) {
 			$where = array('D.status' => 'NOT VERIFIED');
-			$data = array('list_file' => $this->manifest_model->get_filtering_data(null,null,$where,'F.FILE_NAME'));
+			$data = array('list_file' => $this->manifest_model->get_filtering_data(null,null,$where,'d.file_id'));
 			$this->set_layout('manifest/verification_all',$data);
 		} else {
 			$file_id = $_GET['file_id'];
-			$where = array('F.file_id' => $file_id);
+			$where = array('D.file_id' => $file_id);
 			$data = array('file' => $this->manifest_model->get_by_file_id($file_id), 'list_data' => $this->manifest_model->get_filtering_data(null,null,$where));
 			$this->set_layout('manifest/verification_file',$data);			
 		}

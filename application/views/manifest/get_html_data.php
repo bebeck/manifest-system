@@ -35,7 +35,7 @@
                 <td>
                     <div class="btn-group btn-group-xs">
                         <button type="button" class="btn btn-default" title="Details" onCLick="details(\''.$row->data_id.'\')"><span class="glyphicon glyphicon-search"></span></button>
-                        <button type="button" class="btn btn-default" title="Edit" onCLick="edit_data(\''.$row->data_id.'\')"><span class="glyphicon glyphicon-edit"></span></button>
+                        <button type="button" class="btn btn-default" title="Edit" onCLick="edit(\''.$row->data_id.'\')"><span class="glyphicon glyphicon-edit"></span></button>
                         <button type="button" class="btn btn-default" title="Print" onCLick="print(\''.$row->data_id.'\')"><span class="glyphicon glyphicon-print"></span></button>
                     </div>
                 </td>

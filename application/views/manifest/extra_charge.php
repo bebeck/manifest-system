@@ -28,7 +28,7 @@
                             </select>
                         </div>                                             
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-4">
                         <div class="form-group">
                             <label>Description</label>
                             <input type="text" name="description" class="form-control" required/>
@@ -37,8 +37,15 @@
 					<div class="col-sm-2">
                         <div class="form-group">
                             <label>Price</label>
-                            <input type="text" name="price" class="form-control" required/>
+                            <input type="number" name="price" class="form-control" required/>
                         </div>                                             
+					</div>
+					<div class="col-sm-2">
+                        <div class="checkbox" style="margin-top:25px;">
+						    <label>
+						      <input type="checkbox" name="sync_debit"> Sync with debit note
+						    </label>
+						</div>                                            
 					</div>
 					<div class="col-sm-1">
                         <div class="form-group">
@@ -57,6 +64,7 @@
 	                    <th>Type</th>
 	                    <th>Description</th>
 	                    <th>Price</th>
+	                    <th>Debit Note</th>
 	                    <th>Created</th>
 	                    <th>User</th>
 	                    <th align="center" width="85px">Action</th>
@@ -71,11 +79,12 @@
 		            				<td>'.$row->type.'</td>
 		            				<td>'.$row->description.'</td>
 		            				<td>'.$row->price.'</td>
+		            				<td>'.$row->sync_debit.'</td>
 		            				<td>'.$row->created_date.'</td>
 		            				<td>'.$this->user_model->get_by_id($row->user_id)->username.'</td>
 		            				<td>
 		            					<div class="btn-group btn-group-xs">
-					                        <button type="button" class="btn btn-default" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
+					                        <button type="button" class="btn btn-default" title="Delete" id="delete_charge" charge_id="'.$row->charge_id.'"><span class="glyphicon glyphicon-remove"></span></button>
 					                    </div>
 		            				</td>
 	    	        			';
@@ -95,7 +104,27 @@ $(document).ready(function(){
 	
 	$('#form_extra_charge').validate();
 	$('#form_extra_charge').ajaxForm({
+		dataType:'json',
 		success:function(data){
+			if(data.status == 'false') {
+				alert(data.message);
+			} else {
+				$('#form_extra_charge').resetForm();
+				alert('Extra charge added');
+				location.reload();
+			}
+		}
+	})
+
+	$('button#delete_charge').click(function(){
+		confirm = confirm('Are you sure will remove the charge?');
+
+		if(confirm) {
+			charge_id = $(this).attr('charge_id');
+			$.post('<?=base_url()?>manifest/ajax/extra_charge?type=delete',{'charge_id':charge_id,function(){
+				location.reload();
+			}})
+		} else {
 			location.reload();
 		}
 	})

@@ -79,7 +79,7 @@
             </div>
 
             <div role="tabpane1" class="tab-pane fade in" id="tab-export">
-                <form method="post" action="<?=base_url()?>manifest/ajax/insert" id="form_upload_manifest_other">
+                <form method="post" action="<?=base_url()?>manifest/ajax/insert" id="form_upload_manifest_single">
                 <div class="row">
                     <div class="col-lg-12 warning">
                         <div class="form-group">
@@ -102,50 +102,50 @@
                         </div>
                         <div class="form-group">
                             <label>Hawb No</label>
-                            <input class="form-control" type="text" name="hawb_no">
+                            <input class="form-control" type="text" name="hawb_no" required>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Pkg</label>
-                            <input class="form-control" type="text" name="pkg">
+                            <input class="form-control" type="text" name="pkg" required>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Pcs</label>
-                            <input class="form-control" type="text" name="pcs">
+                            <input class="form-control" type="text" name="pcs" required>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>KG</label>
-                            <input class="form-control" type="text" name="kg">
+                            <input class="form-control" type="text" name="kg" required>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Value</label>
-                            <input class="form-control" type="text" name="value">
+                            <input class="form-control" type="text" name="value" required>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Prepaid</label>
-                            <input class="form-control" type="text" name="prepaid">
+                            <input class="form-control" type="text" name="prepaid" required>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Collect</label>
-                            <input class="form-control" type="text" name="collect">
+                            <input class="form-control" type="text" name="collect" required>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Shipper</label>
                             <p class="selected-shipper-text"></p>
-                            <input type="hidden" name="shipper" class="selected-shipper" value="">
+                            <input type="hidden" name="shipper" class="selected-shipper" required>
                             <button type="button" class="btn btn-default btn-xs submit-upload select-customer" data_type="shipper">Select shipper</button>
                         </div>
                     </div>
@@ -153,26 +153,26 @@
                         <div class="form-group">
                             <label>Consignee</label>
                             <p class="selected-consignee-text"></p>
-                            <input type="hidden" name="consignee" class="selected-consignee" value="">
+                            <input type="hidden" name="consignee" class="selected-consignee" required>
                             <button type="button" class="btn btn-default btn-xs submit-upload select-customer" data_type="consignee">Select consignee</button>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control" rows="2" name="description"></textarea>
+                            <textarea class="form-control" rows="2" name="description" required></textarea>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Other Charge Tata</label>
-                            <input class="form-control" type="text" name="other_charge_tata">
+                            <input class="form-control" type="text" name="other_charge_tata" required>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Other Charge PML</label>
-                            <input class="form-control" type="text" name="other_charge_pml">
+                            <input class="form-control" type="text" name="other_charge_pml" required>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -266,7 +266,8 @@ $(document).ready(function(){
         }
     })
     
-    $('#form_upload_manifest_other').ajaxForm({
+    $('#form_upload_manifest_single').validate();
+    $('#form_upload_manifest_single').ajaxForm({
         success:function(){
             alert('Data Saved');
             location.reload();

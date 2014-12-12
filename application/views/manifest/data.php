@@ -9,6 +9,16 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>Select Type</label>
+                                        <select class="form-control" id="type_data">
+                                            <option value="export">Export</option>
+                                            <option value="import">Import</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>                                             
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Select File</label>
@@ -101,12 +111,12 @@ var file_name = '';
 var shipper = '';
 var consignee = '';
 var date = '';
+var type = 'export';
 var page = 1;
 
 $(document).ready(function(){
-    $('#file_name, #shipper, #consignee').select2({
-        minimumInputLength: 2
-    });
+    $('#type_data, #file_name, #shipper, #consignee').select2();
+
     $('.input-group.date').datepicker({
         format: "yyyy-mm-dd",
         keyboardNavigation: false,
@@ -119,6 +129,7 @@ $(document).ready(function(){
         shipper = $('#shipper').select2('val');
         consignee = $('#consignee').select2('val');
         date = ($('#created_date').val()) ? $('#created_date').val() : '';
+        type = $('#type_data').select2('val');
         get_data(); 
     })
 })
@@ -132,7 +143,7 @@ function get_data(){
     $.ajax({
         url: '<?=site_url('manifest/ajax/get')?>',
         type: 'get',
-        data: {'file_name': file_name,'shipper':shipper,'consignee':consignee,'date': date,'page': page},
+        data: {'file_name': file_name,'shipper':shipper,'consignee':consignee,'date': date,'type':type,'page': page},
         dataType: 'json',
         success: function(get){
             elem = $('.manifest-data-row');
@@ -148,7 +159,17 @@ function details(data_id){
     $.colorbox({
         iframe:true,
         href:'<?=base_url()?>manifest/modal/details?data_id='+data_id,
-        width:'90%',
+        width:'70%',
+        height:'600',
+        overlayClose:true,
+        scrolling:true
+    })
+}
+function edit(data_id){
+    $.colorbox({
+        iframe:true,
+        href:'<?=base_url()?>manifest/modal/edit?data_id='+data_id,
+        width:'70%',
         height:'600',
         overlayClose:true,
         scrolling:true

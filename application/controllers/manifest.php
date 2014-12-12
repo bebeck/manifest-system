@@ -57,10 +57,11 @@ class Manifest extends MY_Controller {
 				$start = ($page - 1) * $limit;
 
 				$where = array();
-				if(isset($_GET['file_name']) && !empty($_GET['file_name'])) $where['F.file_id']  = $_GET['file_name'];
-				if(isset($_GET['date']) && !empty($_GET['date'])) $where['LEFT(F.created_date,10)']  = $_GET['date'];
+				if(isset($_GET['file_name']) && !empty($_GET['file_name'])) $where['D.file_id']  = $_GET['file_name'];
+				if(isset($_GET['date']) && !empty($_GET['date'])) $where['LEFT(D.created_date,10)']  = $_GET['date'];
 				if(isset($_GET['shipper']) && !empty($_GET['shipper'])) $where['D.shipper']  = $_GET['shipper'];
 				if(isset($_GET['consignee']) && !empty($_GET['consignee'])) $where['D.consignee']  = $_GET['consignee'];
+				if(isset($_GET['type']) && !empty($_GET['type'])) $where['D.manifest_type']  = strtolower($_GET['type']);
 
 				$where['D.status'] = 'VALID';
 
@@ -181,7 +182,7 @@ class Manifest extends MY_Controller {
 			$mapping['prepaid']			= $_POST['prepaid'];
 			$mapping['collect']			= $_POST['collect'];
 			$mapping['remarks'] 		= NULL;
-			$mapping['status']			= NULL;
+			$mapping['status']			= 'VALID';
 			$mapping['nt_kurs']			= $this->tools->get_kurs();
 			$mapping['created_date']	= date('Y-m-d h:i:s');
 			$mapping['last_update']		= date('Y-m-d h:i:s');
@@ -300,14 +301,23 @@ class Manifest extends MY_Controller {
 					$charge['price'] 		= $_POST['price'];
 					$charge['created_date'] = date('Y-m-d h:i:s');
 					$charge['user_id'] 		= $this->session->userdata('user_id');
-					$this->manifest_model->add_extra_charge($charge);
-					
-					$data = $this->manifest_model->get_by_data_id($charge['data_id']);
-					$this->system->set_activity('Add extra charge '.$charge['type'].' for #'.$data->hawb_no);
+					$charge['sync_debit'] 	= (isset($_POST['sync_debit'])) ? 'true' : 'false';
+
+					if($this->manifest_model->check_extra_charge($charge['data_id'],$charge['type']) == false) {
+						$this->manifest_model->add_extra_charge($charge);
+						$data = $this->manifest_model->get_by_data_id($charge['data_id']);
+						$this->system->set_activity('Add extra charge '.$charge['type'].' for #'.$data->hawb_no);
+						echo json_encode(array('status' => 'true','message' => ''));
+					} else {
+						echo json_encode(array('status' => 'false','message' => 'Type charge has been added!'));		
+					}					
 					break;
 					
 				case 'delete':
-					#$this->system->set_activity('Delete extra charge for #'.$data->hawb_no);
+					$charge_id = $_POST['charge_id'];
+					$this->manifest_model->delete_extra_charge($charge_id);
+					$this->system->set_activity('Delete extra charge');
+					echo json_encode(array('status' => 'true','message' => ''));
 					break;
 				default:
 					# code...

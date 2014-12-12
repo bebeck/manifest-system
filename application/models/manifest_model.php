@@ -67,14 +67,12 @@ class Manifest_model extends CI_Model {
 	}
 
 	function get_filtering_data($start = null,$limit = null,$where,$group_by = false) {
-		$this->db->select('F.file_name, D.*');
-		$this->db->join('manifest_data_table D', 'D.FILE_ID = F.FILE_ID');
 		foreach ($where as $key => $value) { 
 			if(is_array($value)) $this->db->where_in($key,$value); else $this->db->where($key,$value); 
 		}
 		if(is_numeric($start)) $this->db->limit($limit,$start);
 		if($group_by != false) $this->db->group_by($group_by);
-		$get = $this->db->get('manifest_file_table F');
+		$get = $this->db->get('manifest_data_table D');
 
 		if($get->num_rows() > 0) return $get->result();
 		else return false;
@@ -174,6 +172,17 @@ class Manifest_model extends CI_Model {
 	#Extra Charge
 	function add_extra_charge($charge) {
 		$this->db->insert('manifest_extra_charge_table',$charge);
+	}
+	function delete_extra_charge($charge_id) {
+		$this->db->where('charge_id',$charge_id);
+		$this->db->delete('manifest_extra_charge_table');
+	}
+	function check_extra_charge($data_id,$type) {
+		$this->db->where('data_id',$data_id);
+		$this->db->where('type',$type);
+		$get = $this->db->get('manifest_extra_charge_table');
+		if($get->num_rows() > 0) return $get->row();
+		else return FALSE;
 	}
 
 	function get_charge_type() {
